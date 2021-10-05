@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+body {
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    color: rgb(255, 249, 249);
+}
+h2 {
+    color: rgb(10, 10, 10);
+}
+
+.container{
+    border: 3px solid rgb(116, 116, 117);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+#encabezado{
+    background-color: rgb(116, 116, 117);
+    border-radius: 1rem;
+    padding: 1rem;
+}
