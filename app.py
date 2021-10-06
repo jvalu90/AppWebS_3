@@ -5,13 +5,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def inicio():
-    return render_template('0-inicio.html')
+    return render_template('0-inicio.html') #Algo no está funcionando aquí, realizar verificación
 
 # Inicio de la aplicación ********************************************************
 
 @app.route('/usuario_registrado/', methods=['GET', 'POST'])
 def usuario_registrado():
-    return render_template('0-1-login.html')
+    return render_template('0-1-login.html') #Algo no está funcionando aquí, realizar verificación
 
 # Login **************************************************************************
 
