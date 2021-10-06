@@ -27,6 +27,7 @@
         <!--Faustino asprilla debe cambiarse por el usuario que hace el Login-->
 
           <div class="row">
+              <!--<a class="btn btn-outline-dark" href="0-1-1-1-consulta_datos_usuario.html" role="button">Datos de la cuenta</a> --> 
             <a class="btn btn-outline-dark" href="{{ url_for('consulta_datos_usuario') }}" role="button">Datos de la cuenta</a>  
             </a>   
           </div>
@@ -36,7 +37,8 @@
           </div>
           
           <div class="row">
-            <a class="btn btn-outline-dark" href="0-1-1-2-gestion_usuarios_administradores.html" role="button">Gestión de Usuarios Administradores</a> 
+            <!--<a class="btn btn-outline-dark" href="0-1-1-2-gestion_usuarios_administradores.html" role="button">Gestión de Usuarios Administradores</a> --> 
+            <a class="btn btn-outline-dark" href="{{ url_for('gestion_usuarios_administradores') }}" role="button">Gestión de Usuarios Administradores</a>
           </div>
           
           <div class="row">
@@ -44,7 +46,8 @@
           </div>
 
           <div class="row">
-            <a class="btn btn-outline-dark" href="0-1-1-3-gestion_usuarios_finales.html" role="button">Gestión de Usuarios Finales</a>  
+             <!--<a class="btn btn-outline-dark" href="0-1-1-3-gestion_usuarios_finales.html" role="button">Gestión de Usuarios Finales</a> -->  
+             <a class="btn btn-outline-dark" href="{{ url_for('gestion_usuarios_finales') }}" role="button">Gestión de Usuarios Finales</a>
             </a>   
           </div>
 
@@ -53,8 +56,9 @@
           </div>
 
           <div class="row">
-            <a class="btn btn-outline-dark" href="0-1-1-4-gestion_habitaciones.html" role="button">Gestión de Habitaciones</a>  
-            </a>   
+            <!--<a class="btn btn-outline-dark" href="0-1-1-4-gestion_habitaciones.html" role="button">Gestión de Habitaciones</a> -->  
+            <a class="btn btn-outline-dark" href="{{ url_for('gestion_habitaciones')}" role="button">Gestión de Habitaciones</a>
+          </a>   
           </div>
 
           <div class="row">
@@ -62,7 +66,8 @@
           </div>
 
           <div class="row">
-            <a class="btn btn-outline-dark" href="0-1-1-5-restringir_comentarios.html" role="button">Restringir Comentarios</a>  
+             <!--<a class="btn btn-outline-dark" href="0-1-1-5-restringir_comentarios.html" role="button">Restringir Comentarios</a> -->  
+             <a class="btn btn-outline-dark" href="{{ url_for('restringir_comentarios')}" role="button">Restringir Comentarios</a>
             </a>   
           </div>
 
