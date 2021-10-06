@@ -11,6 +11,10 @@ def inicio():
 def usuario_registrado():
     return render_template('0-1-login.html')
 
+@app.route('/0-2-opciones_invitado/', methods=['GET', 'POST'])
+def opciones_invitado():
+    return render_template('0-2-opciones_invitado.html')
+
 # Fin navegación inicio de la aplicación ***********************************************************
 
 #Inicio navegación login de la aplicación *********************************************************
