@@ -33,7 +33,8 @@
           </div>
 
           <div class="row">
-            <a class="btn btn-outline-dark" href="0-1-3-1-consulta_datos_usuario.html" role="button">Datos de la cuenta</a>  
+            <!--<a class="btn btn-outline-dark" href="0-1-3-1-consulta_datos_usuario.html" role="button">Datos de la cuenta</a> -->
+            <a class="btn btn-outline-dark" href="{{url_for('consulta_datos_usuario_final')}}" role="button">Datos de la cuenta</a>  
             </a>   
           </div>
           
@@ -42,7 +43,8 @@
           </div>
           
           <div class="row">
-            <a class="btn btn-outline-dark" href="0-1-3-2-consulta_habitaciones_disponibles_usuario_final.html" role="button">Consulta de Habitaciones Disponibles</a> 
+          <!--  <a class="btn btn-outline-dark" href="0-1-3-2-consulta_habitaciones_disponibles_usuario_final.html" role="button">Consulta de Habitaciones Disponibles</a> -->
+          <a class="btn btn-outline-dark" href="{{url_for('consulta_habitaciones_disponibles_usuario_final')}}" role="button">Consulta de Habitaciones Disponibles</a> 
           </div>
           
           <div class="row">
@@ -50,7 +52,8 @@
           </div>
 
           <div class="row">
-            <a class="btn btn-outline-dark" href="0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html" role="button">Consulta de Habitaciones Reservadas</a>  
+          <!--   <a class="btn btn-outline-dark" href="0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html" role="button">Consulta de Habitaciones Reservadas</a> -->
+            <a class="btn btn-outline-dark" href="{{url_for('gestion_habitaciones_reservadas_usuario_final')}}" role="button">Consulta de Habitaciones Reservadas</a>  
             </a>   
           </div>
 
@@ -59,7 +62,8 @@
           </div>
 
           <div class="row">
-            <a class="btn btn-outline-dark" href="0-1-3-4-modulo_reservas.html" role="button">Gestion Reservas</a>  
+          <!--  <a class="btn btn-outline-dark" href="0-1-3-4-modulo_reservas.html" role="button">Gestion Reservas</a> -->
+            <a class="btn btn-outline-dark" href="{{url_for('modulo_reservas')}}" role="button">Gestion Reservas</a>  
             </a>   
           </div>
 
@@ -69,11 +73,12 @@
                   
           <div class="row">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <a class="btn btn-outline-dark" href="0-1-login.html" role="button">Ir a Anterior</a>
-                <a class="btn btn-outline-dark" href="0-inicio.html" role="button">Ir a Inicio</a> 
+                <!-- <a class="btn btn-outline-dark" href="0-1-login.html" role="button">Ir a Anterior</a> -->
+                <a class="btn btn-outline-dark" href="{{url_for('usuario_registrado')}}" role="button">Ir a Anterior</a>
+                <!-- <a class="btn btn-outline-dark" href="0-inicio.html" role="button">Ir a Inicio</a> -->
+                <a class="btn btn-outline-dark" href="{{url_for('inicio')}}" role="button">Ir a Inicio</a> 
             </div> 
         </div>
-
         </div>
     </div>
     
