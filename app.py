@@ -6,14 +6,15 @@ app = Flask(__name__)
 @app.route('/')
 def inicio():
     return render_template('0-inicio.html') 
-    
-# Fin navegación inicio de la aplicación ***********************************************************
-
-#Inicio navegación login de la aplicación *********************************************************
 
 @app.route('/usuario_registrado/', methods=['GET', 'POST'])
 def usuario_registrado():
     return render_template('0-1-login.html')
+
+# Fin navegación inicio de la aplicación ***********************************************************
+
+#Inicio navegación login de la aplicación *********************************************************
+
 
 #Fin navegación login de la aplicación *********************************************************
 
