@@ -69,6 +69,41 @@ def consulta_datos_usuario_final():
 def opciones_usuario_final_registrado():
     return render_template('0-1-3-opciones_usuario_final_registrado.html')
 
+@app.route('/0-1-3-2-consulta_habitaciones_disponibles_usuario_final', methods=['GET', 'POST'])
+def consulta_habitaciones_disponibles_usuario_final():
+    return render_template('0-1-3-2-consulta_habitaciones_disponibles_usuario_final.html')
+
+@app.route('/0-1-3-3-gestion_habitaciones_reservadas_usuario_final', methods=['GET', 'POST'])
+def gestion_habitaciones_reservadas_usuario_final():
+    return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html')
+
+@app.route('/0-1-3-4-modulo_reservas', methods=['GET', 'POST'])
+def modulo_reservas():
+    return render_template('0-1-3-4-modulo_reservas.html')
+
+@app.route('/0-1-3-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
+def modificar_datos_usuario():
+    return render_template('0-1-3-1-1-modificar_datos_usuario.html')
+
+@app.route('/0-1-3-2-1-consulta_comentarios_habitacion_usuario', methods=['GET', 'POST'])
+def consulta_comentarios_habitacion_usuario():
+    return render_template('0-1-3-2-1-consulta_comentarios_habitacion_usuario.html')
+
+@app.route('/0-1-3-3-1-modificar_comentarios_habitacion', methods=['GET', 'POST'])
+def modificar_comentarios_habitacion():
+    return render_template('0-1-3-3-1-modificar_comentarios_habitacion.html')
+
+@app.route('/0-1-3-3-2-calificar_habitaciones', methods=['GET', 'POST'])
+def calificar_habitaciones():
+    return render_template('0-1-3-3-2-calificar_habitaciones.html')
+
+# Templates con ruteos actualizados al Git
+# 0-1-3-opciones_usuario_final_registrado 
+#  0-1-3-1-consulta_datos_usuario
+#  0-1-3-2-consulta_habitaciones_disponibles_usuario_final
+#  0-1-3-3-gestion_habitaciones_reservadas_usuario_final
+#  0-1-3-4-modulo_reservas.html
+
 # Fin Navegación usuario final registrado *************************************
 
 # Inicio Navegación usuario invitado  *****************************************
