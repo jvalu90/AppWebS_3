@@ -39,6 +39,10 @@ def opciones_super_administrador():
 def consulta_datos_usuario():
     return render_template('0-1-1-1-consulta_datos_usuario.html')
 
+@app.route('/0-1-1-1-1-modificar_datos_usuario')
+def modificar_datos_usuario_SA():
+    return render_template('0-1-1-1-1-modificar_datos_usuario.html')    
+
 # Fin Navegación usuario final registrado SA *************************************    
 
 # Inicio Navegación Gestion de Usuarios Administradores SA **************************************************************************
@@ -134,6 +138,12 @@ def crear_reservas():
 #  0-1-3-3-2-calificar_habitaciones.html (ok)
 #  0-1-3-4-1-crear_reservas.html (ok)
 #  0-1-3-4-2-modificar_reservas.html
+
+# Templates con ruteos actualizados al Git del Super Administrador
+# 0-1-1-Opciones Usuario SuperAdministrador (ok)
+# 0-1-1-5-Restringir Comentarios (ok)
+# 0-1-1-1-1-Modifica datos Usuario Registrado (ok)
+# 0-1-1-1-Consulta datos Usuario Registrado (ok)
 
 # Fin ************************    Navegación  usuario final registrado *************************************
 
