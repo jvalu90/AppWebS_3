@@ -1,15 +1,23 @@
 from flask import Flask, render_template, request, redirect, url_for
+from flask.templating import render_template
+from forms import formlogin
+import os
 
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = os.urandom(32)
 
 # Inicio navegación inicio de la aplicación ********************************************************
 @app.route('/')
 def inicio():
     return render_template('0-inicio.html') 
 
+#Iniciando la construcción del forms
 @app.route('/0-1-login/', methods=['GET', 'POST'])
 def usuario_registrado():
-    return render_template('0-1-login.html')
+    if request.method =="GET":
+        formulario =formlogin()
+        return render_template('0-1-login.html', form=formulario)
 
 @app.route('/0-2-opciones_invitado/', methods=['GET', 'POST'])
 def opciones_invitado():
