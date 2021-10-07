@@ -18,6 +18,9 @@ def opciones_invitado():
 # Fin navegación inicio de la aplicación ***********************************************************
 
 #Inicio navegación login de la aplicación *********************************************************
+@app.route('/0-1-3-opciones_usuario_final_registrado.html/', methods=['GET', 'POST'])
+def opciones_usuario_final_registrado():
+    return render_template('0-1-3-opciones_usuario_final_registrado.html')
 
 @app.route('/0-1-2-opciones_administrador/', methods=['GET', 'POST'])
 def opciones_administrador():
