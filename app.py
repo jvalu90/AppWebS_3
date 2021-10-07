@@ -72,8 +72,8 @@ def restringir_comentarios():
 # Fin Navegación Restringir comentarios SA *************************************
 
 
-# Inicio Navegación usuario final registrado *************************************
-@app.route('/0-1-3-1-consulta_datos_usuario')
+# Inicio *******************    Navegación usuario final registrado *************************************
+@app.route('/0-1-3-1-consulta_datos_usuario', methods=['GET', 'POST'])
 def consulta_datos_usuario_final():
     return render_template('0-1-3-1-consulta_datos_usuario.html')
 
@@ -124,6 +124,13 @@ def crear_reservas():
 #  0-1-3-2-consulta_habitaciones_disponibles_usuario_final (ok)
 #  0-1-3-3-gestion_habitaciones_reservadas_usuario_final (ok)
 #  0-1-3-4-modulo_reservas.html (ok)
+#  0-1-3-1-1-modificar_datos_usuario.html (ok)
+#  0-1-3-2-1-consulta_comentarios_habitacion_usuario.html (ok)
+#  0-1-3-2-4-consulta_reservas.html
+#  0-1-3-3-1-modificar_comentarios_habitacion (ok)
+#  0-1-3-3-2-calificar_habitaciones.html (ok)
+#  0-1-3-4-1-crear_reservas.html (ok)
+#  0-1-3-4-2-modificar_reservas.html
 
 # Fin ************************    Navegación  usuario final registrado *************************************
 
