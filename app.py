@@ -19,6 +19,10 @@ def opciones_invitado():
 
 #Inicio navegación login de la aplicación *********************************************************
 
+@app.route('/0-1-3-opciones_usuario_final_registrado/', methods=['GET', 'POST'])
+def opciones_usuario_final_registrado():
+    return render_template('0-1-3-opciones_usuario_final_registrado.html') 
+
 @app.route('/0-1-2-opciones_administrador/', methods=['GET', 'POST'])
 def opciones_administrador():
     return render_template('0-1-2-opciones_administrador.html')
@@ -26,7 +30,6 @@ def opciones_administrador():
 @app.route('/0-1-1-opciones_super_administrador/', methods=['GET', 'POST'])
 def opciones_super_administrador():
     return render_template('0-1-1-opciones_super_administrador.html') 
-    #Se está rompiendo el enlace y no se ha logrado determinar la causa
 
 #Fin navegación login de la aplicación *********************************************************
 
