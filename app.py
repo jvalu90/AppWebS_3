@@ -19,6 +19,13 @@ def opciones_invitado():
 
 #Inicio navegación login de la aplicación *********************************************************
 
+@app.route('/0-1-2-opciones_administrador/', methods=['GET', 'POST'])
+def opciones_administrador():
+    return render_template('0-1-2-opciones_administrador.html')
+
+@app.route('/0-1-1-opciones_super_administrador/', methods=['GET', 'POST'])
+def opciones_super_administrador():
+    return render_template('0-1-1-opciones_super_administrador.html')
 
 #Fin navegación login de la aplicación *********************************************************
 
