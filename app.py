@@ -18,9 +18,6 @@ def opciones_invitado():
 # Fin navegación inicio de la aplicación ***********************************************************
 
 #Inicio navegación login de la aplicación *********************************************************
-@app.route('/0-1-3-opciones_usuario_final_registrado.html/', methods=['GET', 'POST'])
-def opciones_usuario_final_registrado():
-    return render_template('0-1-3-opciones_usuario_final_registrado.html')
 
 @app.route('/0-1-2-opciones_administrador/', methods=['GET', 'POST'])
 def opciones_administrador():
@@ -29,6 +26,7 @@ def opciones_administrador():
 @app.route('/0-1-1-opciones_super_administrador/', methods=['GET', 'POST'])
 def opciones_super_administrador():
     return render_template('0-1-1-opciones_super_administrador.html') 
+    #Se está rompiendo el enlace y no se ha logrado determinar la causa
 
 #Fin navegación login de la aplicación *********************************************************
 
@@ -49,6 +47,15 @@ def modificar_datos_usuario_SA():
 @app.route('/0-1-1-2-gestion_usuarios_administradores')
 def gestion_usuarios_administradores():
     return render_template('0-1-1-2-gestion_usuarios_administradores.html')
+
+@app.route('/0-1-1-2-1-agregar_usuario_administrador_crud')
+def agregar_usuario_administrador_crud():
+    return render_template('0-1-1-2-1-agregar_usuario_administrador_crud.html')
+
+@app.route('/0-1-1-2-2-modificar_usuario_administrador_crud')
+def modificar_usuario_administrador_crud():
+    return render_template('0-1-1-2-2-modificar_usuario_administrador_crud.html')
+
 
 # Fin Navegación Gestion de Usuarios Administradores SA *************************************    
 
@@ -143,6 +150,9 @@ def crear_reservas():
 # 0-1-1-5-Restringir Comentarios (ok)
 # 0-1-1-1-1-Modifica datos Usuario Registrado (ok)
 # 0-1-1-1-Consulta datos Usuario Registrado (ok)
+# 0-1-1-2-Gestión de Usuarios Administradores (ok)
+# 0-1-1-2-1-Registro Nuevo Usuario Administrador (ok)
+# 0-1-1-2-2-Modifica Datos Usuario Administrador (ok)
 
 # Fin ************************    Navegación  usuario final registrado *************************************
 
