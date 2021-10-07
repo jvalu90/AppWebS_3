@@ -7,7 +7,7 @@ app = Flask(__name__)
 def inicio():
     return render_template('0-inicio.html') 
 
-@app.route('/0-1-login.html/', methods=['GET', 'POST'])
+@app.route('/0-1-login/', methods=['GET', 'POST'])
 def usuario_registrado():
     return render_template('0-1-login.html')
 
