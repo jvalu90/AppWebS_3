@@ -69,6 +69,15 @@ def modificar_usuario_administrador_crud():
 def gestion_usuarios_finales():
     return render_template('0-1-1-3-gestion_usuarios_finales.html')
 
+
+@app.route('/0-1-1-3-1-agregar_usuario_final_crud')
+def agregar_usuario_final_crud():
+    return render_template('0-1-1-3-1-agregar_usuario_final_crud.html')
+
+@app.route('/0-1-1-3-2-modificar_usuario_final_crud')
+def modificar_usuario_final_crud():
+    return render_template('0-1-1-3-2-modificar_usuario_final_crud.html')
+
 # Fin Navegación  Gestion de Usuarios Finales SA *************************************   
  
 # Inicio Navegación Gestion de Habitaciones SA **************************************************************************
@@ -76,6 +85,22 @@ def gestion_usuarios_finales():
 @app.route('/0-1-1-4-gestion_habitaciones')
 def gestion_habitaciones():
     return render_template('0-1-1-4-gestion_habitaciones.html')
+
+@app.route('/0-1-1-4-1-nueva_habitacion')
+def nueva_habitacion():
+    return render_template('0-1-1-4-1-nueva_habitacion.html')
+
+@app.route('/0-1-1-4-2-modificar_habitacion')
+def modificar_habitacion():
+    return render_template('0-1-1-4-2-modificar_habitacion.html')
+
+@app.route('/0-1-1-4-3-consulta_comentarios_habitacion_usuario')
+def consulta_comentarios_habitacion_usuario_SA():
+    return render_template('0-1-1-4-3-consulta_comentarios_habitacion_usuario.html')
+
+@app.route('/0-1-1-4-4-consulta_reservas')
+def consulta_reservas():
+    return render_template('0-1-1-4-4-consulta_reservas.html')
 
 # Fin Navegación  Gestion de Habitaciones SA *************************************  
 
