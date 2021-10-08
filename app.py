@@ -195,6 +195,21 @@ def crear_reservas():
 # Fin ************************    Navegación  usuario final registrado *************************************
 
 # Inicio Navegación usuario invitado  *****************************************
+# 0-2-opciones_invitado (ok)
+# 0-2-1-registro_nuevo_usuario (ok)
+# 0-2-2-consulta_habitaciones_disponibles (ok)
+# 0-2-2-1-consulta_comentarios_habitacion (ok)
 
+@app.route('/0-2-1-registro_nuevo_usuario', methods=['POST'])
+def registro_nuevo_usuario_final():
+    return render_template('0-2-1-registro_nuevo_usuario.html')
+
+@app.route('/0-2-2-consulta_habitaciones_disponibles', methods=['GET'])
+def consulta_habitacion_disponibles():
+    return render_template('0-2-2-consulta_habitaciones_disponibles.html')
+
+@app.route('/0-2-2-1-consulta_comentarios_habitacion', methods=['GET'])
+def consulta_comentario_habitacion():
+    return render_template('0-2-2-1-consulta_comentarios_habitacion.html')
 
 # Fin Navegación usuario invitado  *****************************************
