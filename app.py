@@ -200,11 +200,6 @@ def crear_reservas():
 # 0-2-2-consulta_habitaciones_disponibles (ok)
 # 0-2-2-1-consulta_comentarios_habitacion (ok)
 
-
-@app.route('/0-2-opciones_invitado', methods=['GET'])
-def opciones_invitado():
-    return render_template('0-2-opciones_invitado')
-
 @app.route('/0-2-1-registro_nuevo_usuario', methods=['POST'])
 def registro_nuevo_usuario_final():
     return render_template('0-2-1-registro_nuevo_usuario.html')
