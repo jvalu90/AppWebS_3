@@ -13,11 +13,20 @@ def inicio():
     return render_template('0-inicio.html') 
 
 #Iniciando la construcción del forms########################################
+#No es la versión definitiva, está en prueba
 @app.route('/0-1-login/', methods=['GET', 'POST'])
 def usuario_registrado():
     if request.method =="GET":
         formulario =formlogin()
         return render_template('0-1-login.html', form=formulario)
+
+    else:
+        formulario = formlogin(request.form)
+        if formulario.validate_on_submit():
+            #Condición que se debe cumplir para que cada boton redireccione a donde corresponde, hay valores de prueba
+            return render_template('0-inicio.html',mensaje="Bienvenido.", form=formlogin())
+            #Condición que se debe cumplir para que cada boton redireccione a donde corresponde, hay valores de prueba
+        return render_template('0-inicio.html', mensaje="Todos los campos son obligatorios.", form=formulario)
 
 #Fin la construcción del forms##############################################
 

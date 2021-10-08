@@ -8,6 +8,6 @@ from wtforms.fields.simple import PasswordField, SubmitField, TextAreaField
 class formlogin(FlaskForm):
     user = StringField('Usuario', validators=[validators.required(), validators.length(max=100)]) #Cómo se centra aquí?
     password = PasswordField('Contraseña', validators=[validators.required(), validators.length(max=100)])
-    #usuariofinal = SubmitField('Ingresar como Usuario Final') <!--{{ form.usuariofinal(class="button") }}-->
+    usuariofinal = SubmitField('Ingresar como Usuario Final') #<!--{{ form.usuariofinal(class="btn btn-outline-dark") }}-->
     #administrador = SubmitField('Ingresar como Administrador')
     #superadministrador = SubmitField('Ingresar como Super Administrador')
