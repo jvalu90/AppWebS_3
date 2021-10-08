@@ -24,9 +24,9 @@ def usuario_registrado():
         formulario = formlogin(request.form)
         if formulario.validate_on_submit():
             #Condición que se debe cumplir para que cada boton redireccione a donde corresponde, hay valores de prueba
-            return render_template('0-inicio.html',mensaje="Bienvenido.", form=formlogin())
+            return render_template('0-1-3-opciones_usuario_final_registrado.html',mensaje="Bienvenido.", form=formlogin())
             #Condición que se debe cumplir para que cada boton redireccione a donde corresponde, hay valores de prueba
-        return render_template('0-inicio.html', mensaje="Todos los campos son obligatorios.", form=formulario)
+        return render_template('0-1-3-opciones_usuario_final_registrado.html', mensaje="Todos los campos son obligatorios.", form=formulario)
 
 #Fin la construcción del forms##############################################
 
