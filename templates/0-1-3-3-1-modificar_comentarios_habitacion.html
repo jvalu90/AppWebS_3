@@ -13,69 +13,66 @@
 </head>
 
 <body>
-
-
     <div class="container">
-      <div class="row">
-        <br>
-      </div>
-      <div class="row" id = "encabezado">
-        <h1 class="text-center">RAFFLES HOTEL YACARTA</h1>
-      </div>
-      <div class="row">
-        <h2 class="text-center">Modificar Comentario</h2>
-      </div>
-      <div class="row">
-
-
-        <div class="row">
-          <div class="col">
-            <h3 class="text-center">Habitación : 101</h3>
-            <!--Aquí el 101 se debe reemplazar por la consulta que se realice a BD-->
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <h3 class="text-center">Reserva : 0001</h3>
-            <!--Aquí el 0001 se debe reemplazar por la consulta que se realice a BD-->
-          </div>
-        </div>
-
-
-        <div class="row">
-          <div class="col">
-            <p class="text-left">Descripción del comentario</p>
-          </div>
-        </div>
-
-
-
-        <div class="row">
-          <div class="col">
-            <input type="text-area" class="form-control" name="descripcion" id="descripcion">
-          </div>
-        </div>
-
-            
+      <form id="formModificaComentariosHabitacion" action="" method="POST">  
         <div class="row">
           <br>
         </div>
-
-        <div class="row">
-            <div class="btn-group" role="group" aria-label="Basic example">
-                 <!--<a class="btn btn-outline-dark" href="0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html" role="button">Modificar</a>-->
-                <a class="btn btn-outline-dark" href="{{url_for('gestion_habitaciones_reservadas_usuario_final')}}" role="button">Modificar</a>
-                 <!--<a class="btn btn-outline-dark" href="0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html" role="button">Cancelar</a>-->
-                <a class="btn btn-outline-dark" href="{{url_for('gestion_habitaciones_reservadas_usuario_final')}}" role="button">Cancelar</a>
-                 <!--<a class="btn btn-outline-dark" href="0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html" role="button">Ir a Anterior</a>-->
-                <a class="btn btn-outline-dark" href="{{url_for('gestion_habitaciones_reservadas_usuario_final')}}" role="button">Ir a Anterior</a>
-                 <!--<a class="btn btn-outline-dark" href="0-inicio.html" role="button">Ir a Inicio</a>-->
-                <a class="btn btn-outline-dark" href="{{url_for('inicio')}}" role="button">Ir a Inicio</a>
-            </div> 
+        <div class="row" id = "encabezado">
+          <h1 class="text-center">RAFFLES HOTEL YACARTA</h1>
         </div>
-        
-      </div>  
-    
+        <div class="row">
+          <h2 class="text-center">Modificar Comentario</h2>
+        </div>
+        <div class="row">
+          <div class="row">
+            <div class="col">
+              <h3 class="text-center">Habitación : 101</h3>
+              <!--Aquí el 101 se debe reemplazar por la consulta que se realice a BD-->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <h3 class="text-center">Reserva : 0001</h3>
+              <!--Aquí el 0001 se debe reemplazar por la consulta que se realice a BD-->
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col">
+              <p class="text-left">Descripción del comentario</p>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col">
+              <input type="text-area" class="form-control" name="descripcion" id="descripcion">
+            </div>
+          </div>
+
+              
+          <div class="row">
+            <br>
+          </div>
+
+          <div class="row">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                  <!--<a class="btn btn-outline-dark" href="0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html" role="button">Modificar</a>-->
+                  <!--<a class="btn btn-outline-dark" href="{{url_for('gestion_habitaciones_reservadas_usuario_final')}}" role="button">Modificar</a>-->
+                  <button id="btnModificaComentariosHabitacion" type="submit" class="btn btn-outline-dark">Modificar</button>
+                  <!--<a class="btn btn-outline-dark" href="0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html" role="button">Cancelar</a>-->
+                  <a class="btn btn-outline-dark" href="{{url_for('gestion_habitaciones_reservadas_usuario_final')}}" role="button">Cancelar</a>
+                  <!--<a class="btn btn-outline-dark" href="0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html" role="button">Ir a Anterior</a>-->
+                  <a class="btn btn-outline-dark" href="{{url_for('gestion_habitaciones_reservadas_usuario_final')}}" role="button">Ir a Anterior</a>
+                  <!--<a class="btn btn-outline-dark" href="0-inicio.html" role="button">Ir a Inicio</a>-->
+                  <a class="btn btn-outline-dark" href="{{url_for('inicio')}}" role="button">Ir a Inicio</a>
+              </div> 
+        </div>
+    </form>
+  </div>     
 </body>
 </html>
