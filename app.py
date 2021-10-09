@@ -265,12 +265,12 @@ def modificar_datos_usuario_admin():
 def gestion_usuarios_finales_admin():
     return render_template('0-1-2-2-gestion_usuarios_finales.html')
 
-@app.route('/0-1-2-2-1-agregar_usuario_final_crud', methods=['GET', 'POST'])
-def modificar_datos_usuario_admin():
-    return render_template('0-1-2-2-1-agregar_usuario_final_crud.html')
-
 @app.route('/0-1-2-2-2-modificar_usuario_final_crud')
 def agregar_usuario_final_crud_admin():
+    return render_template('0-1-2-2-2-modificar_usuario_final_crud.html')
+
+@app.route('/0-1-2-2-2-modificar_usuario_final_crud')
+def modificar_usuario_final_crud_admin():
     return render_template('0-1-2-2-2-modificar_usuario_final_crud.html')
 
 # Tercera rama de navegación usuario administrador
@@ -289,10 +289,6 @@ def modificar_habitacion_admin():
 @app.route('/0-1-2-3-3-consulta_comentarios_habitacion_usuario')
 def consulta_comentarios_habitacion_usuario_admin():
     return render_template('0-1-2-3-3-consulta_comentarios_habitacion_usuario.html')
-
-@app.route('/0-1-2-3-4-consulta_reservas')
-def consulta_reservas():
-    return render_template('0-1-2-3-4-consulta_reservas.html')
 
 # ********************************************************
 # ********** Fin Navegación usuario Adminsitrador ********
