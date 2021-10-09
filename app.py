@@ -138,6 +138,14 @@ def consulta_comentarios_habitacion_usuario_SA():
 def consulta_reservas():
     return render_template('0-1-1-4-4-consulta_reservas.html')
 
+# Templates con ruteos actualizados al Git del Super Administrador
+# 0-1-1-Opciones Usuario SuperAdministrador (ok)
+# 0-1-1-5-Restringir Comentarios (ok)
+# 0-1-1-1-1-Modifica datos Usuario Registrado (ok)
+# 0-1-1-1-Consulta datos Usuario Registrado (ok)
+# 0-1-1-2-Gestión de Usuarios Administradores (ok)
+# 0-1-1-2-1-Registro Nuevo Usuario Administrador (ok)
+# 0-1-1-2-2-Modifica Datos Usuario Administrador (ok)
 
 # Fin Navegación  Gestion de Habitaciones SA *************************************  
 
@@ -150,7 +158,7 @@ def restringir_comentarios():
 # Fin Navegación Restringir comentarios SA *************************************
 
 
-# Inicio *******************    Navegación usuario final registrado *************************************
+# 2021-10-09  Inicio *******************    Navegación usuario final registrado *************************************
 @app.route('/0-1-3-1-consulta_datos_usuario', methods=['GET', 'POST'])
 def consulta_datos_usuario_final():
     return render_template('0-1-3-1-consulta_datos_usuario.html')
@@ -162,10 +170,6 @@ def consulta_opciones_usuario_final_registrado():
 @app.route('/0-1-3-2-consulta_habitaciones_disponibles_usuario_final', methods=['GET', 'POST'])
 def consulta_habitaciones_disponibles_usuario_final():
     return render_template('0-1-3-2-consulta_habitaciones_disponibles_usuario_final.html')
-
-@app.route('/0-1-3-3-gestion_habitaciones_reservadas_usuario_final', methods=['GET', 'POST'])
-def gestion_habitaciones_reservadas_usuario_final():
-    return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html')
 
 @app.route('/0-1-3-4-modulo_reservas', methods=['GET', 'POST'])
 def modulo_reservas():
@@ -179,9 +183,20 @@ def modificar_datos_usuario():
 def consulta_comentarios_habitacion_usuario():
     return render_template('0-1-3-2-1-consulta_comentarios_habitacion_usuario.html')
 
+
+@app.route('/0-1-3-3-gestion_habitaciones_reservadas_usuario_final', methods=['GET', 'POST'])
+def gestion_habitaciones_reservadas_usuario_final():
+    return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html')
+
+
 @app.route('/0-1-3-3-1-modificar_comentarios_habitacion', methods=['GET', 'POST'])
 def modificar_comentarios_habitacion():
-    return render_template('0-1-3-3-1-modificar_comentarios_habitacion.html')
+    if request.method=="GET":
+        return render_template('0-1-3-3-1-modificar_comentarios_habitacion.html')
+    else:
+        descripcion=request.form['descripcion']
+        # return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html',sentencia='UPDATE tbl_comentarios SET comentario="'+descripcion+ '"WHERE codigo_habitacion=101 AND codigo_reserva=101')
+        return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html',sentencia='UPDATE tbl_comentarios SET comentario="'+descripcion+ '" WHERE codigo_habitacion=101 AND codigo_reserva=101')
 
 @app.route('/0-1-3-3-2-calificar_habitaciones', methods=['GET', 'POST'])
 def calificar_habitaciones():
@@ -210,16 +225,13 @@ def crear_reservas():
 #  0-1-3-4-1-crear_reservas.html (ok)
 #  0-1-3-4-2-modificar_reservas.html
 
-# Templates con ruteos actualizados al Git del Super Administrador
-# 0-1-1-Opciones Usuario SuperAdministrador (ok)
-# 0-1-1-5-Restringir Comentarios (ok)
-# 0-1-1-1-1-Modifica datos Usuario Registrado (ok)
-# 0-1-1-1-Consulta datos Usuario Registrado (ok)
-# 0-1-1-2-Gestión de Usuarios Administradores (ok)
-# 0-1-1-2-1-Registro Nuevo Usuario Administrador (ok)
-# 0-1-1-2-2-Modifica Datos Usuario Administrador (ok)
+# formularios en los que se ha implemantado logica
+#  0-1-3-3-1-modificar_comentarios_habitacion  -  modificar comentario habitacion - reserva
 
-# Fin ************************    Navegación usuario final registrado *************************************
+# 2021-10-09  IFin ************************    Navegación  usuario final registrado *************************************
+
+
+
 
 # Inicio Navegación usuario invitado  *****************************************
 # 0-2-opciones_invitado (ok)
