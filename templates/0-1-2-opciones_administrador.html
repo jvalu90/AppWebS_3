@@ -34,8 +34,8 @@
 
       <div class="row">
         <div class="btn-group" role="group" aria-label="Basic example">
-          <a class="btn btn-outline-dark" href="0-1-2-1-consulta_datos_usuario.html" role="button">Datos de la Cuenta</a>
-          <!--Revisar cuál es el link al que debe llevar-->
+          <!-- <a class="btn btn-outline-dark" href="0-1-2-1-consulta_datos_usuario.html" role="button">Datos de la Cuenta</a> -->
+          <a class="btn btn-outline-dark" href="{{url_for('consulta_datos_usuario_admin')}}" role="button">Datos de la Cuenta</a>
         </div> 
       </div>
 
@@ -45,8 +45,8 @@
       
       <div class="row">
         <div class="btn-group" role="group" aria-label="Basic example">
-          <a class="btn btn-outline-dark" href="0-1-2-2-gestion_usuarios_finales.html" role="button">Gestión de Usuarios Finales</a>
-          <!--Revisar cuál es el link al que debe llevar-->
+          <!-- <a class="btn btn-outline-dark" href="0-1-2-2-gestion_usuarios_finales.html" role="button">Gestión de Usuarios Finales</a> -->
+          <a class="btn btn-outline-dark" href="{{url_for('gestion_usuarios_finales_admin')}}" role="button">Gestión de Usuarios Finales</a>
         </div> 
       </div> 
 
@@ -56,8 +56,8 @@
 
       <div class="row">
         <div class="btn-group" role="group" aria-label="Basic example">
-          <a class="btn btn-outline-dark" href="0-1-2-3-gestion_habitaciones.html" role="button">Gestión de Habitaciones</a>
-          <!--Revisar cuál es el link al que debe llevar-->
+          <!-- <a class="btn btn-outline-dark" href="0-1-2-3-gestion_habitaciones.html" role="button">Gestión de Habitaciones</a> -->
+          <a class="btn btn-outline-dark" href="{{url_for('gestion_habitaciones_admin')}}" role="button">Gestión de Habitaciones</a>
         </div> 
       </div> 
 
@@ -67,8 +67,12 @@
 
       <div class="row">
         <div class="btn-group" role="group" aria-label="Basic example">
-          <a class="btn btn-outline-dark" href="0-1-login.html" role="button">Ir a Anterior</a>
-          <!--Revisar cuál es el link anterior-->
+          <!-- Christian_Comment: En la opción ir a anterior cuando el usuario esté logueado pienso que 
+            lo debe arrojar a la misma ventana de opciones de administrador y no al login, porque para ello
+            debería de cerrar la sesión. -->
+          <!-- <a class="btn btn-outline-dark" href="0-1-login.html" role="button">Ir a Anterior</a> -->
+          <!-- <a class="btn btn-outline-dark" href="{{url_for('usuario_registrado')}}" role="button">Ir a Anterior</a> -->
+          <a class="btn btn-outline-dark" href="{{url_for('opciones_administrador')}}" role="button">Ir a Anterior</a>
           <a class="btn btn-outline-dark" href="{{url_for('inicio')}}" role="button">Ir a Inicio</a>
           <!--<a class="btn btn-outline-dark" href="0-inicio.html" role="button">Ir a Inicio</a>-->
           </div> 

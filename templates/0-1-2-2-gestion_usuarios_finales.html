@@ -42,21 +42,24 @@
             <tr>
               <td>Faustino Asprilla</td>
               <td>Si</td>
-              <td><a class="btn btn-light" href="0-1-2-2-2-modificar_usuario_final_crud.html" role="button">Modificar</a></td>
+              <!-- <td><a class="btn btn-light" href="0-1-2-2-2-modificar_usuario_final_crud.html" role="button">Modificar</a></td> -->
+              <td><a class="btn btn-light" href="{{url_for('modificar_usuario_final_crud_admin')}}" role="button">Modificar</a></td>
               <td><a class="btn btn-light" href="" role="button">Borrar</a></td>
             </tr>
 
             <tr>
               <td>René Higuita</td>
               <td>Si</td>
-              <td><a class="btn btn-light" href="0-1-2-2-2-modificar_usuario_final_crud.html" role="button">Modificar</a></td>
+              <!-- <td><a class="btn btn-light" href="0-1-2-2-2-modificar_usuario_final_crud.html" role="button">Modificar</a></td> -->
+              <td><a class="btn btn-light" href="{{url_for('modificar_usuario_final_crud_admin')}}" role="button">Modificar</a></td>
               <td><a class="btn btn-light" href="" role="button">Borrar</a></td>
             </tr>
 
             <tr>
               <td>Andrés Escobar</td>
               <td>No</td>
-              <td><a class="btn btn-light" href="0-1-2-2-2-modificar_usuario_final_crud.html" role="button">Modificar</a></td>
+              <!-- <td><a class="btn btn-light" href="0-1-2-2-2-modificar_usuario_final_crud.html" role="button">Modificar</a></td> -->
+              <td><a class="btn btn-light" href="{{url_for('modificar_usuario_final_crud_admin')}}" role="button">Modificar</a></td>
               <td><a class="btn btn-light" href="" role="button">Borrar</a></td>
             </tr>
 
@@ -66,10 +69,12 @@
       </div>
       <div class="row">
         <div class="btn-group" role="group" aria-label="Basic example">
-          <a class="btn btn-outline-dark" href="0-1-2-2-1-agregar_usuario_final_crud.html" role="button">Nuevo Usuario Final</a>
-          <a class="btn btn-outline-dark" href="0-1-2-opciones_administrador.html" role="button">Ir a Anterior</a>
-          <a class="btn btn-outline-dark" href="{{url_for('inicio')}}" role="button">Ir a Inicio</a>
+          <!-- <a class="btn btn-outline-dark" href="0-1-2-2-1-agregar_usuario_final_crud.html" role="button">Nuevo Usuario Final</a> -->
+          <a class="btn btn-outline-dark" href="{{url_for('agregar_usuario_final_crud_admin')" role="button}}">Nuevo Usuario Final</a>
+          <!-- <a class="btn btn-outline-dark" href="0-1-2-opciones_administrador.html" role="button">Ir a Anterior</a> -->
+          <a class="btn btn-outline-dark" href="{{url_for('opciones_administrador')}}" role="button">Ir a Anterior</a>
           <!--<a class="btn btn-outline-dark" href="0-inicio.html" role="button">Ir a Inicio</a>-->
+          <a class="btn btn-outline-dark" href="{{url_for('inicio')}}" role="button">Ir a Inicio</a>
         </div> 
       </div>    
     </div>
