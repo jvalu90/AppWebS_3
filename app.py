@@ -12,8 +12,10 @@ app.config['SECRET_KEY'] = os.urandom(32)
 def inicio():
     return render_template('0-inicio.html') 
 
-#Iniciando la construcción del forms########################################
-#No es la versión definitiva, está en prueba
+# Fin navegación inicio de la aplicación ***********************************************************
+
+# Inicio navegación Login **************************************************************************
+
 @app.route('/0-1-login/', methods=['GET', 'POST'])
 def usuario_registrado():
     if request.method =="GET":
@@ -22,37 +24,40 @@ def usuario_registrado():
 
     else:
         formulario = formlogin(request.form)
-        if formulario.validate_on_submit():
-            #Condición que se debe cumplir para que cada boton redireccione a donde corresponde, hay valores de prueba
+        if formulario.validate_on_submit() and formulario.tipoUsuario.data == "UF":        
             return redirect(url_for('registrado_UF'))
 
-            #return redirect(url_for('registrado_SA'))
+        elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "SA":          
+            return redirect(url_for('registrado_SA'))
 
-            #return redirect(url_for('registrado_A'))
-            #Condición que se debe cumplir para que cada boton redireccione a donde corresponde, hay valores de prueba
-        return render_template('0-1-3-opciones_usuario_final_registrado.html', mensaje="Todos los campos son obligatorios.", form=formulario)
+        elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "A":
+            return redirect(url_for('registrado_A'))
 
-#@app.route('/registrado_UF/', methods=['GET', 'POST'])
-#def usuario_registrado1():
-    #if request.method =="GET":
-        #formulario =formlogin()
-        #return render_template('0-1-3-opciones_usuario_final_registrado.html',mensaje="Bienvenido.", form=formlogin())
+        return render_template('0-1-login.html', mensaje="Todos los campos son obligatorios.", form=formulario)
 
-    #else:
-        #formulario = formlogin(request.form)
-        #if formulario.validate_on_submit():
-            #Condición que se debe cumplir para que cada boton redireccione a donde corresponde, hay valores de prueba
-            #return render_template('0-1-3-opciones_usuario_final_registrado.html',mensaje="Bienvenido.", form=formlogin())
-            #Condición que se debe cumplir para que cada boton redireccione a donde corresponde, hay valores de prueba
-        #return render_template('0-1-3-opciones_usuario_final_registrado.html', mensaje="Todos los campos son obligatorios.", form=formulario)
+@app.route('/0-1-3-opciones_usuario_final_registrado/', methods=['GET', 'POST'])
+def registrado_UF():
+    if request.method =="GET":
+        formulario =formlogin()
+        return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
 
-#Fin la construcción del forms##############################################
+@app.route('/0-1-1-opciones_super_administrador/', methods=['GET', 'POST'])
+def registrado_SA():
+    if request.method =="GET":
+        formulario =formlogin()
+        return render_template('0-1-1-opciones_super_administrador.html', form=formulario)
+
+@app.route('/0-1-2-opciones_administrador/', methods=['GET', 'POST'])
+def registrado_A():
+    if request.method =="GET":
+        formulario =formlogin()
+        return render_template('0-1-2-opciones_administrador.html', form=formulario)
 
 @app.route('/0-2-opciones_invitado/', methods=['GET', 'POST'])
 def opciones_invitado():
     return render_template('0-2-opciones_invitado.html')
 
-# Fin navegación inicio de la aplicación ***********************************************************
+# Fin navegación Login ****************************************************************************
 
 #Inicio navegación login de la aplicación *********************************************************
 

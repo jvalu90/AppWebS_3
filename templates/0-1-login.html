@@ -13,7 +13,7 @@
 <body>
     <div class="container">
       <form method="POST" action="{{ url_for('usuario_registrado') }}" novalidate>
-        <!--iniciando la construcción del form-->
+        {{ form.hidden_tag() }}
         
         <div class="row">
           <br>
@@ -62,16 +62,16 @@
         </div>
 
         <div class="row">
-          <div class="btn-group" role="group" aria-label="Basic example">              
-              <!--Aquí ¿Cómo hacer para que haga el submmit y enlace a otra pestaña?-->
-              {{ form.usuariofinal(class="btn btn-outline-dark") }}
-              <!--<a class="btn btn-outline-dark" href="{{url_for('opciones_usuario_final_registrado')}}" role="button">Ingresar como Usuario Final</a>-->
-              <!--<a class="btn btn-outline-dark" href="0-1-3-opciones_usuario_final_registrado.html" role="button">Ingresar como Usuario Final</a>-->
-              <a class="btn btn-outline-dark" href="{{url_for('opciones_administrador')}}" role="button">Ingresar como Administrador</a>
-              <!--<a class="btn btn-outline-dark" href="0-1-2-opciones_administrador.html" role="button">Ingresar como Administrador</a>-->
-              <a class="btn btn-outline-dark" href="{{url_for('opciones_super_administrador')}}" role="button">Ingresar como Super Administrador</a>
-              <!--<a class="btn btn-outline-dark" href="0-1-1-opciones_super_administrador.html" role="button">Ingresar como Super Administrador</a>-->
-          </div> 
+            {{ form.tipoUsuario.label }}
+            {{ form.tipoUsuario() }}
+        </div>
+
+        <div class="row">
+          <br>
+        </div>
+
+        <div class="row">             
+              {{ form.enviar(class="btn btn-outline-dark") }}
         </div> 
       </form> 
 
