@@ -15,5 +15,7 @@ class formlogin(FlaskForm):
     #superadministrador = SubmitField('Ingresar como Super Administrador')
     
 # 2021-10-09 Inicio Formulario Modificar Comentario 0-1-3-3-1-modificar_comentarios_habitacion
+# Descripción de la lógica: 
+# Se verifica el contenido del comentario, si se encuetra vacio se emite un mensaje que diga "Comentario vacío" 
 
 # 2021-10-09 Fin Formulario Modificar Comentario
