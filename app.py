@@ -195,7 +195,6 @@ def modificar_comentarios_habitacion():
         return render_template('0-1-3-3-1-modificar_comentarios_habitacion.html')
     else:
         descripcion=request.form['descripcion']
-        # return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html',sentencia='UPDATE tbl_comentarios SET comentario="'+descripcion+ '"WHERE codigo_habitacion=101 AND codigo_reserva=101')
         return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html',sentencia='UPDATE tbl_comentarios SET comentario="'+descripcion+ '" WHERE codigo_habitacion=101 AND codigo_reserva=101')
 
 @app.route('/0-1-3-3-2-calificar_habitaciones', methods=['GET', 'POST'])
@@ -225,8 +224,8 @@ def crear_reservas():
 #  0-1-3-4-1-crear_reservas.html (ok)
 #  0-1-3-4-2-modificar_reservas.html
 
-# formularios en los que se ha implemantado logica
-#  0-1-3-3-1-modificar_comentarios_habitacion  -  modificar comentario habitacion - reserva
+# procesos en los que se ha implemantado logica
+# modificar comentario habitacion - reserva por parte de un usuario final registrado
 
 # 2021-10-09  IFin ************************    Navegación  usuario final registrado *************************************
 
