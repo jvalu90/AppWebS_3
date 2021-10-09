@@ -75,11 +75,25 @@
 
           <div class="row">
             <div class="btn-group" role="group" aria-label="Basic example">
-              <a class="btn btn-outline-dark" href="0-1-2-1-consulta_datos_usuario.html" role="button">Modificar</a>
-              <a class="btn btn-outline-dark" href="0-1-2-1-consulta_datos_usuario.html" role="button">Cancelar</a>
-              <a class="btn btn-outline-dark" href="0-1-2-1-consulta_datos_usuario.html" role="button">Ir al anterior</a>
-              <a class="btn btn-outline-dark" href="{{url_for('inicio')}}" role="button">Ir a Inicio</a>
+              <!-- Christian_Comments: Pienso que cuando el usuario de clic en modificar el botón modificar, a parte de modificar
+              los datos en la base de datos, debe llevarle al usuario a la vista de consulta de datos de usuario. -->
+              <!-- <a class="btn btn-outline-dark" href="0-1-2-1-consulta_datos_usuario.html" role="button">Modificar</a> -->
+              <a class="btn btn-outline-dark" href="{{url_for('consulta_datos_usuario_admin')}}" role="button">Modificar</a>
+              <!-- Christian_Comments: Cuando el usuario de clic en la opción cancelar, no se realizará ninguna acción sobre la base de datos
+              y lo devolverá a la vista opciones de administrador  -->
+              <!-- <a class="btn btn-outline-dark" href="0-1-2-1-consulta_datos_usuario.html" role="button">Cancelar</a> -->
+              <a class="btn btn-outline-dark" href="{{url_for('opciones_administrador')}}" role="button">Cancelar</a>
+              <!-- Christian_Comments: En el caso del botón ir al anterior en mi opinión no debería ir, 
+                ya que para ello está el botón cancelar, sin embargo, puede ocurrir qu el usuario quiera consultar de nuevo los datos a modificar
+              para lo cual se solucionaría si en la vista de modificar se trajeran los datos del usuario que se va a modificar-->
+              <!-- <a class="btn btn-outline-dark" href="0-1-2-1-consulta_datos_usuario.html" role="button">Ir al anterior</a> -->
+              <a class="btn btn-outline-dark" href="{{url_for('consulta_datos_usuario_admin')}}" role="button">Ir al anterior</a>
+              <!-- Christian_Comments: En el caso del botón ir a inicio en esta vista, primero debe generar una alerta si el usuario modificó algo
+              para dejarlo salir, algo así como guardar los cambios, si modificó algo y guarda lo debe enviar a la vista de consulta de datos del
+              usuario, sino modificó nada lo debe llevar a las opciones del administrador, en el caso de las vistas del administrador, el botón
+              inicio debe llevarlo a la vista opciones_administrador -->
               <!--<a class="btn btn-outline-dark" href="0-inicio.html" role="button">Ir a Inicio</a>-->
+              <a class="btn btn-outline-dark" href="{{url_for('inicio')}}" role="button">Ir a Inicio</a>
             </div> 
           </div>  
 

@@ -43,27 +43,36 @@
               <td>101</td>
               <td>Si</td>
               <td>9.5</td>
-              <td><a class="btn btn-light" href="0-1-2-3-3-consulta_comentarios_habitacion_usuario.html" role="button">Ver Comentarios</a></td>
-              <td><a class="btn btn-light" href="0-1-2-3-4-consulta_reservas.html" role="button">Ver Reservas</a></td>
-              <td><a class="btn btn-light" href="0-1-2-3-2-modificar_habitacion.html" role="button">Modificar</a></td>
+              <!-- <td><a class="btn btn-light" href="0-1-2-3-3-consulta_comentarios_habitacion_usuario.html" role="button">Ver Comentarios</a></td> -->
+              <td><a class="btn btn-light" href="{{url_for('consulta_comentarios_habitacion_usuario_admin')}}" role="button">Ver Comentarios</a></td>
+              <!-- <td><a class="btn btn-light" href="0-1-2-3-4-consulta_reservas.html" role="button">Ver Reservas</a></td> -->
+              <td><a class="btn btn-light" href="{{url_for('consulta_reservas_admin')}}" role="button">Ver Reservas</a></td>
+              <!-- <td><a class="btn btn-light" href="0-1-2-3-2-modificar_habitacion.html" role="button">Modificar</a></td> -->
+              <td><a class="btn btn-light" href="{{url_for('modificar_habitacion_admin')}}" role="button">Modificar</a></td>
             </tr>
 
             <tr>
               <td>102</td>
               <td>No</td>
               <td>8.8</td>
-              <td><a class="btn btn-light" href="0-1-2-3-3-consulta_comentarios_habitacion_usuario.html" role="button">Ver Comentarios</a></td>
-              <td><a class="btn btn-light" href="0-1-2-3-4-consulta_reservas.html" role="button">Ver Reservas</a></td>
-              <td><a class="btn btn-light" href="0-1-2-3-2-modificar_habitacion.html" role="button">Modificar</a></td>
+              <!-- <td><a class="btn btn-light" href="0-1-2-3-3-consulta_comentarios_habitacion_usuario.html" role="button">Ver Comentarios</a></td> -->
+              <td><a class="btn btn-light" href="{{url_for('consulta_comentarios_habitacion_usuario_admin')}}" role="button">Ver Comentarios</a></td>
+              <!-- <td><a class="btn btn-light" href="0-1-2-3-4-consulta_reservas.html" role="button">Ver Reservas</a></td> -->
+              <td><a class="btn btn-light" href="{{url_for('consulta_reservas_admin')}}" role="button">Ver Reservas</a></td>
+              <!-- <td><a class="btn btn-light" href="0-1-2-3-2-modificar_habitacion.html" role="button">Modificar</a></td> -->
+              <td><a class="btn btn-light" href="{{url_for('modificar_habitacion_admin')}}" role="button">Modificar</a></td>
             </tr>
 
             <tr>
               <td>103</td>
               <td>Si</td>
               <td>6.5</td>
-              <td><a class="btn btn-light" href="0-1-2-3-3-consulta_comentarios_habitacion_usuario.html" role="button">Ver Comentarios</a></td>
-              <td><a class="btn btn-light" href="0-1-2-3-4-consulta_reservas.html" role="button">Ver Reservas</a></td>
-              <td><a class="btn btn-light" href="0-1-2-3-2-modificar_habitacion.html" role="button">Modificar</a></td>
+              <!-- <td><a class="btn btn-light" href="0-1-2-3-3-consulta_comentarios_habitacion_usuario.html" role="button">Ver Comentarios</a></td> -->
+              <td><a class="btn btn-light" href="{{url_for('consulta_comentarios_habitacion_usuario_admin')}}" role="button">Ver Comentarios</a></td>
+              <!-- <td><a class="btn btn-light" href="0-1-2-3-4-consulta_reservas.html" role="button">Ver Reservas</a></td> -->
+              <td><a class="btn btn-light" href="{{url_for('consulta_reservas_admin')}}" role="button">Ver Reservas</a></td>
+              <!-- <td><a class="btn btn-light" href="0-1-2-3-2-modificar_habitacion.html" role="button">Modificar</a></td> -->
+            <td><a class="btn btn-light" href="{{url_for('modificar_habitacion_admin')}}" role="button">Modificar</a></td>
             </tr>
 
           </tbody>
@@ -72,10 +81,13 @@
       </div>
       <div class="row">
         <div class="btn-group" role="group" aria-label="Basic example">
-          <a class="btn btn-outline-dark" href="0-1-2-3-1-nueva_habitacion.html" role="button">Nueva Habitación</a>
-          <a class="btn btn-outline-dark" href="0-1-2-opciones_administrador.html" role="button">Ir a Anterior</a>
-          <a class="btn btn-outline-dark" href="{{url_for('inicio')}}" role="button">Ir a Inicio</a>
+          <!-- <a class="btn btn-outline-dark" href="0-1-2-3-1-nueva_habitacion.html" role="button">Nueva Habitación</a> -->
+          <a class="btn btn-outline-dark" href="{{url_for('nueva_habitacion_admin')}}" role="button">Nueva Habitación</a>
+          <!-- <a class="btn btn-outline-dark" href="0-1-2-opciones_administrador.html" role="button">Ir a Anterior</a> -->
+          <a class="btn btn-outline-dark" href="{{url_for('opciones_administrador')}}" role="button">Ir a Anterior</a>
           <!--<a class="btn btn-outline-dark" href="0-inicio.html" role="button">Ir a Inicio</a>-->
+          <a class="btn btn-outline-dark" href="{{url_for('inicio')}}" role="button">Ir a Inicio</a>
+          
           
         </div> 
       </div>    
