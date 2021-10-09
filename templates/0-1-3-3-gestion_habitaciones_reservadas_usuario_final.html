@@ -74,7 +74,16 @@
           <!--<a class="btn btn-outline-dark" href="0-1-3-4-modulo_reservas.html" role="button">Gestión Reservas</a>-->
           <a class="btn btn-outline-dark" href="{{url_for('modulo_reservas')}}" role="button">Gestión Reservas</a>
         </div> 
-      </div>    
+      </div> 
+      
+      <div class="row">
+        <p id="mensaje">
+          {% if sentencia %}
+            {{sentencia}}
+          {% endif %}
+        </p>
+      </div>
+
     </div>
   </body>
 </html>
