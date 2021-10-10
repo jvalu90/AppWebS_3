@@ -59,22 +59,6 @@ def opciones_invitado():
 
 # Fin navegación Login ****************************************************************************
 
-#Inicio navegación login de la aplicación *********************************************************
-
-@app.route('/0-1-3-opciones_usuario_final_registrado/', methods=['GET', 'POST'])
-def opciones_usuario_final_registrado():
-    return render_template('0-1-3-opciones_usuario_final_registrado.html') 
-
-@app.route('/0-1-2-opciones_administrador/', methods=['GET', 'POST'])
-def opciones_administrador():
-    return render_template('0-1-2-opciones_administrador.html')
-
-@app.route('/0-1-1-opciones_super_administrador/', methods=['GET', 'POST'])
-def opciones_super_administrador():
-    return render_template('0-1-1-opciones_super_administrador.html') 
-
-#Fin navegación login de la aplicación *********************************************************
-
 # Inicio Navegación usuario Final registrado SA **************************************************************************
 
 @app.route('/0-1-1-1-consulta_datos_usuario')
@@ -254,7 +238,7 @@ def crear_reservas():
 # 0-2-2-consulta_habitaciones_disponibles (ok)
 # 0-2-2-1-consulta_comentarios_habitacion (ok)
 
-@app.route('/0-2-1-registro_nuevo_usuario', methods=['POST'])
+@app.route('/0-2-1-registro_nuevo_usuario', methods=['GET'])
 def registro_nuevo_usuario_final():
     return render_template('0-2-1-registro_nuevo_usuario.html')
 
@@ -271,7 +255,7 @@ def consulta_comentario_habitacion():
 
 
 # ********************************************************
-# ******** Inicio Navegación usuario Adminsitrador *******
+# ******** Inicio Navegación usuario Administrador *******
 # ********************************************************
 
 # opciones_administrador se encuentra creada en la parte superior
