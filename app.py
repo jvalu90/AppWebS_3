@@ -238,7 +238,10 @@ def crear_reservas():
 
 # formularios en los que se ha implemantado logica
 # modificar comentario habitacion - reserva por parte de un usuario final registrado
+    # 0-1-3-3-1-modificar_comentarios_habitacion  # 0-1-3-3-gestion_habitaciones_reservadas_usuario_final
 # calificar habitacion - reserva por parte de un usuario final registrado
+    # 0-1-3-3-2-calificar_habitaciones  # 0-1-3-3-gestion_habitaciones_reservadas_usuario_final
+ 
 
 # 2021-10-10  IFin ************************    Navegación  usuario final registrado *************************************
 
