@@ -163,7 +163,7 @@ def restringir_comentarios():
 # Fin Navegación Restringir comentarios SA *************************************
 
 
-# 2021-10-09  Inicio *******************    Navegación usuario final registrado *************************************
+# 2021-10-10  Inicio *******************    Navegación usuario final registrado *************************************
 @app.route('/0-1-3-1-consulta_datos_usuario', methods=['GET', 'POST'])
 def consulta_datos_usuario_final():
     return render_template('0-1-3-1-consulta_datos_usuario.html')
@@ -203,8 +203,15 @@ def modificar_comentarios_habitacion():
         return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html',sentencia='UPDATE tbl_comentarios SET comentario="'+descripcion+ '" WHERE codigo_habitacion=101 AND codigo_reserva=101')
 
 @app.route('/0-1-3-3-2-calificar_habitaciones', methods=['GET', 'POST'])
+
 def calificar_habitaciones():
-    return render_template('0-1-3-3-2-calificar_habitaciones.html')
+    if request.method =="GET":
+        formulario =FormCalificarHabitacion()
+        return render_template('0-1-3-3-2-calificar_habitaciones.html', form=formulario)
+    else:
+        formulario = FormCalificarHabitacion(request.form)
+        valor_calificacion=str(formulario.data['calificacion'])
+        return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html',sentencia='UPDATE tbl_calificaciones SET calificacion='+valor_calificacion+' WHERE codigo_habitacion=101 AND codigo_reserva=101')
 
 @app.route('/0-1-3-4-2-modificar_reservas', methods=['GET', 'POST'])
 def modificar_reservas():
@@ -227,12 +234,13 @@ def crear_reservas():
 #  0-1-3-3-1-modificar_comentarios_habitacion (ok)
 #  0-1-3-3-2-calificar_habitaciones.html (ok)
 #  0-1-3-4-1-crear_reservas.html (ok)
-#  0-1-3-4-2-modificar_reservas.html
+#  0-1-3-4-2-modificar_reservas.html (ok)
 
-# procesos en los que se ha implemantado logica
+# formularios en los que se ha implemantado logica
 # modificar comentario habitacion - reserva por parte de un usuario final registrado
+# calificar habitacion - reserva por parte de un usuario final registrado
 
-# 2021-10-09  IFin ************************    Navegación  usuario final registrado *************************************
+# 2021-10-10  IFin ************************    Navegación  usuario final registrado *************************************
 
 
 
