@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask.templating import render_template
-from forms import formlogin
+from forms import formlogin, FormCalificarHabitacion
 import os
 
 app = Flask(__name__)
