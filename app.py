@@ -12,6 +12,10 @@ app.config['SECRET_KEY'] = os.urandom(32)
 def inicio():
     return render_template('0-inicio.html') 
 
+@app.route('/0-2-opciones_invitado/', methods=['GET', 'POST'])
+def opciones_invitado():
+    return render_template('0-2-opciones_invitado.html')
+
 # Fin navegación inicio de la aplicación ***********************************************************
 
 # Inicio navegación Login **************************************************************************
@@ -52,10 +56,6 @@ def registrado_A():
     if request.method =="GET":
         formulario =formlogin()
         return render_template('0-1-2-opciones_administrador.html', form=formulario)
-
-@app.route('/0-2-opciones_invitado/', methods=['GET', 'POST'])
-def opciones_invitado():
-    return render_template('0-2-opciones_invitado.html')
 
 # Fin navegación Login ****************************************************************************
 
