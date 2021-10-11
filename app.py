@@ -273,11 +273,11 @@ def modificar_datos_usuario_admin():
 def gestion_usuarios_finales_admin():
     return render_template('0-1-2-2-gestion_usuarios_finales.html')
 
-@app.route('/0-1-2-2-2-modificar_usuario_final_crud')
+@app.route('/0-1-2-2-1-modificar_usuario_final_crud', methods=['GET', 'POST'])
 def agregar_usuario_final_crud_admin():
-    return render_template('0-1-2-2-2-modificar_usuario_final_crud.html')
+    return render_template('0-1-2-2-1-agregar_usuario_final_crud.html')
 
-@app.route('/0-1-2-2-2-modificar_usuario_final_crud')
+@app.route('/0-1-2-2-2-modificar_usuario_final_crud', methods=['GET', 'POST'])
 def modificar_usuario_final_crud_admin():
     return render_template('0-1-2-2-2-modificar_usuario_final_crud.html')
 
@@ -286,17 +286,21 @@ def modificar_usuario_final_crud_admin():
 def gestion_habitaciones_admin():
     return render_template('0-1-2-3-gestion_habitaciones.html')
 
-@app.route('/0-1-2-3-1-nueva_habitacion')
+@app.route('/0-1-2-3-1-nueva_habitacion', methods=['GET', 'POST'])
 def nueva_habitacion_admin():
     return render_template('0-1-2-3-1-nueva_habitacion.html')
 
-@app.route('/0-1-2-3-2-modificar_habitacion')
+@app.route('/0-1-2-3-2-modificar_habitacion', methods=['GET', 'POST'])
 def modificar_habitacion_admin():
-    return render_template('0-1-2-3-2-modificar_habitacion')
+    return render_template('0-1-2-3-2-modificar_habitacion.html')
 
-@app.route('/0-1-2-3-3-consulta_comentarios_habitacion_usuario')
+@app.route('/0-1-2-3-3-consulta_comentarios_habitacion_usuario', methods=['GET', 'POST'])
 def consulta_comentarios_habitacion_usuario_admin():
     return render_template('0-1-2-3-3-consulta_comentarios_habitacion_usuario.html')
+
+@app.route('/0-1-2-3-4-consulta_reservas', methods=['GET', 'POST'])
+def consulta_reservas_admin():
+    return render_template('0-1-2-3-4-consulta_reservas.html')
 
 # ********************************************************
 # ********** Fin Navegación usuario Adminsitrador ********
