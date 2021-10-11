@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="container">
-      <form method="POST" action="{{ url_for('calificar_habitaciones') }}" novalidate>
+      <form method="POST" action="{{ url_for('calificar_habitaciones',codigo_habitacion=numero_habitacion,codigo_reserva=numero_reserva)}}" novalidate>
       {{ form.hidden_tag() }}
 
       <div class="row">
@@ -35,14 +35,14 @@
       <div class="row">
         <div class="row">
           <div class="col">
-            <h3 class="text-center">Habitación : 101</h3>
+            <h3 class="text-center">Habitación : {{ numero_habitacion }}</h3>
             <!--Aquí el 101 se debe reemplazar por la consulta que se realice a BD-->
           </div>
       </div>
   
       <div class="row">
         <div class="col">
-          <h3 class="text-center">Reserva : 0001</h3>
+          <h3 class="text-center">Reserva : {{ numero_reserva }}</h3>
           <!--Aquí el 0001 se debe reemplazar por la consulta que se realice a BD-->
         </div>
       </div>
