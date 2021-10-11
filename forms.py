@@ -17,7 +17,7 @@ class formlogin(FlaskForm):
 #Inicio formulario validación en 0-1-3-3-2 calificar habitaciones #######################################################
 class FormCalificarHabitacion(FlaskForm):
     calificacion = DecimalRangeField('calificacion')
-    enviar = SubmitField('Calificar')
+    enviar = SubmitField('Calificar') 
 #fin formulario validación en 0-1-3-3-2 calificar habitaciones #######################################################
 
 
