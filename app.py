@@ -273,7 +273,7 @@ def modificar_datos_usuario_admin():
 def gestion_usuarios_finales_admin():
     return render_template('0-1-2-2-gestion_usuarios_finales.html')
 
-@app.route('/0-1-2-2-1-modificar_usuario_final_crud', methods=['GET', 'POST'])
+@app.route('/0-1-2-2-1-agregar_usuario_final_crud', methods=['GET', 'POST'])
 def agregar_usuario_final_crud_admin():
     return render_template('0-1-2-2-1-agregar_usuario_final_crud.html')
 
