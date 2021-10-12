@@ -37,7 +37,7 @@ def usuario_registrado():
         elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "A":
             return redirect(url_for('registrado_A'))
 
-        return render_template('0-1-login.html', mensaje="Todos los campos son obligatorios.", form=formulario)
+    return render_template('0-1-login.html', mensaje="Todos los campos son obligatorios.", form=formulario)
 
 @app.route('/0-1-3-opciones_usuario_final_registrado/', methods=['GET', 'POST'])
 def registrado_UF():
