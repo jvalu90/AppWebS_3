@@ -7,6 +7,12 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.urandom(32)
 
+# La metodología propuesta es la siguiente: 
+# funciones para conectar base de datos (bd.py)
+# funciones para tratar los datos (models.py) entre el frontend y el backend
+# funciones para capturar los datos de los usuarios (forms.py)
+# funciones para interactuar con el frontend (app.py)
+
 # Inicio navegación inicio de la aplicación ********************************************************
 @app.route('/')
 def inicio():
