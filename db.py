@@ -92,14 +92,4 @@ def fabrica_diccionarios(cursor, row):
         d[col[0]] = row[idx]
     return d
 
-<<<<<<< HEAD
-def fabrica_diccionarios(cursor, row):
-    d = {}
-    for idx, col in enumerate(cursor.description):
-        d[col[0]] = row[idx]
-    return d
-
 # FIN FUNCION PARA CONVERTIR TUPLAS EN DICCIONARIOS ############################################
-=======
-# FIN FUNCION PARA CONVERTIR TUPLAS EN DICCIONARIOS ############################################
->>>>>>> ec15be87405937f607d02ebbd618c35555a2c993
