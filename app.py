@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask.templating import render_template
-from forms import formlogin, FormCalificarHabitacion
+from forms import formlogin, FormCalificarHabitacion, formreservas
 import os
 
 app = Flask(__name__)
@@ -168,7 +168,14 @@ def consulta_habitaciones_disponibles_usuario_final():
 
 @app.route('/0-1-3-4-modulo_reservas', methods=['GET', 'POST'])
 def modulo_reservas():
-    return render_template('0-1-3-4-modulo_reservas.html')
+    if request.method =="GET":
+        formulario =formreservas()
+        return render_template('0-1-3-4-modulo_reservas.html', form=formulario)
+
+    else:  
+        formulario = formreservas(request.form)
+        #Pendiente desarrollar los métodos validadores aquí
+    
 
 @app.route('/0-1-3-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
 def modificar_datos_usuario():

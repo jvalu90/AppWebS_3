@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import validators
-from wtforms.fields.core import StringField, RadioField
+from wtforms.fields.core import DateField, SelectField, StringField, RadioField
 from wtforms.fields.simple import PasswordField, SubmitField
 from wtforms.fields.html5 import DecimalRangeField
 
@@ -27,6 +27,16 @@ class FormCalificarHabitacion(FlaskForm):
 # visualizaciones
 
 # INICIO CLASES Y FUNCIONES RELACIONADAS CON EL CRUD RESERVAS ##################################
+
+# 0-1-3-4-modulo_reservas
+
+class formreservas(FlaskForm):
+    initialdate = DateField('Fecha Inicial', validators=[validators.required()])
+    finaldate = DateField('Fecha Final', validators=[validators.required()])
+    bedroom = SelectField('Habitación', validators=[validators.required()])
+    consult = SubmitField('Consultar')
+    cancel = SubmitField('Cancelar')
+
 
 # HTML donde deben completarse los formularios para implementar el CRUD Reservas:
 # 0-1-login
