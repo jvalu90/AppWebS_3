@@ -172,10 +172,11 @@ def consulta_habitaciones_disponibles_usuario_final():
 def modulo_reservas():
     if request.method =="GET":
         formulario =formreservas()
-        return render_template('0-1-3-4-modulo_reservas.html', form=formulario, lista=reservas.listado())
+        return render_template('0-1-3-4-modulo_reservas.html', form=formulario, lista=reservas.listado(), mostrar = 0)
 
     else:  
         formulario = formreservas(request.form)
+        return render_template('0-1-3-4-modulo_reservas.html', form=formulario, lista=reservas.listado(), mostrar = 1)
         #Pendiente desarrollar los métodos validadores aquí
     
 
