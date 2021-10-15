@@ -59,7 +59,7 @@ class reservas():
         sql = "SELECT * FROM tbl_reservas WHERE fecha_inicial =? and fecha_final =?;"
         return db.ejecutar_select(sql, [self.fecha_inicial, self.fecha_final ])
 
-    def actualizar(self):
+    #def actualizar(self):
         #Pendiente desarrollar 
 
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD RESERVAS #####################################
