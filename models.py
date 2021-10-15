@@ -45,9 +45,22 @@ class reservas():
         return None
 
     def insertar(self):
-        sql = "INSERT INTO tbl_reservas (id_habitacion, id_usuario, comentario, calificacion, fecha_inicial,fecha_final, activo, comentario_restringido) VALUES (?,?,?,?,?,?,?,?);"
-        afectadas = db.ejecutar_insert(sql, [ self.id_habitacion, self.id_usuario, self.comentario, self.calificacion, self.fecha_inicial, self.fecha_final, self.activo, self.comentario_restringido])
+        sql = "INSERT INTO tbl_reservas (comentario, calificacion, fecha_inicial,fecha_final, activo, comentario_restringido) VALUES (?,?,?,?,?,?);"
+        afectadas = db.ejecutar_insert(sql, [self.comentario, self.calificacion, self.fecha_inicial, self.fecha_final, self.activo, self.comentario_restringido])
         return ( afectadas > 0 )
+
+    def eliminar(self):
+        sql = "DELETE tbl_reservas WHERE id_reserva = ?;"
+        afectadas = db.ejecutar_insert(sql, [ self.id_reserva])
+        return ( afectadas > 0 )
+
+    
+    def listado(self):
+        sql = "SELECT * FROM tbl_reservas WHERE fecha_inicial =? and fecha_final =?;"
+        return db.ejecutar_select(sql, [self.fecha_inicial, self.fecha_final ])
+
+    def actualizar(self):
+        #Pendiente desarrollar 
 
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD RESERVAS #####################################
 
