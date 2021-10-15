@@ -88,10 +88,9 @@
             <thead>
               <tr>
                 <th scope="col">Reserva</th>
-                <th scope="col">Fecha</th>
+                <th scope="col">Fecha Inicial</th>
                 <th scope="col">Habitación</th>
-                <th scope="col">Fecha Inicio</th>
-                <th scope="col">Días</th>
+                <th scope="col">Fecha Final</th>
                 <th scope="col">Vigente</th>
                 <th scope="col">Modificar</th>
                 <th scope="col">Cancelar</th>
@@ -103,20 +102,38 @@
               inferiores.
               Posteriormente hay un if que se comunica con el app.py modulo_reservas y valida si hay reservas en la base de datos
               algo como reservas.listado (crear la función listado en la clase reservas models)-->
-            <tbody>
-              <tr>
-                <td>0001</td>
-                <td>2021-09-15</td>
-                <td>101</td>
-                <td>2021-09-15</td>
-                <td>5</td> <!--¿Cuál es la forma más conveniente de encontrar este registro?-->
-                <td>Si</td>
-                <!--<td><a class="btn btn-light" href="0-1-3-4-2-modificar_reservas.html" role="button">Modificar</a></td> -->
-                <td><a class="btn btn-light" href="{{url_for('modificar_reservas')}}" role="button">Modificar</a></td>
-                <td><a class="btn btn-light" href="" role="button">Cancelar</a></td>
-              </tr>
+            
+            {% if mostrar == 1 %}
+              {% if lista %}
+                {% for item in lista %}
+                  <tbody>
+                    <tr>
+                      <td>{{ item.id_reserva }}</td>
+                      <td>{{ item.fecha_inicial }}</td>
+                      <td>{{ item.id_habitacion }}</td>
+                      <td>{{ item.fecha_final }}</td>
+                      <td>{{ item.activo }}</td>
+                      <!--<td><a class="btn btn-light" href="0-1-3-4-2-modificar_reservas.html" role="button">Modificar</a></td> -->
+                      <td><a class="btn btn-light" href="{{url_for('modificar_reservas')}}" role="button">Modificar</a></td>
+                      <td><a class="btn btn-light" href="" role="button">Cancelar</a></td>
+                    </tr>
+                  </tbody>
+                {% endfor %}
+              {% else %}
+                <tbody>
+                  <tr>
+                    <td colspan="7">No se encontraron mensajes en la base de datos</td>
+                  </tr>
+                </tbody>
+              {% endif %}
+            {% endif %}
 
-            </tbody>
+            <div class="row">
+              {% if mensaje %}
+                {{ mensaje }}
+              {% endif %}
+            </div>
+
           </table>
 
         </div>

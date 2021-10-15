@@ -172,13 +172,16 @@ def consulta_habitaciones_disponibles_usuario_final():
 def modulo_reservas():
     if request.method =="GET":
         formulario =formreservas()
-        return render_template('0-1-3-4-modulo_reservas.html', form=formulario, lista=reservas.listado(), mostrar = 0)
+        return render_template('0-1-3-4-modulo_reservas.html', form=formulario, mostrar = 0)
 
     else:  
         formulario = formreservas(request.form)
-        return render_template('0-1-3-4-modulo_reservas.html', form=formulario, lista=reservas.listado(), mostrar = 1)
-        #Pendiente desarrollar los métodos validadores aquí
-    
+        if formulario.validate_on_submit():
+            objeto_reserva = reservas(0, 0, 0, 0, 0, formulario.initialdate.data, formulario.finaldate.data, 0, 0)
+            objeto_reserva.listado()
+            return render_template('0-1-3-4-modulo_reservas.html', form=formulario, lista=reservas.listado(), mostrar = 1)
+            #Pendiente desarrollar los métodos validadores aquí
+        return render_template('0-1-3-4-modulo_reservas.html', mensaje="Todos los campos son obligatorios.", form=formulario)
 
 @app.route('/0-1-3-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
 def modificar_datos_usuario():

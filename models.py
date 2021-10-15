@@ -56,7 +56,7 @@ class reservas():
 
     
     def listado(self):
-        sql = "SELECT * FROM tbl_reservas WHERE fecha_inicial =? and fecha_final =?;"
+        sql = "SELECT * FROM tbl_reservas WHERE fecha_inicial =? OR fecha_final =?;"
         return db.ejecutar_select(sql, [self.fecha_inicial, self.fecha_final ])
 
     #def actualizar(self):
