@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask.templating import render_template
 from forms import formlogin, FormCalificarHabitacion, formreservas
 import os
+from models import reservas
+
 
 app = Flask(__name__)
 
@@ -170,7 +172,7 @@ def consulta_habitaciones_disponibles_usuario_final():
 def modulo_reservas():
     if request.method =="GET":
         formulario =formreservas()
-        return render_template('0-1-3-4-modulo_reservas.html', form=formulario)
+        return render_template('0-1-3-4-modulo_reservas.html', form=formulario, lista=reservas.listado())
 
     else:  
         formulario = formreservas(request.form)
