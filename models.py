@@ -30,6 +30,25 @@ class reservas():
         self.activo = pactivo
         self.comentario_restringido = pcomentario_restringido
 
+    @classmethod
+    def cargar(cls, pid_reserva):
+        sql = "SELECT * FROM tbl_reservas WHERE id_reserva = ?;"
+        resultado = db.ejecutar_select(sql, [ pid_reserva ])
+        if resultado:
+            if len(resultado)>0:
+                return cls(pid_reserva, resultado[0]["id_habitacion"], 
+                resultado[0]["id_usuario"], resultado[0]["comentario"],
+                resultado[0]["calificacion"], resultado[0]["fecha_inicial"],
+                resultado[0]["fecha_final"], resultado[0]["activo"],
+                resultado[0]["comentario_restringido"])
+        
+        return None
+
+    def insertar(self):
+        sql = "INSERT INTO tbl_reservas (id_habitacion, id_usuario, comentario, calificacion, fecha_inicial,fecha_final, activo, comentario_restringido) VALUES (?,?,?,?,?,?,?,?);"
+        afectadas = db.ejecutar_insert(sql, [ self.id_habitacion, self.id_usuario, self.comentario, self.calificacion, self.fecha_inicial, self.fecha_final, self.activo, self.comentario_restringido])
+        return ( afectadas > 0 )
+
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD RESERVAS #####################################
 
 # INICIO CLASES Y FUNCIONES RELACIONADAS CON EL CRUD HABITACIONES ##############################
