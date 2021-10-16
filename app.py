@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask.templating import render_template
-from forms import formlogin, FormCalificarHabitacion, formreservas
+from forms import formlogin, FormCalificarHabitacion, formreservas,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD
 import os
-from models import reservas
-
+from models import reservas,usuario_final,usuario_administrador
 
 app = Flask(__name__)
 
@@ -81,35 +80,94 @@ def modificar_datos_usuario_SA():
 
 # Inicio Navegación Gestion de Usuarios Administradores SA **************************************************************************
 
-@app.route('/0-1-1-2-gestion_usuarios_administradores')
+@app.route('/0-1-1-2-gestion_usuarios_administradores', methods=["GET"])
 def gestion_usuarios_administradores():
-    return render_template('0-1-1-2-gestion_usuarios_administradores.html')
+    return render_template('0-1-1-2-gestion_usuarios_administradores.html', lista=usuario_administrador.listado())
 
-@app.route('/0-1-1-2-1-agregar_usuario_administrador_crud')
+@app.route('/0-1-1-2-1-agregar_usuario_administrador_crud', methods=['GET', 'POST'])
 def agregar_usuario_administrador_crud():
-    return render_template('0-1-1-2-1-agregar_usuario_administrador_crud.html')
+    if request.method =="GET":
+        formulario =FormAgregarUsuarioAdmonCRUD()
+        return render_template('0-1-1-2-1-agregar_usuario_administrador_crud.html', form=formulario)
+    else:
+        formulario =FormAgregarUsuarioAdmonCRUD(request.form)
+        objeto_usuario = usuario_administrador(0, formulario.documento.data, formulario.nombre.data, formulario.documento.data, 
+                                'A', 'SI', formulario.documento.data)
+        # print (formulario.nombre.data)
+        # por defecto al agregar un usuario el user y password se cargan por defecto con el documento de identidad
+        if objeto_usuario.insertar():   
+            return render_template('0-1-1-2-gestion_usuarios_administradores.html', lista=usuario_administrador.listado())
+        else:
+            return render_template('0-1-1-2-gestion_usuarios_administradores.html', lista=usuario_administrador.listado())    
 
-@app.route('/0-1-1-2-2-modificar_usuario_administrador_crud')
+@app.route('/0-1-1-2-2-modificar_eliminar_usuario_administrador_crud/<id_usuario>/<accion>', methods=["GET", 'POST'])
+def modificar_eliminar_usuario_administrador_crud(id_usuario,accion):
+    objeto_usuario =usuario_administrador.cargar(id_usuario)
+    if accion=='modificar':
+        formulario = FormModificarUsuarioAdmonCRUD()
+        formulario.id_usuario.data = objeto_usuario.id_usuario
+        formulario.nombre.data = objeto_usuario.nombres
+        formulario.documento.data = objeto_usuario.documento
+        formulario.activo.data = objeto_usuario.activo
+        return render_template('0-1-1-2-2-modificar_usuario_administrador_crud.html',form = formulario)
+    else:
+        objeto_usuario.eliminar()
+        return render_template('0-1-1-2-gestion_usuarios_administradores.html', lista=usuario_administrador.listado())
+
+
+@app.route('/0-1-1-2-2-modificar_usuario_administrador_crud', methods=["GET", 'POST'])
 def modificar_usuario_administrador_crud():
-    return render_template('0-1-1-2-2-modificar_usuario_administrador_crud.html')
-
+    formulario =FormModificarUsuarioAdmonCRUD(request.form)
+    objeto_usuario = usuario_administrador(formulario.id_usuario.data, formulario.documento.data, formulario.nombre.data, formulario.documento.data, 
+                                'A', formulario.activo.data, formulario.documento.data)
+    objeto_usuario.modificar()
+    return render_template('0-1-1-2-gestion_usuarios_administradores.html', lista=usuario_administrador.listado())
 
 # Fin Navegación Gestion de Usuarios Administradores SA *************************************    
 
 
 # Inicio Navegación Gestion de Usuarios Finales SA **************************************************************************
 
-@app.route('/0-1-1-3-gestion_usuarios_finales')
+@app.route('/0-1-1-3-gestion_usuarios_finales', methods=["GET"])
 def gestion_usuarios_finales():
-    return render_template('0-1-1-3-gestion_usuarios_finales.html')
+    return render_template('0-1-1-3-gestion_usuarios_finales.html', lista=usuario_final.listado())
 
-@app.route('/0-1-1-3-1-agregar_usuario_final_crud')
+@app.route('/0-1-1-3-1-agregar_usuario_final_crud', methods=['GET', 'POST'])
 def agregar_usuario_final_crud():
-    return render_template('0-1-1-3-1-agregar_usuario_final_crud.html')
+    if request.method =="GET":
+        formulario =FormAgregarUsuarioFinalCRUD()
+        return render_template('0-1-1-3-1-agregar_usuario_final_crud.html', form=formulario)
+    else:
+        formulario =FormAgregarUsuarioFinalCRUD(request.form)
+        objeto_usuario = usuario_final(0, formulario.documento.data, formulario.nombre.data, formulario.documento.data, 
+                                'UF', 'SI', formulario.documento.data)
+        # por defecto al agregar un usuario el user y password se cargan por defecto con el documento de identidad
+        if objeto_usuario.insertar():   
+            return render_template('0-1-1-3-gestion_usuarios_finales.html', lista=usuario_final.listado())
+        else:
+            return render_template('0-1-1-3-gestion_usuarios_finales.html', lista=usuario_final.listado())    
+   
+@app.route('/0-1-1-3-2-modificar_eliminar_usuario_final_crud/<id_usuario>/<accion>', methods=["GET", 'POST'])
+def modificar_eliminar_usuario_final_crud(id_usuario,accion):
+    objeto_usuario =usuario_final.cargar(id_usuario)
+    if accion=='modificar':
+        formulario = FormModificarUsuarioFinalCRUD()
+        formulario.id_usuario.data = objeto_usuario.id_usuario
+        formulario.nombre.data = objeto_usuario.nombres
+        formulario.documento.data = objeto_usuario.documento
+        formulario.activo.data = objeto_usuario.activo
+        return render_template('0-1-1-3-2-modificar_usuario_final_crud.html',form = formulario)
+    else:
+        objeto_usuario.eliminar()
+        return render_template('0-1-1-3-gestion_usuarios_finales.html', lista=usuario_final.listado())
 
-@app.route('/0-1-1-3-2-modificar_usuario_final_crud')
+@app.route('/0-1-1-3-2-modificar_usuario_final_crud', methods=["GET", 'POST'])
 def modificar_usuario_final_crud():
-    return render_template('0-1-1-3-2-modificar_usuario_final_crud.html')
+    formulario =FormModificarUsuarioFinalCRUD(request.form)
+    objeto_usuario = usuario_final(formulario.id_usuario.data, formulario.documento.data, formulario.nombre.data, formulario.documento.data, 
+                                'UF', formulario.activo.data, formulario.documento.data)
+    objeto_usuario.modificar()
+    return render_template('0-1-1-3-gestion_usuarios_finales.html', lista=usuario_final.listado())
 
 # Fin Navegación  Gestion de Usuarios Finales SA *************************************   
  
@@ -232,7 +290,6 @@ def cancelar_reservas():
 def crear_reservas():
     return render_template('0-1-3-4-1-crear_reservas.html')
 
-
 # Templates con ruteos actualizados al Git
 # 0-1-3-opciones_usuario_final_registrado (ok)
 #  0-1-3-1-consulta_datos_usuario (ok)
@@ -295,18 +352,46 @@ def modificar_datos_usuario_admin():
 
 
 # Segunda rama de navegación de usuario administrador
-
-@app.route('/0-1-2-2-gestion_usuarios_finales', methods=['GET', 'POST'])
+@app.route('/0-1-2-2-gestion_usuarios_finales', methods=["GET"])
 def gestion_usuarios_finales_admin():
-    return render_template('0-1-2-2-gestion_usuarios_finales.html')
+    return render_template('0-1-2-2-gestion_usuarios_finales.html', lista=usuario_final.listado())
 
 @app.route('/0-1-2-2-1-agregar_usuario_final_crud', methods=['GET', 'POST'])
 def agregar_usuario_final_crud_admin():
-    return render_template('0-1-2-2-1-agregar_usuario_final_crud.html')
+    if request.method =="GET":
+        formulario =FormAgregarUsuarioFinalCRUD()
+        return render_template('0-1-2-2-1-agregar_usuario_final_crud.html', form=formulario)
+    else:
+        formulario =FormAgregarUsuarioFinalCRUD(request.form)
+        objeto_usuario = usuario_final(0, formulario.documento.data, formulario.nombre.data, formulario.documento.data, 
+                                'UF', 'SI', formulario.documento.data)
+        # por defecto al agregar un usuario el user y password se cargan por defecto con el documento de identidad
+        if objeto_usuario.insertar():   
+            return render_template('0-1-2-2-gestion_usuarios_finales.html', lista=usuario_final.listado())
+        else:
+            return render_template('0-1-2-2-gestion_usuarios_finales.html', lista=usuario_final.listado())    
 
-@app.route('/0-1-2-2-2-modificar_usuario_final_crud', methods=['GET', 'POST'])
+@app.route('/0-1-2-2-2-modificar_eliminar_usuario_final_crud/<id_usuario>/<accion>', methods=["GET", 'POST'])
+def modificar_eliminar_usuario_final_crud_admin(id_usuario,accion):
+    objeto_usuario =usuario_final.cargar(id_usuario)
+    if accion=='modificar':
+        formulario = FormModificarUsuarioFinalCRUD()
+        formulario.id_usuario.data = objeto_usuario.id_usuario
+        formulario.nombre.data = objeto_usuario.nombres
+        formulario.documento.data = objeto_usuario.documento
+        formulario.activo.data = objeto_usuario.activo
+        return render_template('0-1-2-2-2-modificar_usuario_final_crud.html',form = formulario)
+    else:
+        objeto_usuario.eliminar()
+        return render_template('0-1-2-2-gestion_usuarios_finales.html', lista=usuario_final.listado())
+
+@app.route('/0-1-2-2-2-modificar_usuario_final_crud', methods=["GET", 'POST'])
 def modificar_usuario_final_crud_admin():
-    return render_template('0-1-2-2-2-modificar_usuario_final_crud.html')
+    formulario =FormModificarUsuarioFinalCRUD(request.form)
+    objeto_usuario = usuario_final(formulario.id_usuario.data, formulario.documento.data, formulario.nombre.data, formulario.documento.data, 
+                                'UF', formulario.activo.data, formulario.documento.data)
+    objeto_usuario.modificar()
+    return render_template('0-1-2-2-gestion_usuarios_finales.html', lista=usuario_final.listado())
 
 # Tercera rama de navegación usuario administrador
 @app.route('/0-1-2-3-gestion_habitaciones', methods=['GET', 'POST'])
