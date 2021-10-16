@@ -3,6 +3,7 @@ from wtforms import validators
 from wtforms.fields.core import DateField, SelectField, StringField, RadioField
 from wtforms.fields.simple import PasswordField, SubmitField
 from wtforms.fields.html5 import DecimalRangeField
+from models import reservas
 
 #Inicio formulario validación en Login#######################################################
 
@@ -33,11 +34,11 @@ class FormCalificarHabitacion(FlaskForm):
 class formreservas(FlaskForm):
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
-    bedroom = SelectField('Habitación', validators=[validators.required()], choices=["", 1, 2, 3]) 
+    lista = reservas.listado_choices_habitaciones()
+    bedroom = SelectField('Habitación', validators=[validators.required()], choices=['', 1, 2, 3]) 
     #Cambiar el select a Dinámico, podría ser un objeto de tipo habitación 
     # aplicando un método tipo listado
-    consult = SubmitField('Consultar')
-    cancel = SubmitField('Cancelar') # Esta es que hace la función Delete Crear un 
+    consult = SubmitField('Consultar') 
 
 
 # HTML donde deben completarse los formularios para implementar el CRUD Reservas:

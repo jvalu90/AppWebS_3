@@ -60,6 +60,12 @@ class reservas():
         sql = "SELECT * FROM tbl_reservas WHERE id_habitacion =? AND fecha_inicial >=? AND fecha_final <=?;"
         return db.ejecutar_select(sql, [pid_habitacion, pfecha_inicial, pfecha_final ])
 
+    # Se utiliza en la vista 0-1-3-4 / app.py modulo_reservas
+    @staticmethod
+    def listado_choices_habitaciones():
+        sql = "SELECT * FROM tbl_habitaciones ORDER BY id_habitacion;"
+        return db.ejecutar_select(sql, None)
+
     #def actualizar(self):
         #Pendiente desarrollar 
 
