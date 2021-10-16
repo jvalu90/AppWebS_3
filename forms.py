@@ -37,7 +37,7 @@ class formreservas(FlaskForm):
     #Cambiar el select a Dinámico, podría ser un objeto de tipo habitación 
     # aplicando un método tipo listado
     consult = SubmitField('Consultar')
-    cancel = SubmitField('Cancelar') # Esta es que hace la función Delete
+    cancel = SubmitField('Cancelar') # Esta es que hace la función Delete Crear un 
 
 
 # HTML donde deben completarse los formularios para implementar el CRUD Reservas:
