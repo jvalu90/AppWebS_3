@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import validators
 from wtforms.fields.core import DateField, SelectField, StringField, RadioField
-from wtforms.fields.simple import PasswordField, SubmitField
+from wtforms.fields.simple import PasswordField, SubmitField,HiddenField
 from wtforms.fields.html5 import DecimalRangeField
-from models import reservas
+from models import reservas,usuario_final,usuario_administrador
 
 #Inicio formulario validación en Login#######################################################
 
@@ -30,7 +30,6 @@ class FormCalificarHabitacion(FlaskForm):
 # INICIO CLASES Y FUNCIONES RELACIONADAS CON EL CRUD RESERVAS ##################################
 
 # 0-1-3-4-modulo_reservas
-
 class formreservas(FlaskForm):
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
@@ -78,6 +77,31 @@ class formreservas(FlaskForm):
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD CALIFICACION #################################
 
 # INICIO CLASES Y FUNCIONES RELACIONADAS CON EL CRUD USUARIOS ##################################
+# Formularios Gestion usuarios 
+class FormAgregarUsuarioFinalCRUD(FlaskForm):
+    nombre = StringField('Nombres Completos') 
+    usuario = StringField('Usuario') 
+    documento = StringField('Documento') 
+    enviar = SubmitField('Agregar') 
 
+class FormModificarUsuarioFinalCRUD(FlaskForm):
+    id_usuario = HiddenField('id_usuario') 
+    nombre = StringField('Nombres Completos') 
+    documento = StringField('Documento') 
+    activo= RadioField('Activo', choices=[('SI','SI'),('NO','NO')])
+    enviar = SubmitField('Modificar') 
+
+class FormAgregarUsuarioAdmonCRUD(FlaskForm):
+    nombre = StringField('Nombres Completos') 
+    usuario = StringField('Usuario') 
+    documento = StringField('Documento') 
+    enviar = SubmitField('Agregar') 
+
+class FormModificarUsuarioAdmonCRUD(FlaskForm):
+    id_usuario = HiddenField('id_usuario') 
+    nombre = StringField('Nombres Completos') 
+    documento = StringField('Documento') 
+    activo= RadioField('Activo', choices=[('SI','SI'),('NO','NO')])
+    enviar = SubmitField('Modificar') 
 
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD USUARIOS #####################################
