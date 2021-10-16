@@ -73,6 +73,13 @@
         <div class="row">             
               {{ form.enviar(class="btn btn-outline-dark") }}
         </div> 
+
+        <div class="row">             
+          {% if mensaje %}
+            {{ mensaje }}
+          {% endif %}
+        </div>
+
       </form> 
 
       <div class="row">

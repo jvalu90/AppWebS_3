@@ -177,9 +177,9 @@ def modulo_reservas():
     else:  
         formulario = formreservas(request.form)
         if formulario.validate_on_submit():
-            #Aquí es necesario llamar los campos del formulario.#nombre.data para enviar a los parámetros de listado
-            return render_template('0-1-3-4-modulo_reservas.html', form=formulario, lista=reservas.listado(), mostrar = 1)
-            #Pendiente desarrollar los métodos validadores aquí
+            return render_template('0-1-3-4-modulo_reservas.html', form=formulario, 
+                    lista=reservas.listado(0, formulario.bedroom.data, formulario.initialdate.data, 
+                    formulario.finaldate.data), mostrar = 1)
         return render_template('0-1-3-4-modulo_reservas.html', mensaje="Todos los campos son obligatorios.", form=formulario)
 
 @app.route('/0-1-3-1-1-modificar_datos_usuario', methods=['GET', 'POST'])

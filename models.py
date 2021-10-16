@@ -44,7 +44,7 @@ class reservas():
         
         return None
 
-    def insertar(self):
+    def insertar(self): # Pendiente verificar conforme la vista
         sql = "INSERT INTO tbl_reservas (comentario, calificacion, fecha_inicial,fecha_final, activo, comentario_restringido) VALUES (?,?,?,?,?,?);"
         afectadas = db.ejecutar_insert(sql, [self.comentario, self.calificacion, self.fecha_inicial, self.fecha_final, self.activo, self.comentario_restringido])
         return ( afectadas > 0 )
@@ -55,9 +55,9 @@ class reservas():
         return ( afectadas > 0 )
 
     
-    def listado(self):
-        sql = "SELECT * FROM tbl_reservas WHERE fecha_inicial =? OR fecha_final =?;"
-        return db.ejecutar_select(sql, [self.fecha_inicial, self.fecha_final ])
+    def listado(self, pid_habitacion, pfecha_inicial, pfecha_final):
+        sql = "SELECT * FROM tbl_reservas WHERE id_habitacion =? AND fecha_inicial >=? AND fecha_final <=?;"
+        return db.ejecutar_select(sql, [pid_habitacion, pfecha_inicial, pfecha_final ])
 
     #def actualizar(self):
         #Pendiente desarrollar 

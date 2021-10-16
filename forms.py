@@ -33,7 +33,7 @@ class FormCalificarHabitacion(FlaskForm):
 class formreservas(FlaskForm):
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
-    bedroom = SelectField('Habitación', validators=[validators.required()], choices=["", 101, 102, 103])
+    bedroom = SelectField('Habitación', validators=[validators.required()], choices=["", 1, 2, 3])
     #Cambiar el select a Dinámico
     consult = SubmitField('Consultar')
     cancel = SubmitField('Cancelar')
