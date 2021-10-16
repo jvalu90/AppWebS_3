@@ -49,12 +49,13 @@ class reservas():
         afectadas = db.ejecutar_insert(sql, [self.comentario, self.calificacion, self.fecha_inicial, self.fecha_final, self.activo, self.comentario_restringido])
         return ( afectadas > 0 )
 
-    def eliminar(self):
+    def eliminar(self): #Pendiente verificar conforme la vista
         sql = "DELETE tbl_reservas WHERE id_reserva = ?;"
         afectadas = db.ejecutar_insert(sql, [ self.id_reserva])
         return ( afectadas > 0 )
 
     
+    # Se utiliza en la vista 0-1-3-4 / app.py modulo_reservas
     def listado(self, pid_habitacion, pfecha_inicial, pfecha_final):
         sql = "SELECT * FROM tbl_reservas WHERE id_habitacion =? AND fecha_inicial >=? AND fecha_final <=?;"
         return db.ejecutar_select(sql, [pid_habitacion, pfecha_inicial, pfecha_final ])
