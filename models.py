@@ -87,6 +87,107 @@ class reservas():
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD CALIFICACION #################################
 
 # INICIO CLASES Y FUNCIONES RELACIONADAS CON EL CRUD USUARIOS ##################################
+# Tipos de Usuario:
+# Inicio Clase Usuario Final  *************************************
+class usuario_final():
+    id_usuario=0
+    documento=''
+    nombres=''
+    contrasena=''
+    tipo_usuario='UF'
+    activo='SI'
+    usuario=''
 
+    def __init__(self, pid_usuario, pdocumento,  pnombres, pcontrasena ,ptipo_usuario , pactivo, pusuario) -> None:
+       self.id_usuario=pid_usuario
+       self.documento=pdocumento
+       self.nombres=pnombres
+       self.contrasena=pcontrasena
+       self.tipo_usuario=ptipo_usuario
+       self.activo=pactivo
+       self.usuario=pusuario
+    
+    @classmethod
+    def cargar(cls, pid_usuario):
+        sql = "SELECT * FROM tbl_usuarios WHERE id_usuario = ?;"
+        resultado = db.ejecutar_select(sql, [ pid_usuario ])
+        if resultado:
+            if len(resultado)>0:
+                return cls(pid_usuario, resultado[0]["documento"], 
+                resultado[0]["nombres"], resultado[0]["contrasena"],
+                resultado[0]["tipo_usuario"], resultado[0]["activo"], resultado[0]["usuario"])
+        return None
+
+    def insertar(self):
+        sql = "INSERT INTO tbl_usuarios (documento,nombres,contrasena,tipo_usuario,activo,usuario) VALUES (?,?,?,?,?,?);"
+        afectadas = db.ejecutar_insert(sql, [self.documento, self.nombres,self.contrasena, self.tipo_usuario, self.activo, self.usuario])
+        return ( afectadas > 0 )
+
+    def eliminar(self):
+        sql = "DELETE FROM tbl_usuarios WHERE id_usuario = ?;"
+        #sql = "DELETE FROM tbl_usuarios WHERE id_usuario = "+self.id_usuario+";"
+        afectadas = db.ejecutar_insert(sql, [ self.id_usuario ])
+        return ( afectadas > 0 )
+
+    def modificar(self):
+        sql = "UPDATE tbl_usuarios SET documento = ?, nombres = ?, contrasena = ?, tipo_usuario = ?, activo = ?, usuario = ? WHERE id_usuario = ?;"
+        afectadas = db.ejecutar_insert(sql, [ self.documento, self.nombres, self.contrasena, self.tipo_usuario, self.activo, self.usuario , self.id_usuario])
+        return ( afectadas > 0 )
+    
+    @staticmethod
+    def listado():
+        sql = "SELECT * FROM tbl_usuarios WHERE tipo_usuario='UF' ORDER BY id_usuario;"
+        return db.ejecutar_select(sql, None)
+# Fin Clase Usuario Final  *************************************************************************************************************************************
+# Inicio Clase Usuario Administrador  **************************************************************************************************************************
+class usuario_administrador():
+    id_usuario=0
+    documento=''
+    nombres=''
+    contrasena=''
+    tipo_usuario='A'
+    activo='SI'
+    usuario=''
+
+    def __init__(self, pid_usuario, pdocumento,  pnombres, pcontrasena ,ptipo_usuario , pactivo, pusuario) -> None:
+       self.id_usuario=pid_usuario
+       self.documento=pdocumento
+       self.nombres=pnombres
+       self.contrasena=pcontrasena
+       self.tipo_usuario=ptipo_usuario
+       self.activo=pactivo
+       self.usuario=pusuario
+    
+    @classmethod
+    def cargar(cls, pid_usuario):
+        sql = "SELECT * FROM tbl_usuarios WHERE id_usuario = ?;"
+        resultado = db.ejecutar_select(sql, [ pid_usuario ])
+        if resultado:
+            if len(resultado)>0:
+                return cls(pid_usuario, resultado[0]["documento"], 
+                resultado[0]["nombres"], resultado[0]["contrasena"],
+                resultado[0]["tipo_usuario"], resultado[0]["activo"], resultado[0]["usuario"])
+        return None
+
+    def insertar(self):
+        sql = "INSERT INTO tbl_usuarios (documento,nombres,contrasena,tipo_usuario,activo,usuario) VALUES (?,?,?,?,?,?);"
+        afectadas = db.ejecutar_insert(sql, [self.documento, self.nombres,self.contrasena, self.tipo_usuario, self.activo, self.usuario])
+        return ( afectadas > 0 )
+
+    def eliminar(self):
+        sql = "DELETE FROM tbl_usuarios WHERE id_usuario = ?;"
+        afectadas = db.ejecutar_insert(sql, [ self.id_usuario ])
+        return ( afectadas > 0 )
+
+    def modificar(self):
+        sql = "UPDATE tbl_usuarios SET documento = ?, nombres = ?, contrasena = ?, tipo_usuario = ?, activo = ?, usuario = ? WHERE id_usuario = ?;"
+        afectadas = db.ejecutar_insert(sql, [ self.documento, self.nombres, self.contrasena, self.tipo_usuario, self.activo, self.usuario , self.id_usuario])
+        return ( afectadas > 0 )
+    
+    @staticmethod
+    def listado():
+        sql = "SELECT * FROM tbl_usuarios WHERE tipo_usuario='A' ORDER BY id_usuario;"
+        return db.ejecutar_select(sql, None)        
+# Fin Clase Usuario Administrador  **************************************************************************************************************************
 
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD USUARIOS #####################################
