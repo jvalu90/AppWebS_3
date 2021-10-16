@@ -172,6 +172,7 @@ def consulta_habitaciones_disponibles_usuario_final():
 def modulo_reservas():
     if request.method =="GET":
         formulario =formreservas()
+        #FORMULARIO.BEDROOM.CHOICES 
         return render_template('0-1-3-4-modulo_reservas.html', form=formulario, mostrar = 0)
 
     else:  
