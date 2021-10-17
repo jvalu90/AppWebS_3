@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>RAFFLES HOTEL YACARTA - Grupo 20 Equipo 1</title>
+    <!--Este estilo puede referenciarse en todas los Mockups-->
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/estilos/estilos.css'>
+    <script src='../static/scripts/scripts.js'></script>
+</head>
+<body>
+    <div class="container">
+      <form method="POST" action="{{ url_for('crear_reservas_admin') }}" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="row">
+          <br>
+        </div>
+        <div class="row" id = "encabezado">
+          <h1 class="text-center">RAFFLES HOTEL YACARTA</h1>
+        </div>
+        <div class="row">
+          <h2 class="text-center">Nueva Reserva Administrador</h2>
+        </div>      
+
+        <div class="row">
+          <h3 class="text-center">Usuario Final: Faustino Asprilla</h3> 
+          <!--Faustino asprilla debe cambiarse por el usuario que hace el Login-->
+        </div>
+
+        <div class="row">
+          <div class="col">
+            {{ form.bedroom.label }}
+            <!--<p class="text-left">Habitación</p>-->
+          </div>
+          <div class="col">
+            {{ form.bedroom(class="form-select") }}            
+            <!--<select class="form-select" aria-label="Default select example">
+              <option selected>Elija la habitación</option>
+              <option value="1">101</option>
+              <option value="2">102</option>
+              <option value="3">103</option>
+            </select>-->
+            <!--Estas opciones deberían interactuar con las creadas en la base de datos-->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            {{ form.user.label }}
+          </div>
+          <div class="col">
+            {{ form.user(class="form-select") }}            
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            {{ form.initialdate.label }}
+            <!--<p class="text-left">Fecha Inicial</p>-->
+          </div> 
+          <div class="col">
+            {{ form.initialdate(type="date", class="form-control") }}
+            <!--<input type="date" class="form-control">-->
+          </div>
+          </div>
+
+        <div class="row">
+          <div class="col">
+            {{ form.finaldate.label }}
+            <!--<p class="text-left">Fecha Final</p>-->
+          </div> 
+          <div class="col">
+            {{ form.finaldate(type="date", class="form-control") }}
+            <!--<input type="date" class="form-control">-->
+          </div>        
+        </div>
+
+        <div class="row">
+          <div class="col">
+            {{ form.comment.label }}
+            <!--<p class="text-left">Observaciones</p>-->
+          </div>      
+        </div>
+
+        <div class="row">
+          <div class="col">
+            {{ form.comment(class="form-control") }}
+            <!--<input type="text" class="form-control">-->
+          </div>        
+        </div>
+
+        <div class="row">
+          <br>
+        </div>
+
+        <div class="row">             
+          {{ form.newreservation(class="btn btn-outline-dark") }}
+        </div> 
+
+        <div class="row">
+          <br>
+        </div>
+
+        <div class="row">
+          {% if mensaje %}
+            {{ mensaje }}
+          {% endif %}
+        </div>
+
+        <div class="row">
+          <br>
+        </div>
+
+        <div class="row">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <!--<a class="btn btn-outline-dark" href="0-1-3-4-modulo_reservas.html" ole="button">Cancelar</a>-->
+            <a class="btn btn-outline-dark" href="{{url_for('consulta_reservas_admin')}}" ole="button">Cancelar</a>
+            <!--<a class="btn btn-outline-dark" href="0-1-3-4-modulo_reservas.html" role="button">Ir a Anterior</a>-->
+            <a class="btn btn-outline-dark" href="{{url_for('consulta_reservas_admin')}}" role="button">Ir a Anterior</a>
+            <!--Revisar cuál es el link anterior-->
+            <!--<a class="btn btn-outline-dark" href="0-inicio.html" role="button">Ir a Inicio</a>-->
+            <a class="btn btn-outline-dark" href="{{url_for('inicio')}}" role="button">Ir a Inicio</a>  
+          </div> 
+        </div>
+      </form>      
+    </div>
+  </body>
+</html>

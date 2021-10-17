@@ -29,6 +29,7 @@ class FormCalificarHabitacion(FlaskForm):
 
 # INICIO CLASES Y FUNCIONES RELACIONADAS CON EL CRUD RESERVAS ##################################
 
+#Usuario Final
 # 0-1-3-4-modulo_reservas
 class formreservas(FlaskForm):
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
@@ -76,6 +77,53 @@ class formcancelarreserva(FlaskForm):
     comment = TextAreaField('Comentario Hospedaje Previo', validators=[validators.required(), validators.length(max=200)]) 
     cancelreservation = SubmitField('Cancelar Reserva') 
 
+# Usuario Administrador
+# 0-1-2-3-4-consulta_reservas
+class formreservasadmin(FlaskForm):
+    initialdate = DateField('Fecha Inicial', validators=[validators.required()])
+    finaldate = DateField('Fecha Final', validators=[validators.required()])
+    lista = reservas.listado_choices_habitaciones()
+    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3]) 
+    #Cambiar el select a Dinámico, podría ser un objeto de tipo habitación 
+    # aplicando un método tipo listado
+    consult = SubmitField('Consultar')
+
+# 0-1-2-3-4-1-crear_reservas
+class formreservanuevaadmin(FlaskForm):
+    lista_habitaciones = reservas.listado_choices_habitaciones()
+    lista_usuarios = reservas.listado_choices_usuarios()
+    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3])
+    user = SelectField('ID Usuario', validators=[validators.required()], choices=['', 4, 5, 6])
+    initialdate = DateField('Fecha Inicial', validators=[validators.required()])
+    finaldate = DateField('Fecha Final', validators=[validators.required()])
+    comment = TextAreaField('Comentario Hospedaje', validators=[validators.required(), validators.length(max=200)]) 
+    #Cambiar el select a Dinámico, podría ser un objeto de tipo habitación 
+    # aplicando un método tipo listado
+    newreservation = SubmitField('Reservar')
+
+# 0-1-2-3-4-2-modificar_reservas 
+class formmodificarreservaadmin(FlaskForm):
+    lista_habitaciones = reservas.listado_choices_habitaciones()
+    bedroom = StringField('ID Habitación', validators=[validators.required()])
+    initialdate = StringField('Fecha Inicial', validators=[validators.required()])
+    finaldate = StringField('Fecha Final', validators=[validators.required()])
+    comment = TextAreaField('Comentario Hospedaje Previo', validators=[validators.required(), validators.length(max=200)]) 
+    newbedroom = SelectField('Nuevo ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3])
+    newinitialdate = DateField('Nueva Fecha Inicial', validators=[validators.required()])
+    newfinaldate = DateField('Nueva Fecha Final', validators=[validators.required()])
+    newcomment = TextAreaField('Nuevo Comentario Hospedaje', validators=[validators.required(), validators.length(max=200)]) 
+    #Cambiar el select a Dinámico, podría ser un objeto de tipo habitación 
+    # aplicando un método tipo listado
+    modifyreservation = SubmitField('Modificar Reserva') 
+
+# 0-1-2-3-4-3-cancelar_reservas
+class formcancelarreservaadmin(FlaskForm):
+    bedroom = StringField('ID Habitación', validators=[validators.required()])
+    initialdate = StringField('Fecha Inicial', validators=[validators.required()])
+    finaldate = StringField('Fecha Final', validators=[validators.required()])
+    comment = TextAreaField('Comentario Hospedaje Previo', validators=[validators.required(), validators.length(max=200)]) 
+    cancelreservation = SubmitField('Cancelar Reserva')
+
 # HTML donde deben completarse los formularios para implementar el CRUD Reservas:
 
 # USUARIO FINAL
@@ -85,14 +133,16 @@ class formcancelarreserva(FlaskForm):
 # 0-1-3-4-3-cancelar_reservas OK
 
 # ADMINISTRADOR
-# 0-1-2-3-4-consulta_reservas
-# 0-1-2-3-4-1-crear_reservas
-# 0-1-2-3-4-2-modificar_reservas
-# 0-1-2-3-4-3-cancelar_reservas
+# 0-1-2-3-4-consulta_reservas OK
+# 0-1-2-3-4-1-crear_reservas OK
+# 0-1-2-3-4-2-modificar_reservas OK
+# 0-1-2-3-4-3-cancelar_reservas OK
 
 # SUPER ADMINISTRADOR
-# 0-1-1-4-gestion_habitaciones
 # 0-1-1-4-4-consulta_reservas
+# 0-1-1-4-4-1-crear_reservas
+# 0-1-1-4-4-2-modificar_reservas
+# 0-1-1-4-4-3-cancelar_reservas
 
 # USUARIO INVITADO
 # No tiene CRUD Reservas

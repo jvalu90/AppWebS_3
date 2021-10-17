@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask.templating import render_template
-from forms import formcancelarreserva, formlogin, FormCalificarHabitacion, formmodificarreserva, formreservanueva, formreservas, formcancelarreserva, formreservasadmin, FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD
+from forms import formcancelarreserva, formlogin, FormCalificarHabitacion, formmodificarreserva, formreservanueva, formreservas, formcancelarreserva, formreservasadmin, formreservanuevaadmin
+from forms import formmodificarreservaadmin, formcancelarreservaadmin,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD
 import os
 from models import reservas,usuario_final,usuario_administrador,login
 
@@ -526,7 +527,109 @@ def consulta_comentarios_habitacion_usuario_admin():
 
 @app.route('/0-1-2-3-4-consulta_reservas', methods=['GET', 'POST'])
 def consulta_reservas_admin():
-    return render_template('0-1-2-3-4-consulta_reservas.html')
+    if request.method =="GET":
+        formulario =formreservasadmin()
+        lista = reservas.listado_choices_habitaciones()
+        #for i in lista:
+            #lista_choices = lista[0][i]
+        # Aquí es necesario crear el vector de choices
+        #FORMULARIO.BEDROOM.CHOICES 
+        return render_template('0-1-2-3-4-consulta_reservas.html', form=formulario, mostrar = 0)
+
+    else:  
+        formulario = formreservasadmin(request.form)
+        if formulario.validate_on_submit():
+            return render_template('0-1-2-3-4-consulta_reservas.html', form=formulario, 
+                    lista=reservas.listado(0, formulario.bedroom.data, formulario.initialdate.data, 
+                    formulario.finaldate.data), mostrar = 1)
+        return render_template('0-1-2-3-4-consulta_reservas.html', mensaje="Todos los campos son obligatorios.", form=formulario)
+
+@app.route('/0-1-2-3-4-1-crear_reservas', methods=['GET', 'POST'])
+def crear_reservas_admin():
+    if request.method == "GET":
+        formulario = formreservanuevaadmin()
+        return render_template('0-1-2-3-4-1-crear_reservas.html', form = formulario)
+    
+    else:
+        formulario = formreservanuevaadmin(request.form)
+        if formulario.validate_on_submit():
+            objeto_reserva = reservas(0, formulario.bedroom.data,
+            formulario.user.data, formulario.comment.data, None,
+            formulario.initialdate.data, formulario.finaldate.data,
+             'SI', 'NO')
+            
+            if objeto_reserva.insertar():
+                return render_template('0-1-2-3-4-1-crear_reservas.html',
+                mensaje="Su reserva se ha realizado con exito, si quiere realizar una nueva reserva actualice los campos anteriores", 
+                form = formulario)
+            else:
+                return render_template('0-1-2-3-4-1-crear_reservas.html', 
+                mensaje="Su reserva no se pudo realizar, por favor intente nuevamente.", form = formulario)
+        return render_template('0-1-2-3-4-1-crear_reservas.html', mensaje="Todos los campos son obligatorios", form=formulario)
+
+@app.route('/0-1-2-3-4-2-modificar_reservas/<id_reserva_modificar>', methods=['GET', 'POST'])
+def modificar_reservas_admin(id_reserva_modificar):
+    if request.method == "GET":
+        formulario = formmodificarreservaadmin()
+        objeto_reserva = reservas.cargar(id_reserva_modificar)
+        if objeto_reserva:
+            formulario.bedroom.data = objeto_reserva.id_habitacion
+            formulario.initialdate.data = objeto_reserva.fecha_inicial
+            formulario.finaldate.data = objeto_reserva.fecha_final
+            formulario.comment.data = objeto_reserva.comentario
+            return render_template('0-1-2-3-4-2-modificar_reservas.html',id_reserva=id_reserva_modificar, form = formulario)
+
+        return render_template('0-1-2-3-4-2-modificar_reservas.html',id_reserva=id_reserva_modificar, mensaje="No se encontró una reserva para el id especificado.")
+
+    else:
+        formulario =formmodificarreservaadmin(request.form)
+
+        if formulario.validate_on_submit():
+
+            objeto_reserva = reservas.cargar(id_reserva_modificar)
+            objeto_reserva.id_habitacion = formulario.newbedroom.data
+            objeto_reserva.fecha_inicial = formulario.newinitialdate.data
+            objeto_reserva.fecha_final = formulario.newfinaldate.data
+            objeto_reserva.comentario = formulario.newcomment.data
+
+            if objeto_reserva.actualizar():
+                return render_template('0-1-2-3-4-2-modificar_reservas.html',id_reserva=id_reserva_modificar, form = formulario,
+                mensaje="Su reserva ha sido actualizada.")
+
+            else:
+                return render_template('0-1-2-3-4-2-modificar_reservas.html',id_reserva=id_reserva_modificar, form=formulario, 
+                mensaje="No se pudo actualizar la reserva. Por favor intentelo nuevamente.")
+        
+        return render_template('0-1-2-3-4-2-modificar_reservas.html', id_reserva=id_reserva_modificar, form=formulario, mensaje="Todos los datos son obligatorios.")
+
+@app.route('/0-1-2-3-4-3-cancelar_reservas/<id_reserva_cancelar>', methods=['GET', 'POST'])
+def cancelar_reservas_admin(id_reserva_cancelar):
+    if request.method == "GET":
+        formulario = formcancelarreservaadmin()
+        objeto_reserva = reservas.cargar(id_reserva_cancelar)
+        if objeto_reserva:
+            formulario.bedroom.data = objeto_reserva.id_habitacion
+            formulario.initialdate.data = objeto_reserva.fecha_inicial
+            formulario.finaldate.data = objeto_reserva.fecha_final
+            formulario.comment.data = objeto_reserva.comentario
+            return render_template('0-1-2-3-4-3-cancelar_reservas.html',id_reserva=id_reserva_cancelar, form = formulario)
+
+        return render_template('0-1-2-3-4-3-cancelar_reservas.html',id_reserva=id_reserva_cancelar, mensaje="No se encontró una reserva para el id especificado.")
+
+    else:
+        formulario =formcancelarreservaadmin(request.form)
+
+        if formulario.validate_on_submit():
+            objeto_reserva = reservas.cargar(id_reserva_cancelar)
+            if objeto_reserva.eliminar():
+                return render_template('0-1-2-3-4-3-cancelar_reservas.html',id_reserva=id_reserva_cancelar, form = formulario,
+                mensaje="Su reserva ha sido cancelada.")
+
+            else:
+                return render_template('0-1-2-3-4-3-cancelar_reservas.html',id_reserva=id_reserva_cancelar, form=formulario, 
+                mensaje="No se pudo cancelar la reserva. Por favor intentelo nuevamente.")
+        
+        return render_template('0-1-2-3-4-3-cancelar_reservas.html', id_reserva=id_reserva_cancelar, form=formulario, mensaje="Todos los campos son obligatorios.")
 
 # ********************************************************
 # ********** Fin Navegación usuario Adminsitrador ********
