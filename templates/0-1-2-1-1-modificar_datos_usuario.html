@@ -11,67 +11,68 @@
     <script src='../static/scripts/scripts.js'></script>
 </head>
 <body>
-    <div class="container">
+  <div class="container">
+    <form method="POST" action="" novalidate>
+    <div class="row">
+      <br>
+      {{ form.id_usuario() }}  
+    </div>
+    <div class="row" id = "encabezado">
+      <h1 class="text-center">RAFFLES HOTEL YACARTA</h1>
+    </div>
+    <div class="row">
+      <h2 class="text-center">Modificar Datos de la cuenta del usuario administrador registrado</h2>
+    </div>
 
-      <div class="row">
-        <br>
+    <div class="row">
+      <div class="col">
+        <p class="text-center">Nombre </p>
       </div>
-      <div class="row" id = "encabezado">
-        <h1 class="text-center">RAFFLES HOTEL YACARTA</h1>
+      <div class="col">
+        {{ form.nombre(class="form-control") }}
       </div>
-      <div class="row">
-        <h2 class="text-center">Modificar Datos de la cuenta del usuario</h2>
-      </div>
+    </div>
 
-      <div class="row">
-        <div class="col">
-          <p class="text-center">Nombre </p>
-        </div>
-        <div class="col">
-          <input type="text" class="form-control">
-        </div>
+    <div class="row">
+      <div class="col">
+        <p class="text-center">Usuario </p>
       </div>
+      <div class="col">
+        {{ form.usuario(class="form-control") }}
+      </div>
+    </div>
 
-      <div class="row">
-        <div class="col">
-          <p class="text-center">Usuario </p>
-        </div>
-        <div class="col">
-          <input type="text" class="form-control">
-        </div>
+    <div class="row">
+      <div class="col">
+        <p class="text-center">Documento </p>
       </div>
+      <div class="col">
+        {{ form.documento(class="form-control") }}
+      </div>
+    </div>
 
-      <div class="row">
-        <div class="col">
-          <p class="text-center">Documento </p>
-        </div>
-        <div class="col">
-          <input type="text" class="form-control">
-        </div>
+    <div class="row">
+      <div class="col">
+        <p class="text-center">Contraseña </p>
       </div>
-
-      <div class="row">
-        <div class="col">
-          <p class="text-center">Contraseña </p>
-        </div>
-        <div class="col">
-          <input type="text" class="form-control">
-        </div>
+      <div class="col">
+        {{ form.contrasena1(class="form-control") }}
       </div>
+    </div>
 
 
-      <div class="row">
-        <div class="col">
-          <p class="text-center">Digite otra vez la contraseña </p>
-        </div>
-        <div class="col">
-          <input type="text" class="form-control">
-        </div>
+    <div class="row">
+      <div class="col">
+        <p class="text-center">Digite otra vez la contraseña </p>
       </div>
+      <div class="col">
+        {{ form.contrasena2(class="form-control") }}
+      </div>
+    </div>
 
-      <div class="row">
-        <br>
-      </div>
+    <div class="row">
+      <br>
+    </div>
 
           <div class="row">
             <div class="btn-group" role="group" aria-label="Basic example">
@@ -98,7 +99,7 @@
           </div>  
 
         </div>
+      </form>      
     </div>
-    
 </body>
 </html>
