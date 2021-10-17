@@ -242,4 +242,15 @@ class FormModificarUsuarioAdmonCRUD(FlaskForm):
     activo= RadioField('Activo', choices=[('SI','SI'),('NO','NO')])
     enviar = SubmitField('Modificar') 
 
+class FormModificarUsuarioRegistrado(FlaskForm):
+    id_usuario = HiddenField('id_usuario') 
+    nombre = StringField('Nombres Completos') 
+    documento = StringField('Documento') 
+    usuario = StringField('Usuario') 
+    contrasena1 = PasswordField('Contraseña 1')
+    contrasena2 = PasswordField('Contraseña 2')
+    enviar = SubmitField('Modificar')
+    
+    
+    
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD USUARIOS #####################################
