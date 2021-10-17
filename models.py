@@ -111,6 +111,12 @@ class login():
             if len(resultado)>0:
                 return cls(pusuario, pcontrasena, ptipo_usuario,'SI', resultado[0]["id_usuario"])
         return None
+
+    @staticmethod
+    def datos_usuario_logueado(id_usuario):
+        sql = "SELECT * FROM tbl_usuarios WHERE id_usuario="+str(id_usuario)+";"
+        return db.ejecutar_select(sql, None)
+    
 # Fin Logueo en la aplicacion
 
 # Tipos de Usuario:
