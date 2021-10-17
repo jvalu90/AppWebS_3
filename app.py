@@ -123,7 +123,7 @@ def consulta_datos_usuario():
 #def modificar_datos_usuario_SA():
 #    return render_template('0-1-1-1-1-modificar_datos_usuario.html')    
 
-@app.route('/0-1-1-1-1-modificar_datos_usuario')
+@app.route('/0-1-1-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
 def modificar_datos_usuario_SA():
     if request.method =="GET":    
         objeto_usuario =usuario_final.cargar(session['id_usuario_logueado'])
@@ -512,8 +512,6 @@ def modificar_datos_usuario():
         return render_template('0-1-3-1-1-modificar_datos_usuario.html', form=formulario)
     else:
         formulario =FormModificarUsuarioRegistrado(request.form)
-        print(formulario.id_usuario.data)
-        print(formulario.documento.data)
         objeto_usuario = usuario_final(session['id_usuario_logueado'], formulario.documento.data, formulario.nombre.data, formulario.contrasena1.data, 
                                 'UF', 'SI', formulario.usuario.data)
         objeto_usuario.modificar()
@@ -622,6 +620,7 @@ def modificar_datos_usuario_admin():
         formulario =FormModificarUsuarioRegistrado(request.form)
         objeto_usuario = usuario_administrador(session['id_usuario_logueado'], formulario.documento.data, formulario.nombre.data, formulario.contrasena1.data, 
                                 'A', 'SI', formulario.usuario.data)
+                                
         objeto_usuario.modificar()
         return render_template('0-1-2-1-consulta_datos_usuario.html',lista=login.datos_usuario_logueado(session['id_usuario_logueado']))
 
