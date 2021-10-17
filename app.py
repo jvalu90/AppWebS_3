@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask.templating import render_template
-from forms import formlogin, FormCalificarHabitacion, formreservanueva, formreservas,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD
+from forms import formlogin, FormCalificarHabitacion, formmodificarreserva, formreservanueva, formreservas,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD
 import os
 from models import reservas,usuario_final,usuario_administrador,login
 
@@ -306,6 +306,48 @@ def crear_reservas():
                 mensaje="Su reserva no se pudo realizar, por favor intente nuevamente.", form = formulario)
         return render_template('0-1-3-4-1-crear_reservas.html', mensaje="Todos los campos son obligatorios", form=formulario)
 
+@app.route('/0-1-3-4-2-modificar_reservas/<id_reserva_modificar>', methods=['GET', 'POST'])
+def modificar_reservas(id_reserva_modificar):
+    if request.method == "GET":
+        formulario = formmodificarreserva()
+        objeto_reserva = reservas.cargar(id_reserva_modificar)
+        if objeto_reserva:
+            formulario.bedroom.data = objeto_reserva.id_habitacion
+            formulario.initialdate.data = objeto_reserva.fecha_inicial
+            formulario.finaldate.data = objeto_reserva.fecha_final
+            formulario.comment.data = objeto_reserva.comentario
+            return render_template('0-1-3-4-2-modificar_reservas.html',id_reserva=id_reserva_modificar, form = formulario)
+
+        return render_template('0-1-3-4-2-modificar_reservas.html',id_reserva=id_reserva_modificar, mensaje="No se encontró una reserva para el id especificado.")
+
+    else:
+        formulario =formmodificarreserva(request.form)
+
+        if formulario.validate_on_submit():
+
+            objeto_reserva = reservas.cargar(id_reserva_modificar)
+            objeto_reserva.id_habitacion = formulario.newbedroom.data
+            objeto_reserva.fecha_inicial = formulario.newinitialdate.data
+            objeto_reserva.fecha_final = formulario.newfinaldate.data
+            objeto_reserva.comentario = formulario.newcomment.data
+
+            if objeto_reserva.actualizar():
+                return render_template('0-1-3-4-2-modificar_reservas.html',id_reserva=id_reserva_modificar, form = formulario,
+                mensaje="Su reserva ha sido actualizada.")
+
+            else:
+                return render_template('0-1-3-4-2-modificar_reservas.html',id_reserva=id_reserva_modificar, form=formulario, 
+                mensaje="No se pudo actualizar la reserva. Por favor intentelo nuevamente.")
+        
+        return render_template('0-1-3-4-2-modificar_reservas.html', id_reserva=id_reserva_modificar, form=formulario, mensaje="Todos los datos son obligatorios.")
+
+
+
+
+@app.route('/0-1-3-4-3-cancelar_reservas', methods=['GET', 'POST'])
+def cancelar_reservas():
+    return render_template('0-1-3-4-3-cancelar_reservas.html')
+
 @app.route('/0-1-3-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
 def modificar_datos_usuario():
     return render_template('0-1-3-1-1-modificar_datos_usuario.html')
@@ -338,14 +380,6 @@ def calificar_habitaciones(codigo_habitacion,codigo_reserva):
         formulario = FormCalificarHabitacion(request.form)
         valor_calificacion=str(formulario.data['calificacion'])
         return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html',sentencia='UPDATE tbl_calificaciones SET calificacion='+valor_calificacion+' WHERE codigo_habitacion='+ str(codigo_habitacion) +' AND codigo_reserva='+str(codigo_reserva))
-
-@app.route('/0-1-3-4-2-modificar_reservas', methods=['GET', 'POST'])
-def modificar_reservas():
-    return render_template('0-1-3-4-2-modificar_reservas.html')
-
-@app.route('/0-1-3-4-3-cancelar_reservas', methods=['GET', 'POST'])
-def cancelar_reservas():
-    return render_template('0-1-3-4-3-cancelar_reservas.html')
 
 # Templates con ruteos actualizados al Git
 # 0-1-3-opciones_usuario_final_registrado (ok)

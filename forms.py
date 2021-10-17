@@ -51,6 +51,23 @@ class formreservanueva(FlaskForm):
     # aplicando un método tipo listado
     newreservation = SubmitField('Reservar')  
 
+# 0-1-3-4-2-modificar_reservas
+
+class formmodificarreserva(FlaskForm):
+    lista = reservas.listado_choices_habitaciones()
+    bedroom = StringField('ID Habitación', validators=[validators.required()])
+    initialdate = StringField('Fecha Inicial', validators=[validators.required()])
+    finaldate = StringField('Fecha Final', validators=[validators.required()])
+    comment = TextAreaField('Comentario Hospedaje Previo', validators=[validators.required(), validators.length(max=200)]) 
+    newbedroom = SelectField('Nuevo ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3])
+    newinitialdate = DateField('Nueva Fecha Inicial', validators=[validators.required()])
+    newfinaldate = DateField('Nueva Fecha Final', validators=[validators.required()])
+    newcomment = TextAreaField('Nuevo Comentario Hospedaje', validators=[validators.required(), validators.length(max=200)]) 
+    #Cambiar el select a Dinámico, podría ser un objeto de tipo habitación 
+    # aplicando un método tipo listado
+    modifyreservation = SubmitField('Modificar Reserva') 
+
+    
 
 # HTML donde deben completarse los formularios para implementar el CRUD Reservas:
 # 0-1-login

@@ -53,6 +53,11 @@ class reservas():
         sql = "DELETE tbl_reservas WHERE id_reserva = ?;"
         afectadas = db.ejecutar_insert(sql, [ self.id_reserva])
         return ( afectadas > 0 )
+    
+    def actualizar(self):
+        sql = "UPDATE tbl_reservas SET id_habitacion =? , comentario = ?, fecha_inicial = ?, fecha_final = ? WHERE id_reserva = ?;"
+        afectadas = db.ejecutar_insert(sql, [ self.id_habitacion, self.comentario, self.fecha_inicial, self.fecha_final, self.id_reserva ])
+        return ( afectadas > 0 ) 
 
     
     # Se utiliza en la vista 0-1-3-4 / app.py modulo_reservas
@@ -60,7 +65,7 @@ class reservas():
         sql = "SELECT * FROM tbl_reservas WHERE id_habitacion =? AND fecha_inicial >=? AND fecha_final <=?;"
         return db.ejecutar_select(sql, [pid_habitacion, pfecha_inicial, pfecha_final ])
 
-    # Se utiliza en la vista 0-1-3-4 / app.py modulo_reservas
+    # Se utiliza en la vista 0-1-3-4, 0-1-3-4-2/ app.py modulo_reservas, modificar reservas
     @staticmethod
     def listado_choices_habitaciones():
         sql = "SELECT * FROM tbl_habitaciones ORDER BY id_habitacion;"
@@ -71,9 +76,6 @@ class reservas():
     def listado_choices_usuarios():
         sql = "SELECT * FROM tbl_usuarios ORDER BY id_usuario;"
         return db.ejecutar_select(sql, None)
-
-    #def actualizar(self):
-        #Pendiente desarrollar 
 
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD RESERVAS #####################################
 
