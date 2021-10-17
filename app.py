@@ -113,10 +113,20 @@ def registrado_A():
 def consulta_datos_usuario():
     return render_template('0-1-1-1-consulta_datos_usuario.html',lista=login.datos_usuario_logueado(session['id_usuario_logueado']))
 
+#@app.route('/0-1-1-1-1-modificar_datos_usuario')
+#def modificar_datos_usuario_SA():
+#    return render_template('0-1-1-1-1-modificar_datos_usuario.html')    
+
 @app.route('/0-1-1-1-1-modificar_datos_usuario')
 def modificar_datos_usuario_SA():
-    return render_template('0-1-1-1-1-modificar_datos_usuario.html')    
-
+    objeto_usuario =usuario_final.cargar(session['id_usuario_logueado'])
+    formulario = FormModificarUsuarioRegistrado()
+    formulario.nombre.data = objeto_usuario.nombres
+    formulario.documento.data = objeto_usuario.documento
+    formulario.usuario.data = objeto_usuario.usuario
+    formulario.contrasena1.data = objeto_usuario.contrasena
+    formulario.contrasena2.data = objeto_usuario.contrasena
+    return render_template('0-1-1-1-1-modificar_datos_usuario.html', form=formulario)
 # Fin Navegación usuario final registrado SA *************************************    
 
 # Inicio Navegación Gestion de Usuarios Administradores SA **************************************************************************
@@ -476,14 +486,24 @@ def cancelar_reservas(id_reserva_cancelar):
         return render_template('0-1-3-4-3-cancelar_reservas.html', id_reserva=id_reserva_cancelar, form=formulario, mensaje="Todos los campos son obligatorios.")
 
 
+#@app.route('/0-1-3-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
+#def modificar_datos_usuario():
+#    return render_template('0-1-3-1-1-modificar_datos_usuario.html')
+
 @app.route('/0-1-3-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
 def modificar_datos_usuario():
-    return render_template('0-1-3-1-1-modificar_datos_usuario.html')
+    objeto_usuario =usuario_final.cargar(session['id_usuario_logueado'])
+    formulario = FormModificarUsuarioRegistrado()
+    formulario.nombre.data = objeto_usuario.nombres
+    formulario.documento.data = objeto_usuario.documento
+    formulario.usuario.data = objeto_usuario.usuario
+    formulario.contrasena1.data = objeto_usuario.contrasena
+    formulario.contrasena2.data = objeto_usuario.contrasena
+    return render_template('0-1-3-1-1-modificar_datos_usuario.html', form=formulario)
 
 @app.route('/0-1-3-2-1-consulta_comentarios_habitacion_usuario', methods=['GET', 'POST'])
 def consulta_comentarios_habitacion_usuario():
     return render_template('0-1-3-2-1-consulta_comentarios_habitacion_usuario.html')
-
 
 @app.route('/0-1-3-3-gestion_habitaciones_reservadas_usuario_final', methods=['GET', 'POST'])
 def gestion_habitaciones_reservadas_usuario_final():
@@ -565,10 +585,20 @@ def consulta_comentario_habitacion():
 def consulta_datos_usuario_admin():
     return render_template('0-1-2-1-consulta_datos_usuario.html',lista=login.datos_usuario_logueado(session['id_usuario_logueado']))
 
+#@app.route('/0-1-2-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
+#def modificar_datos_usuario_admin():
+#    return render_template('0-1-2-1-1-modificar_datos_usuario.html')
+
 @app.route('/0-1-2-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
 def modificar_datos_usuario_admin():
-    return render_template('0-1-2-1-1-modificar_datos_usuario.html')
-
+    objeto_usuario =usuario_final.cargar(session['id_usuario_logueado'])
+    formulario = FormModificarUsuarioRegistrado()
+    formulario.nombre.data = objeto_usuario.nombres
+    formulario.documento.data = objeto_usuario.documento
+    formulario.usuario.data = objeto_usuario.usuario
+    formulario.contrasena1.data = objeto_usuario.contrasena
+    formulario.contrasena2.data = objeto_usuario.contrasena
+    return render_template('0-1-2-1-1-modificar_datos_usuario.html', form=formulario)
 
 # Segunda rama de navegación de usuario administrador
 @app.route('/0-1-2-2-gestion_usuarios_finales', methods=["GET"])
