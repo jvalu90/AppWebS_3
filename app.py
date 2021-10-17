@@ -108,7 +108,7 @@ def registrado_A():
 
 @app.route('/0-1-1-1-consulta_datos_usuario')
 def consulta_datos_usuario():
-    return render_template('0-1-1-1-consulta_datos_usuario.html')
+    return render_template('0-1-1-1-consulta_datos_usuario.html',lista=login.datos_usuario_logueado(session['id_usuario_logueado']))
 
 @app.route('/0-1-1-1-1-modificar_datos_usuario')
 def modificar_datos_usuario_SA():
@@ -382,7 +382,7 @@ def consulta_comentario_habitacion():
 # Primera rama de navegación de usuario administrador
 @app.route('/0-1-2-1-consulta_datos_usuario', methods=['GET', 'POST'])
 def consulta_datos_usuario_admin():
-    return render_template('0-1-2-1-consulta_datos_usuario.html')
+    return render_template('0-1-2-1-consulta_datos_usuario.html',lista=login.datos_usuario_logueado(session['id_usuario_logueado']))
 
 @app.route('/0-1-2-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
 def modificar_datos_usuario_admin():
