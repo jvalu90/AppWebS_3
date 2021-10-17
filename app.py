@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask.templating import render_template
 from forms import formlogin, FormCalificarHabitacion, formreservas,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD
 import os
-from models import reservas,usuario_final,usuario_administrador,login
+from models import reservas,usuario_final,usuario_administrador #login
 
 app = Flask(__name__)
 
