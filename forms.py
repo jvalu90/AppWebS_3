@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import validators
 from wtforms.fields.core import DateField, SelectField, StringField, RadioField
-from wtforms.fields.simple import PasswordField, SubmitField,HiddenField
+from wtforms.fields.simple import PasswordField, SubmitField,HiddenField, TextAreaField
 from wtforms.fields.html5 import DecimalRangeField
 from models import reservas,usuario_final,usuario_administrador
 
@@ -34,18 +34,32 @@ class formreservas(FlaskForm):
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
     lista = reservas.listado_choices_habitaciones()
-    bedroom = SelectField('Habitación', validators=[validators.required()], choices=['', 1, 2, 3]) 
+    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3]) 
     #Cambiar el select a Dinámico, podría ser un objeto de tipo habitación 
     # aplicando un método tipo listado
-    consult = SubmitField('Consultar') 
+    consult = SubmitField('Consultar')
+
+# 0-1-3-4-1-crear_reservas
+class formreservanueva(FlaskForm):
+    lista = reservas.listado_choices_habitaciones()
+    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3])
+    user = SelectField('ID Usuario', validators=[validators.required()], choices=['', 4, 5, 6])
+    initialdate = DateField('Fecha Inicial', validators=[validators.required()])
+    finaldate = DateField('Fecha Final', validators=[validators.required()])
+    comment = TextAreaField('Comentario Hospedaje', validators=[validators.required(), validators.length(max=200)]) 
+    #Cambiar el select a Dinámico, podría ser un objeto de tipo habitación 
+    # aplicando un método tipo listado
+    newreservation = SubmitField('Reservar')  
 
 
 # HTML donde deben completarse los formularios para implementar el CRUD Reservas:
 # 0-1-login
 
 # USUARIO FINAL
-# 0-1-3-4-modulo_reservas
-# 0-1-3-4-1-crear_reservas
+# 0-1-3-4-modulo_reservas OK
+# 0-1-3-4-1-crear_reservas OK
+# 0-1-3-4-2-modificar_reservas
+# 0-1-3-4-3-cancelar_reservas
 
 # ADMINISTRADOR
 # 0-1-2-3-gestion_habitaciones

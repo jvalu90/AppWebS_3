@@ -45,8 +45,8 @@ class reservas():
         return None
 
     def insertar(self): # Pendiente verificar conforme la vista
-        sql = "INSERT INTO tbl_reservas (comentario, calificacion, fecha_inicial,fecha_final, activo, comentario_restringido) VALUES (?,?,?,?,?,?);"
-        afectadas = db.ejecutar_insert(sql, [self.comentario, self.calificacion, self.fecha_inicial, self.fecha_final, self.activo, self.comentario_restringido])
+        sql = "INSERT INTO tbl_reservas (id_habitacion, id_usuario, comentario, fecha_inicial, fecha_final, activo, comentario_restringido) VALUES (?,?,?,?,?,?,?);"
+        afectadas = db.ejecutar_insert(sql, [self.id_habitacion, self.id_usuario, self.comentario, self.fecha_inicial, self.fecha_final, self.activo, self.comentario_restringido])
         return ( afectadas > 0 )
 
     def eliminar(self): #Pendiente verificar conforme la vista
@@ -64,6 +64,12 @@ class reservas():
     @staticmethod
     def listado_choices_habitaciones():
         sql = "SELECT * FROM tbl_habitaciones ORDER BY id_habitacion;"
+        return db.ejecutar_select(sql, None)
+    
+    # Se utiliza en la vista 0-1-3-4-1 / app.py crear_reservas
+    @staticmethod
+    def listado_choices_usuarios():
+        sql = "SELECT * FROM tbl_usuarios ORDER BY id_usuario;"
         return db.ejecutar_select(sql, None)
 
     #def actualizar(self):

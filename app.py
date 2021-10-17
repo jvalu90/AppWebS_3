@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask.templating import render_template
-from forms import formlogin, FormCalificarHabitacion, formreservas,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD
+from forms import formlogin, FormCalificarHabitacion, formreservanueva, formreservas,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD
 import os
 from models import reservas,usuario_final,usuario_administrador #login
 
@@ -277,6 +277,29 @@ def modulo_reservas():
                     formulario.finaldate.data), mostrar = 1)
         return render_template('0-1-3-4-modulo_reservas.html', mensaje="Todos los campos son obligatorios.", form=formulario)
 
+@app.route('/0-1-3-4-1-crear_reservas', methods=['GET', 'POST'])
+def crear_reservas():
+    if request.method == "GET":
+        formulario = formreservanueva()
+        return render_template('0-1-3-4-1-crear_reservas.html', form = formulario)
+    
+    else:
+        formulario = formreservanueva(request.form)
+        if formulario.validate_on_submit():
+            objeto_reserva = reservas(0, formulario.bedroom.data,
+            formulario.user.data, formulario.comment.data, None,
+            formulario.initialdate.data, formulario.finaldate.data,
+             'SI', 'NO')
+            
+            if objeto_reserva.insertar():
+                return render_template('0-1-3-4-1-crear_reservas.html',
+                mensaje="Su reserva se ha realizado con exito, si quiere realizar una nueva reserva actualice los campos anteriores", 
+                form = formulario)
+            else:
+                return render_template('0-1-3-4-1-crear_reservas.html', 
+                mensaje="Su reserva no se pudo realizar, por favor intente nuevamente.", form = formulario)
+        return render_template('0-1-3-4-1-crear_reservas.html', mensaje="Todos los campos son obligatorios", form=formulario)
+
 @app.route('/0-1-3-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
 def modificar_datos_usuario():
     return render_template('0-1-3-1-1-modificar_datos_usuario.html')
@@ -317,10 +340,6 @@ def modificar_reservas():
 @app.route('/0-1-3-4-3-cancelar_reservas', methods=['GET', 'POST'])
 def cancelar_reservas():
     return render_template('0-1-3-4-3-cancelar_reservas.html')
-
-@app.route('/0-1-3-4-1-crear_reservas', methods=['GET', 'POST'])
-def crear_reservas():
-    return render_template('0-1-3-4-1-crear_reservas.html')
 
 # Templates con ruteos actualizados al Git
 # 0-1-3-opciones_usuario_final_registrado (ok)
