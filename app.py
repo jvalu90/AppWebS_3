@@ -493,14 +493,23 @@ def cancelar_reservas(id_reserva_cancelar):
 
 @app.route('/0-1-3-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
 def modificar_datos_usuario():
-    objeto_usuario =usuario_final.cargar(session['id_usuario_logueado'])
-    formulario = FormModificarUsuarioRegistrado()
-    formulario.nombre.data = objeto_usuario.nombres
-    formulario.documento.data = objeto_usuario.documento
-    formulario.usuario.data = objeto_usuario.usuario
-    formulario.contrasena1.data = objeto_usuario.contrasena
-    formulario.contrasena2.data = objeto_usuario.contrasena
-    return render_template('0-1-3-1-1-modificar_datos_usuario.html', form=formulario)
+    if request.method =="GET":
+        objeto_usuario =usuario_final.cargar(session['id_usuario_logueado'])
+        formulario = FormModificarUsuarioRegistrado()
+        formulario.nombre.data = objeto_usuario.nombres
+        formulario.documento.data = objeto_usuario.documento
+        formulario.usuario.data = objeto_usuario.usuario
+        formulario.contrasena1.data = objeto_usuario.contrasena
+        formulario.contrasena2.data = objeto_usuario.contrasena
+        return render_template('0-1-3-1-1-modificar_datos_usuario.html', form=formulario)
+    else:
+        formulario =FormModificarUsuarioRegistrado(request.form)
+        print(formulario.id_usuario.data)
+        print(formulario.documento.data)
+        objeto_usuario = usuario_final(session['id_usuario_logueado'], formulario.documento.data, formulario.nombre.data, formulario.contrasena1.data, 
+                                'UF', 'SI', formulario.usuario.data)
+        objeto_usuario.modificar()
+        return render_template('0-1-3-1-consulta_datos_usuario.html',lista=login.datos_usuario_logueado(session['id_usuario_logueado']))
 
 @app.route('/0-1-3-2-1-consulta_comentarios_habitacion_usuario', methods=['GET', 'POST'])
 def consulta_comentarios_habitacion_usuario():
