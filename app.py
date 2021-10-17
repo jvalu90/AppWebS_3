@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask.templating import render_template
+from wtforms.validators import Length
 from forms import formcancelarreserva, formlogin, FormCalificarHabitacion, formmodificarreserva, formreservanueva, formreservas, formcancelarreserva, formreservasadmin, formreservanuevaadmin
 from forms import formreservassuperadmin, formreservanuevasuperadmin, formmodificarreservasuperadmin, formcancelarreservasuperadmin
 from forms import formmodificarreservaadmin, formcancelarreservaadmin,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD
 import os
 from models import reservas,usuario_final,usuario_administrador,login
+
 
 app = Flask(__name__)
 
@@ -233,7 +235,8 @@ def consulta_comentarios_habitacion_usuario_SA():
 def consulta_reservas():
     if request.method =="GET":
         formulario =formreservassuperadmin()
-        lista = reservas.listado_choices_habitaciones()
+        lista_habitaciones = reservas.listado_choices_habitaciones()
+        
         #for i in lista:
             #lista_choices = lista[0][i]
         # Aquí es necesario crear el vector de choices
