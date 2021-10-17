@@ -236,7 +236,6 @@ def consulta_reservas():
     if request.method =="GET":
         formulario =formreservassuperadmin()
         lista_habitaciones = reservas.listado_choices_habitaciones()
-        
         #for i in lista:
             #lista_choices = lista[0][i]
         # Aquí es necesario crear el vector de choices
