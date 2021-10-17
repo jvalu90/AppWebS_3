@@ -79,7 +79,8 @@
               <!-- Christian_Comments: Pienso que cuando el usuario de clic en modificar el botón modificar, a parte de modificar
               los datos en la base de datos, debe llevarle al usuario a la vista de consulta de datos de usuario. -->
               <!-- <a class="btn btn-outline-dark" href="0-1-2-1-consulta_datos_usuario.html" role="button">Modificar</a> -->
-              <a class="btn btn-outline-dark" href="{{url_for('consulta_datos_usuario_admin')}}" role="button">Modificar</a>
+              <!--<a class="btn btn-outline-dark" href="{{url_for('consulta_datos_usuario_admin')}}" role="button">Modificar</a>-->
+              {{ form.enviar(class="btn btn-outline-dark") }}
               <!-- Christian_Comments: Cuando el usuario de clic en la opción cancelar, no se realizará ninguna acción sobre la base de datos
               y lo devolverá a la vista opciones de administrador  -->
               <!-- <a class="btn btn-outline-dark" href="0-1-2-1-consulta_datos_usuario.html" role="button">Cancelar</a> -->
