@@ -254,7 +254,7 @@ def restringir_comentarios():
 # 2021-10-10  Inicio *******************    Navegación usuario final registrado *************************************
 @app.route('/0-1-3-1-consulta_datos_usuario', methods=['GET', 'POST'])
 def consulta_datos_usuario_final():
-    return render_template('0-1-3-1-consulta_datos_usuario.html')
+    return render_template('0-1-3-1-consulta_datos_usuario.html',lista=login.datos_usuario_logueado(session['id_usuario_logueado']))
 
 @app.route('/0-1-3-opciones_usuario_final_registrado', methods=['GET', 'POST'])
 def consulta_opciones_usuario_final_registrado():
