@@ -94,13 +94,14 @@ class login():
     contrasena=''
     tipo_usuario=''
     activo=''
+    id_usuario=0
 
-    def __init__(self, pusuario, pcontrasena ,ptipo_usuario , pactivo) -> None:
+    def __init__(self, pusuario, pcontrasena ,ptipo_usuario , pactivo,pid_usuario) -> None:
        self.usuario=pusuario
        self.contrasena=pcontrasena
        self.tipo_usuario=ptipo_usuario
        self.activo=pactivo
-
+       self.id_usuario=pid_usuario     
 
     @classmethod
     def cargar(cls, pusuario,pcontrasena,ptipo_usuario):
@@ -108,7 +109,7 @@ class login():
         resultado = db.ejecutar_select(sql, [pusuario,pcontrasena,ptipo_usuario])
         if resultado:
             if len(resultado)>0:
-                return cls(pusuario, pcontrasena, ptipo_usuario,'SI')
+                return cls(pusuario, pcontrasena, ptipo_usuario,'SI', resultado[0]["id_usuario"])
         return None
 # Fin Logueo en la aplicacion
 
