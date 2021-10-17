@@ -125,15 +125,23 @@ def consulta_datos_usuario():
 
 @app.route('/0-1-1-1-1-modificar_datos_usuario')
 def modificar_datos_usuario_SA():
-    objeto_usuario =usuario_final.cargar(session['id_usuario_logueado'])
-    formulario = FormModificarUsuarioRegistrado()
-    formulario.nombre.data = objeto_usuario.nombres
-    formulario.documento.data = objeto_usuario.documento
-    formulario.usuario.data = objeto_usuario.usuario
-    formulario.contrasena1.data = objeto_usuario.contrasena
-    formulario.contrasena2.data = objeto_usuario.contrasena
-    return render_template('0-1-1-1-1-modificar_datos_usuario.html', form=formulario)
-# Fin Navegación usuario final registrado SA *************************************    
+    if request.method =="GET":    
+        objeto_usuario =usuario_final.cargar(session['id_usuario_logueado'])
+        formulario = FormModificarUsuarioRegistrado()
+        formulario.nombre.data = objeto_usuario.nombres
+        formulario.documento.data = objeto_usuario.documento
+        formulario.usuario.data = objeto_usuario.usuario
+        formulario.contrasena1.data = objeto_usuario.contrasena
+        formulario.contrasena2.data = objeto_usuario.contrasena
+        return render_template('0-1-1-1-1-modificar_datos_usuario.html', form=formulario)
+    else:
+        formulario =FormModificarUsuarioRegistrado(request.form)
+        objeto_usuario = usuario_administrador(session['id_usuario_logueado'], formulario.documento.data, formulario.nombre.data, formulario.contrasena1.data, 
+                                'SA', 'SI', formulario.usuario.data)
+        objeto_usuario.modificar()
+        return render_template('0-1-1-1-consulta_datos_usuario.html',lista=login.datos_usuario_logueado(session['id_usuario_logueado']))
+
+    # Fin Navegación usuario final registrado SA *************************************    
 
 # Inicio Navegación Gestion de Usuarios Administradores SA **************************************************************************
 
@@ -601,14 +609,21 @@ def consulta_datos_usuario_admin():
 
 @app.route('/0-1-2-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
 def modificar_datos_usuario_admin():
-    objeto_usuario =usuario_final.cargar(session['id_usuario_logueado'])
-    formulario = FormModificarUsuarioRegistrado()
-    formulario.nombre.data = objeto_usuario.nombres
-    formulario.documento.data = objeto_usuario.documento
-    formulario.usuario.data = objeto_usuario.usuario
-    formulario.contrasena1.data = objeto_usuario.contrasena
-    formulario.contrasena2.data = objeto_usuario.contrasena
-    return render_template('0-1-2-1-1-modificar_datos_usuario.html', form=formulario)
+    if request.method =="GET":
+        objeto_usuario =usuario_final.cargar(session['id_usuario_logueado'])
+        formulario = FormModificarUsuarioRegistrado()
+        formulario.nombre.data = objeto_usuario.nombres
+        formulario.documento.data = objeto_usuario.documento
+        formulario.usuario.data = objeto_usuario.usuario
+        formulario.contrasena1.data = objeto_usuario.contrasena
+        formulario.contrasena2.data = objeto_usuario.contrasena
+        return render_template('0-1-2-1-1-modificar_datos_usuario.html', form=formulario)
+    else:
+        formulario =FormModificarUsuarioRegistrado(request.form)
+        objeto_usuario = usuario_administrador(session['id_usuario_logueado'], formulario.documento.data, formulario.nombre.data, formulario.contrasena1.data, 
+                                'A', 'SI', formulario.usuario.data)
+        objeto_usuario.modificar()
+        return render_template('0-1-2-1-consulta_datos_usuario.html',lista=login.datos_usuario_logueado(session['id_usuario_logueado']))
 
 # Segunda rama de navegación de usuario administrador
 @app.route('/0-1-2-2-gestion_usuarios_finales', methods=["GET"])
