@@ -44,13 +44,13 @@ class reservas():
         
         return None
 
-    def insertar(self): # Pendiente verificar conforme la vista
+    def insertar(self):
         sql = "INSERT INTO tbl_reservas (id_habitacion, id_usuario, comentario, fecha_inicial, fecha_final, activo, comentario_restringido) VALUES (?,?,?,?,?,?,?);"
         afectadas = db.ejecutar_insert(sql, [self.id_habitacion, self.id_usuario, self.comentario, self.fecha_inicial, self.fecha_final, self.activo, self.comentario_restringido])
         return ( afectadas > 0 )
 
-    def eliminar(self): #Pendiente verificar conforme la vista
-        sql = "DELETE tbl_reservas WHERE id_reserva = ?;"
+    def eliminar(self): 
+        sql = "DELETE FROM tbl_reservas WHERE id_reserva = ?;"
         afectadas = db.ejecutar_insert(sql, [ self.id_reserva])
         return ( afectadas > 0 )
     
