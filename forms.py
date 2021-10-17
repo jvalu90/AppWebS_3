@@ -32,20 +32,46 @@ class FormCalificarHabitacion(FlaskForm):
 #Usuario Final
 # 0-1-3-4-modulo_reservas
 class formreservas(FlaskForm):
-    lista_habitaciones = reservas.listado_choices_habitaciones()
+
+    # Para consultar la base de datos de Habitaciones elegir id_habitacion
+    listado_habitaciones = reservas.listado_choices_habitaciones()
+    largo = len(listado_habitaciones)
+    choices_habitaciones = ["Por favor elija una Habitación"]
+    for item in range(largo):
+        choices_habitaciones.append(listado_habitaciones[item]["id_habitacion"])
+    
+    ######################################################################
+
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
-    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3]) 
+    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=choices_habitaciones) 
     #Cambiar el select a Dinámico, podría ser un objeto de tipo habitación 
     # aplicando un método tipo listado
     consult = SubmitField('Consultar')
 
 # 0-1-3-4-1-crear_reservas
 class formreservanueva(FlaskForm):
-    lista_habitaciones = reservas.listado_choices_habitaciones()
-    lista_usuarios = reservas.listado_choices_usuarios()
-    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3])
-    user = SelectField('ID Usuario', validators=[validators.required()], choices=['', 4, 5, 6])
+
+    # Para consultar la base de datos de Habitaciones elegir id_habitacion
+    listado_habitaciones = reservas.listado_choices_habitaciones()
+    largo = len(listado_habitaciones)
+    choices_habitaciones = ["Por favor elija una Habitación"]
+    for item in range(largo):
+        choices_habitaciones.append(listado_habitaciones[item]["id_habitacion"])
+    
+    ######################################################################
+
+    # Para consultar la base de datos de usuarios elegir id_usuario
+    listado_usuarios = reservas.listado_choices_usuarios()
+    largo = len(listado_usuarios)
+    choices_usuarios = ["Por favor elija su ID de Usuario"]
+    for item in range(largo):
+        choices_usuarios.append(listado_usuarios[item]["id_usuario"])
+    
+    ######################################################################
+
+    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=choices_habitaciones)
+    user = SelectField('ID Usuario', validators=[validators.required()], choices=choices_usuarios)
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
     comment = TextAreaField('Comentario Hospedaje', validators=[validators.required(), validators.length(max=200)]) 
@@ -56,12 +82,20 @@ class formreservanueva(FlaskForm):
 # 0-1-3-4-2-modificar_reservas
 
 class formmodificarreserva(FlaskForm):
-    lista_habitaciones = reservas.listado_choices_habitaciones()
+    
+    # Para consultar la base de datos de Habitaciones elegir id_habitacion
+    listado_habitaciones = reservas.listado_choices_habitaciones()
+    largo = len(listado_habitaciones)
+    choices_habitaciones = ["Por favor elija una Habitación"]
+    for item in range(largo):
+        choices_habitaciones.append(listado_habitaciones[item]["id_habitacion"])
+    
+    ######################################################################
     bedroom = StringField('ID Habitación', validators=[validators.required()])
     initialdate = StringField('Fecha Inicial', validators=[validators.required()])
     finaldate = StringField('Fecha Final', validators=[validators.required()])
     comment = TextAreaField('Comentario Hospedaje Previo', validators=[validators.required(), validators.length(max=200)]) 
-    newbedroom = SelectField('Nuevo ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3])
+    newbedroom = SelectField('Nuevo ID Habitación', validators=[validators.required()], choices=choices_habitaciones)
     newinitialdate = DateField('Nueva Fecha Inicial', validators=[validators.required()])
     newfinaldate = DateField('Nueva Fecha Final', validators=[validators.required()])
     newcomment = TextAreaField('Nuevo Comentario Hospedaje', validators=[validators.required(), validators.length(max=200)]) 
@@ -80,21 +114,49 @@ class formcancelarreserva(FlaskForm):
 # Usuario Administrador
 # 0-1-2-3-4-consulta_reservas
 class formreservasadmin(FlaskForm):
-    lista_habitaciones = reservas.listado_choices_habitaciones()
+
+    # Para consultar la base de datos de Habitaciones elegir id_habitacion
+    listado_habitaciones = reservas.listado_choices_habitaciones()
+    largo = len(listado_habitaciones)
+    choices_habitaciones = ["Por favor elija una Habitación"]
+    for item in range(largo):
+        choices_habitaciones.append(listado_habitaciones[item]["id_habitacion"])
+    
+    ######################################################################
+
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
     lista = reservas.listado_choices_habitaciones()
-    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3]) 
+    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=choices_habitaciones) 
     #Cambiar el select a Dinámico, podría ser un objeto de tipo habitación 
     # aplicando un método tipo listado
     consult = SubmitField('Consultar')
 
 # 0-1-2-3-4-1-crear_reservas
 class formreservanuevaadmin(FlaskForm):
-    lista_habitaciones = reservas.listado_choices_habitaciones()
-    lista_usuarios = reservas.listado_choices_usuarios()
-    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3])
-    user = SelectField('ID Usuario', validators=[validators.required()], choices=['', 4, 5, 6])
+
+    # Para consultar la base de datos de Habitaciones elegir id_habitacion
+    listado_habitaciones = reservas.listado_choices_habitaciones()
+    largo = len(listado_habitaciones)
+    choices_habitaciones = ["Por favor elija una Habitación"]
+    for item in range(largo):
+        choices_habitaciones.append(listado_habitaciones[item]["id_habitacion"])
+    
+    ######################################################################
+
+        ######################################################################
+
+    # Para consultar la base de datos de usuarios elegir id_usuario
+    listado_usuarios = reservas.listado_choices_usuarios()
+    largo = len(listado_usuarios)
+    choices_usuarios = ["Por favor elija su ID de Usuario"]
+    for item in range(largo):
+        choices_usuarios.append(listado_usuarios[item]["id_usuario"])
+    
+    ######################################################################
+
+    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=choices_habitaciones)
+    user = SelectField('ID Usuario', validators=[validators.required()], choices=choices_usuarios)
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
     comment = TextAreaField('Comentario Hospedaje', validators=[validators.required(), validators.length(max=200)]) 
@@ -104,12 +166,21 @@ class formreservanuevaadmin(FlaskForm):
 
 # 0-1-2-3-4-2-modificar_reservas 
 class formmodificarreservaadmin(FlaskForm):
-    lista_habitaciones = reservas.listado_choices_habitaciones()
+
+    # Para consultar la base de datos de Habitaciones elegir id_habitacion
+    listado_habitaciones = reservas.listado_choices_habitaciones()
+    largo = len(listado_habitaciones)
+    choices_habitaciones = ["Por favor elija una Habitación"]
+    for item in range(largo):
+        choices_habitaciones.append(listado_habitaciones[item]["id_habitacion"])
+    
+    ######################################################################
+
     bedroom = StringField('ID Habitación', validators=[validators.required()])
     initialdate = StringField('Fecha Inicial', validators=[validators.required()])
     finaldate = StringField('Fecha Final', validators=[validators.required()])
     comment = TextAreaField('Comentario Hospedaje Previo', validators=[validators.required(), validators.length(max=200)]) 
-    newbedroom = SelectField('Nuevo ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3])
+    newbedroom = SelectField('Nuevo ID Habitación', validators=[validators.required()], choices=choices_habitaciones)
     newinitialdate = DateField('Nueva Fecha Inicial', validators=[validators.required()])
     newfinaldate = DateField('Nueva Fecha Final', validators=[validators.required()])
     newcomment = TextAreaField('Nuevo Comentario Hospedaje', validators=[validators.required(), validators.length(max=200)]) 
@@ -128,21 +199,47 @@ class formcancelarreservaadmin(FlaskForm):
 # Usuario SuperAdministrador
 # 0-1-1-4-4-consulta_reservas
 class formreservassuperadmin(FlaskForm):
-    lista_habitaciones = reservas.listado_choices_habitaciones()
+
+    # Para consultar la base de datos de Habitaciones elegir id_habitacion
+    listado_habitaciones = reservas.listado_choices_habitaciones()
+    largo = len(listado_habitaciones)
+    choices_habitaciones = ["Por favor elija una Habitación"]
+    for item in range(largo):
+        choices_habitaciones.append(listado_habitaciones[item]["id_habitacion"])
+    
+    ######################################################################
+
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
     lista = reservas.listado_choices_habitaciones()
-    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3]) 
+    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=choices_habitaciones) 
     #Cambiar el select a Dinámico, podría ser un objeto de tipo habitación 
     # aplicando un método tipo listado
     consult = SubmitField('Consultar')
 
 # 0-1-1-4-4-1-crear_reservas
 class formreservanuevasuperadmin(FlaskForm):
-    lista_habitaciones = reservas.listado_choices_habitaciones()
-    lista_usuarios = reservas.listado_choices_usuarios()
-    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3])
-    user = SelectField('ID Usuario', validators=[validators.required()], choices=['', 4, 5, 6])
+
+    # Para consultar la base de datos de Habitaciones elegir id_habitacion
+    listado_habitaciones = reservas.listado_choices_habitaciones()
+    largo = len(listado_habitaciones)
+    choices_habitaciones = ["Por favor elija una Habitación"]
+    for item in range(largo):
+        choices_habitaciones.append(listado_habitaciones[item]["id_habitacion"])
+    
+    ######################################################################
+
+    # Para consultar la base de datos de usuarios elegir id_usuario
+    listado_usuarios = reservas.listado_choices_usuarios()
+    largo = len(listado_usuarios)
+    choices_usuarios = ["Por favor elija su ID de Usuario"]
+    for item in range(largo):
+        choices_usuarios.append(listado_usuarios[item]["id_usuario"])
+    
+    ######################################################################
+
+    bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=choices_habitaciones)
+    user = SelectField('ID Usuario', validators=[validators.required()], choices=choices_usuarios)
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
     comment = TextAreaField('Comentario Hospedaje', validators=[validators.required(), validators.length(max=200)]) 
@@ -152,12 +249,21 @@ class formreservanuevasuperadmin(FlaskForm):
 
 # 0-1-1-4-4-2-modificar_reservas
 class formmodificarreservasuperadmin(FlaskForm):
-    lista_habitaciones = reservas.listado_choices_habitaciones()
+
+    # Para consultar la base de datos de Habitaciones elegir id_habitacion
+    listado_habitaciones = reservas.listado_choices_habitaciones()
+    largo = len(listado_habitaciones)
+    choices_habitaciones = ["Por favor elija una Habitación"]
+    for item in range(largo):
+        choices_habitaciones.append(listado_habitaciones[item]["id_habitacion"])
+    
+    ######################################################################
+
     bedroom = StringField('ID Habitación', validators=[validators.required()])
     initialdate = StringField('Fecha Inicial', validators=[validators.required()])
     finaldate = StringField('Fecha Final', validators=[validators.required()])
     comment = TextAreaField('Comentario Hospedaje Previo', validators=[validators.required(), validators.length(max=200)]) 
-    newbedroom = SelectField('Nuevo ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3])
+    newbedroom = SelectField('Nuevo ID Habitación', validators=[validators.required()], choices=choices_habitaciones)
     newinitialdate = DateField('Nueva Fecha Inicial', validators=[validators.required()])
     newfinaldate = DateField('Nueva Fecha Final', validators=[validators.required()])
     newcomment = TextAreaField('Nuevo Comentario Hospedaje', validators=[validators.required(), validators.length(max=200)]) 
@@ -188,10 +294,10 @@ class formcancelarreservasuperadmin(FlaskForm):
 # 0-1-2-3-4-3-cancelar_reservas OK
 
 # SUPER ADMINISTRADOR
-# 0-1-1-4-4-consulta_reservas
-# 0-1-1-4-4-1-crear_reservas
-# 0-1-1-4-4-2-modificar_reservas
-# 0-1-1-4-4-3-cancelar_reservas
+# 0-1-1-4-4-consulta_reservas OK
+# 0-1-1-4-4-1-crear_reservas OK
+# 0-1-1-4-4-2-modificar_reservas OK
+# 0-1-1-4-4-3-cancelar_reservas OK
 
 # USUARIO INVITADO
 # No tiene CRUD Reservas

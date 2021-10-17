@@ -374,11 +374,6 @@ def consulta_habitaciones_disponibles_usuario_final():
 def modulo_reservas():
     if request.method =="GET":
         formulario =formreservas()
-        lista = reservas.listado_choices_habitaciones()
-        #for i in lista:
-            #lista_choices = lista[0][i]
-        # Aquí es necesario crear el vector de choices
-        #FORMULARIO.BEDROOM.CHOICES 
         return render_template('0-1-3-4-modulo_reservas.html', form=formulario, mostrar = 0)
 
     else:  
