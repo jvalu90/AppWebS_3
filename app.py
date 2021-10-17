@@ -56,7 +56,9 @@ def usuario_registrado():
             objeto_login =login.cargar(formulario.user.data,formulario.password.data,'UF')
             if objeto_login:
                 session['id_usuario_logueado'] = objeto_login.id_usuario
-                return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
+                session['usuario_logueado'] = objeto_login.usuario
+                return redirect(url_for('registrado_UF'))
+                #return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
             else: 
                 formulario =formlogin()
                 formulario.user.data = None
@@ -67,7 +69,9 @@ def usuario_registrado():
             objeto_login =login.cargar(formulario.user.data,formulario.password.data,'SA')
             if objeto_login:
                 session['id_usuario_logueado'] = objeto_login.id_usuario
-                return render_template('0-1-1-opciones_super_administrador.html', form=formulario)
+                session['usuario_logueado'] = objeto_login.usuario
+                return redirect(url_for('registrado_SA'))
+                #return render_template('0-1-1-opciones_super_administrador.html', form=formulario)
             else: 
                 formulario =formlogin()
                 formulario.user.data = None
@@ -78,7 +82,9 @@ def usuario_registrado():
             objeto_login =login.cargar(formulario.user.data,formulario.password.data,'A')
             if objeto_login:
                 session['id_usuario_logueado'] = objeto_login.id_usuario
-                return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
+                session['usuario_logueado'] = objeto_login.usuario
+                return redirect(url_for('registrado_A'))
+                #return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
             else: 
                 formulario =formlogin()
                 formulario.user.data = None
