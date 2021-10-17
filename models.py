@@ -93,6 +93,38 @@ class reservas():
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD CALIFICACION #################################
 
 # INICIO CLASES Y FUNCIONES RELACIONADAS CON EL CRUD USUARIOS ##################################
+
+# Inicio Logueo en la aplicacion
+class login():
+    usuario=''
+    contrasena=''
+    tipo_usuario=''
+    activo=''
+    id_usuario=0
+
+    def __init__(self, pusuario, pcontrasena ,ptipo_usuario , pactivo,pid_usuario) -> None:
+       self.usuario=pusuario
+       self.contrasena=pcontrasena
+       self.tipo_usuario=ptipo_usuario
+       self.activo=pactivo
+       self.id_usuario=pid_usuario     
+
+    @classmethod
+    def cargar(cls, pusuario,pcontrasena,ptipo_usuario):
+        sql = "SELECT * FROM tbl_usuarios WHERE usuario = ? AND contrasena = ? AND tipo_usuario=? AND activo='SI';"
+        resultado = db.ejecutar_select(sql, [pusuario,pcontrasena,ptipo_usuario])
+        if resultado:
+            if len(resultado)>0:
+                return cls(pusuario, pcontrasena, ptipo_usuario,'SI', resultado[0]["id_usuario"])
+        return None
+
+    @staticmethod
+    def datos_usuario_logueado(id_usuario):
+        sql = "SELECT * FROM tbl_usuarios WHERE id_usuario="+str(id_usuario)+";"
+        return db.ejecutar_select(sql, None)
+    
+# Fin Logueo en la aplicacion
+
 # Tipos de Usuario:
 # Inicio Clase Usuario Final  *************************************
 class usuario_final():

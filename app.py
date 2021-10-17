@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask.templating import render_template
 from forms import formlogin, FormCalificarHabitacion, formreservanueva, formreservas,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD
 import os
-from models import reservas,usuario_final,usuario_administrador #login
+from models import reservas,usuario_final,usuario_administrador,login
 
 app = Flask(__name__)
 
@@ -52,30 +52,36 @@ def usuario_registrado():
         if formulario.validate_on_submit() and formulario.tipoUsuario.data == "UF":        
             objeto_login =login.cargar(formulario.user.data,formulario.password.data,'UF')
             if objeto_login:
+                session['id_usuario_logueado'] = objeto_login.id_usuario
                 return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
             else: 
                 formulario =formlogin()
                 formulario.user.data = None
                 formulario.password.data = None
                 return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario final no son válidos.", form=formulario)
+
         elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "SA":          
             objeto_login =login.cargar(formulario.user.data,formulario.password.data,'SA')
             if objeto_login:
+                session['id_usuario_logueado'] = objeto_login.id_usuario
                 return render_template('0-1-1-opciones_super_administrador.html', form=formulario)
             else: 
                 formulario =formlogin()
                 formulario.user.data = None
                 formulario.password.data = None
                 return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario SuperAdministrador no son válidos.", form=formulario)
+
         elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "A":
             objeto_login =login.cargar(formulario.user.data,formulario.password.data,'A')
             if objeto_login:
+                session['id_usuario_logueado'] = objeto_login.id_usuario
                 return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
             else: 
                 formulario =formlogin()
                 formulario.user.data = None
                 formulario.password.data = None
                 return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario Administrador no son válidos.", form=formulario)
+
         return render_template('0-1-login.html', mensaje="Todos los campos son obligatorios.", form=formulario)
 
 @app.route('/0-1-3-opciones_usuario_final_registrado/', methods=['GET', 'POST'])
@@ -102,7 +108,7 @@ def registrado_A():
 
 @app.route('/0-1-1-1-consulta_datos_usuario')
 def consulta_datos_usuario():
-    return render_template('0-1-1-1-consulta_datos_usuario.html')
+    return render_template('0-1-1-1-consulta_datos_usuario.html',lista=login.datos_usuario_logueado(session['id_usuario_logueado']))
 
 @app.route('/0-1-1-1-1-modificar_datos_usuario')
 def modificar_datos_usuario_SA():
@@ -248,7 +254,7 @@ def restringir_comentarios():
 # 2021-10-10  Inicio *******************    Navegación usuario final registrado *************************************
 @app.route('/0-1-3-1-consulta_datos_usuario', methods=['GET', 'POST'])
 def consulta_datos_usuario_final():
-    return render_template('0-1-3-1-consulta_datos_usuario.html')
+    return render_template('0-1-3-1-consulta_datos_usuario.html',lista=login.datos_usuario_logueado(session['id_usuario_logueado']))
 
 @app.route('/0-1-3-opciones_usuario_final_registrado', methods=['GET', 'POST'])
 def consulta_opciones_usuario_final_registrado():
@@ -395,7 +401,7 @@ def consulta_comentario_habitacion():
 # Primera rama de navegación de usuario administrador
 @app.route('/0-1-2-1-consulta_datos_usuario', methods=['GET', 'POST'])
 def consulta_datos_usuario_admin():
-    return render_template('0-1-2-1-consulta_datos_usuario.html')
+    return render_template('0-1-2-1-consulta_datos_usuario.html',lista=login.datos_usuario_logueado(session['id_usuario_logueado']))
 
 @app.route('/0-1-2-1-1-modificar_datos_usuario', methods=['GET', 'POST'])
 def modificar_datos_usuario_admin():
