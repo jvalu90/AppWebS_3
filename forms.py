@@ -77,17 +77,18 @@ class formcancelarreserva(FlaskForm):
     cancelreservation = SubmitField('Cancelar Reserva') 
 
 # HTML donde deben completarse los formularios para implementar el CRUD Reservas:
-# 0-1-login
 
 # USUARIO FINAL
 # 0-1-3-4-modulo_reservas OK
 # 0-1-3-4-1-crear_reservas OK
 # 0-1-3-4-2-modificar_reservas OK
-# 0-1-3-4-3-cancelar_reservas
+# 0-1-3-4-3-cancelar_reservas OK
 
 # ADMINISTRADOR
-# 0-1-2-3-gestion_habitaciones
 # 0-1-2-3-4-consulta_reservas
+# 0-1-2-3-4-1-crear_reservas
+# 0-1-2-3-4-2-modificar_reservas
+# 0-1-2-3-4-3-cancelar_reservas
 
 # SUPER ADMINISTRADOR
 # 0-1-1-4-gestion_habitaciones
