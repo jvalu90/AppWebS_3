@@ -32,9 +32,9 @@ class FormCalificarHabitacion(FlaskForm):
 #Usuario Final
 # 0-1-3-4-modulo_reservas
 class formreservas(FlaskForm):
+    lista_habitaciones = reservas.listado_choices_habitaciones()
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
-    lista = reservas.listado_choices_habitaciones()
     bedroom = SelectField('ID Habitación', validators=[validators.required()], choices=['', 1, 2, 3]) 
     #Cambiar el select a Dinámico, podría ser un objeto de tipo habitación 
     # aplicando un método tipo listado
@@ -80,6 +80,7 @@ class formcancelarreserva(FlaskForm):
 # Usuario Administrador
 # 0-1-2-3-4-consulta_reservas
 class formreservasadmin(FlaskForm):
+    lista_habitaciones = reservas.listado_choices_habitaciones()
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
     lista = reservas.listado_choices_habitaciones()
@@ -127,6 +128,7 @@ class formcancelarreservaadmin(FlaskForm):
 # Usuario SuperAdministrador
 # 0-1-1-4-4-consulta_reservas
 class formreservassuperadmin(FlaskForm):
+    lista_habitaciones = reservas.listado_choices_habitaciones()
     initialdate = DateField('Fecha Inicial', validators=[validators.required()])
     finaldate = DateField('Fecha Final', validators=[validators.required()])
     lista = reservas.listado_choices_habitaciones()
