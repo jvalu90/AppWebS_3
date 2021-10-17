@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask.templating import render_template
 from forms import formlogin, FormCalificarHabitacion, formreservas,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD
 import os
-from models import reservas,usuario_final,usuario_administrador
+from models import reservas,usuario_final,usuario_administrador,login
 
 app = Flask(__name__)
 
@@ -27,23 +27,55 @@ def opciones_invitado():
 
 # Inicio navegación Login **************************************************************************
 
+#@app.route('/0-1-login/', methods=['GET', 'POST'])
+#def usuario_registrado():
+#    if request.method =="GET":
+#        formulario =formlogin()
+#        return render_template('0-1-login.html', form=formulario)
+#    else:
+#        formulario = formlogin(request.form)
+#        if formulario.validate_on_submit() and formulario.tipoUsuario.data == "UF":        
+#            return redirect(url_for('registrado_UF'))
+#        elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "SA":          
+#            return redirect(url_for('registrado_SA'))
+#        elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "A":
+#            return redirect(url_for('registrado_A'))
+#        return render_template('0-1-login.html', mensaje="Todos los campos son obligatorios.", form=formulario)
+
 @app.route('/0-1-login/', methods=['GET', 'POST'])
 def usuario_registrado():
     if request.method =="GET":
         formulario =formlogin()
         return render_template('0-1-login.html', form=formulario)
-
     else:
         formulario = formlogin(request.form)
         if formulario.validate_on_submit() and formulario.tipoUsuario.data == "UF":        
-            return redirect(url_for('registrado_UF'))
-
+            objeto_login =login.cargar(formulario.user.data,formulario.password.data,'UF')
+            if objeto_login:
+                return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
+            else: 
+                formulario =formlogin()
+                formulario.user.data = None
+                formulario.password.data = None
+                return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario final no son válidos.", form=formulario)
         elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "SA":          
-            return redirect(url_for('registrado_SA'))
-
+            objeto_login =login.cargar(formulario.user.data,formulario.password.data,'SA')
+            if objeto_login:
+                return render_template('0-1-1-opciones_super_administrador.html', form=formulario)
+            else: 
+                formulario =formlogin()
+                formulario.user.data = None
+                formulario.password.data = None
+                return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario SuperAdministrador no son válidos.", form=formulario)
         elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "A":
-            return redirect(url_for('registrado_A'))
-
+            objeto_login =login.cargar(formulario.user.data,formulario.password.data,'A')
+            if objeto_login:
+                return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
+            else: 
+                formulario =formlogin()
+                formulario.user.data = None
+                formulario.password.data = None
+                return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario Administrador no son válidos.", form=formulario)
         return render_template('0-1-login.html', mensaje="Todos los campos son obligatorios.", form=formulario)
 
 @app.route('/0-1-3-opciones_usuario_final_registrado/', methods=['GET', 'POST'])
