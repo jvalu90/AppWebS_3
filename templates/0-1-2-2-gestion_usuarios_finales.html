@@ -7,10 +7,10 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/estilos/estilos.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href=" {{ url_for('static',filename='estilos/estilos.css') }}">
     <script src='../static/scripts/scripts.js'></script>
 </head>
-  <body>
+<body>
     <div class="container">
       <div class="row">
         <br>
@@ -19,19 +19,15 @@
         <h1 class="text-center">RAFFLES HOTEL YACARTA</h1>
       </div>
       <div class="row">
-        <h2 class="text-center">Gestión Usuarios Finales</h2>
+        <h2 class="text-center">Gestión Usuarios Finales - desde Administrador</h2>
       </div>      
-
-      <div class="row">
-        <h3 class="text-center">Usuario: Hernan Dario Gomez</h3> 
-        <!--Faustino asprilla debe cambiarse por el usuario que hace el Login-->
-      </div>
       
       <div class="row">
         <table class="table table-striped text-center">
           <thead>
             <tr>
               <th scope="col">Nombre del Usuario Final</th>
+              <th scope="col">Documento</th>
               <th scope="col">Activo</th>
               <th scope="col">Modificar</th>
               <th scope="col">Borrar</th>
@@ -39,41 +35,29 @@
           </thead>
 
           <tbody>
+           
+        {% if lista %}
+          {% for item in lista %}
             <tr>
-              <td>Faustino Asprilla</td>
-              <td>Si</td>
-              <!-- <td><a class="btn btn-light" href="0-1-2-2-2-modificar_usuario_final_crud.html" role="button">Modificar</a></td> -->
-              <td><a class="btn btn-light" href="{{url_for('modificar_usuario_final_crud_admin')}}" role="button">Modificar</a></td>
-              <td><a class="btn btn-light" href="" role="button">Borrar</a></td>
+                <td>{{ item.nombres }}</td>  
+                <td>{{ item.documento }}</td>
+                <td>{{ item.activo }}</td>
+                <td><a class="btn btn-light" href="{{url_for('modificar_eliminar_usuario_final_crud_admin',id_usuario=item.id_usuario,accion='modificar')}}" role="button">Modificar</a></td>
+                <td><a class="btn btn-light" href="{{url_for('modificar_eliminar_usuario_final_crud_admin',id_usuario=item.id_usuario,accion='eliminar')}}" role="button">Borrar</a></td>
             </tr>
-
-            <tr>
-              <td>René Higuita</td>
-              <td>Si</td>
-              <!-- <td><a class="btn btn-light" href="0-1-2-2-2-modificar_usuario_final_crud.html" role="button">Modificar</a></td> -->
-              <td><a class="btn btn-light" href="{{url_for('modificar_usuario_final_crud_admin')}}" role="button">Modificar</a></td>
-              <td><a class="btn btn-light" href="" role="button">Borrar</a></td>
-            </tr>
-
-            <tr>
-              <td>Andrés Escobar</td>
-              <td>No</td>
-              <!-- <td><a class="btn btn-light" href="0-1-2-2-2-modificar_usuario_final_crud.html" role="button">Modificar</a></td> -->
-              <td><a class="btn btn-light" href="{{url_for('modificar_usuario_final_crud_admin')}}" role="button">Modificar</a></td>
-              <td><a class="btn btn-light" href="" role="button">Borrar</a></td>
-            </tr>
-
+          {% endfor %}
+        {% endif %}    
           </tbody>
         </table>
-
+       
       </div>
       <div class="row">
         <div class="btn-group" role="group" aria-label="Basic example">
-          <!-- <a class="btn btn-outline-dark" href="0-1-2-2-1-agregar_usuario_final_crud.html" role="button">Nuevo Usuario Final</a> -->
+          <!-- <a class="btn btn-outline-dark" href="0-1-1-3-1-agregar_usuario_final_crud.html" role="button">Nuevo Usuario Final</a> -->
           <a class="btn btn-outline-dark" href="{{url_for('agregar_usuario_final_crud_admin')}}" role="button">Nuevo Usuario Final</a>
-          <!-- <a class="btn btn-outline-dark" href="0-1-2-opciones_administrador.html" role="button">Ir a Anterior</a> -->
+            <!-- <a class="btn btn-outline-dark" href="0-1-1-opciones_super_administrador.html" role="button">Ir a Anterior</a> -->
           <a class="btn btn-outline-dark" href="{{url_for('registrado_A')}}" role="button">Ir a Anterior</a>
-          <!--<a class="btn btn-outline-dark" href="0-inicio.html" role="button">Ir a Inicio</a>-->
+              <!--<a class="btn btn-outline-dark" href="0-inicio.html" role="button">Ir a Inicio</a>-->
           <a class="btn btn-outline-dark" href="{{url_for('inicio')}}" role="button">Ir a Inicio</a>
         </div> 
       </div>    
