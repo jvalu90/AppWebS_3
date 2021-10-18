@@ -357,13 +357,13 @@ class FormModificarUsuarioRegistrado(FlaskForm):
     contrasena2 = PasswordField('Contraseña 2')
     enviar = SubmitField('Modificar')
     
- class FormCrearUsuarioRegistrado(FlaskForm):
+class FormCrearUsuarioRegistrado(FlaskForm):
     id_usuario = HiddenField('id_usuario') 
     nombre = StringField('Nombres Completos') 
     documento = StringField('Documento') 
     usuario = StringField('Usuario') 
     contrasena1 = PasswordField('Contraseña 1')
     contrasena2 = PasswordField('Contraseña 2')
-    enviar = SubmitField('Crear')   
+    enviar = SubmitField('Crear')  
     
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD USUARIOS #####################################
