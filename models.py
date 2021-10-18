@@ -77,6 +77,12 @@ class reservas():
         sql = "SELECT * FROM tbl_usuarios ORDER BY id_usuario;"
         return db.ejecutar_select(sql, None)
 
+#Si se necesitan más métodos estáticos podría ser en Gestión de Habitaciones Reservadas
+    #@staticmethod
+    #def listado_habitaciones_reservadas():
+        #sql = "SELECT * FROM tbl_reservas ORDER BY id_reservas;"
+        #return db.ejecutar_select(sql, None)
+
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD RESERVAS #####################################
 
 # INICIO CLASES Y FUNCIONES RELACIONADAS CON EL CRUD HABITACIONES ##############################
