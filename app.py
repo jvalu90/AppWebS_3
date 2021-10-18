@@ -574,9 +574,23 @@ def calificar_habitaciones(codigo_habitacion,codigo_reserva):
 # 0-2-2-consulta_habitaciones_disponibles (ok)
 # 0-2-2-1-consulta_comentarios_habitacion (ok)
 
-@app.route('/0-2-1-registro_nuevo_usuario', methods=['GET'])
+@app.route('/0-2-1-registro_nuevo_usuario', methods=['GET', 'POST'])
 def registro_nuevo_usuario_final():
-    return render_template('0-2-1-registro_nuevo_usuario.html')
+    if request.method =="GET":
+        formulario =FormCrearUsuarioRegistrado()
+        return render_template('0-2-1-registro_nuevo_usuario.html', form=formulario)
+    else:
+        formulario =FormCrearUsuarioRegistrado(request.form)
+        objeto_usuario = usuario_final(0, formulario.documento.data, formulario.nombre.data, formulario.contrasena1.data, 
+                                    'UF', 'SI', formulario.usuario.data)
+        # por defecto al agregar un usuario el user y password se cargan por defecto con el documento de identidad
+        if objeto_usuario.insertar():   
+            formulario =formlogin()
+            formulario.user.data = None
+            formulario.password.data = None
+            return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario final no son válidos.", form=formulario)
+        else:
+            return render_template('0-inicio.html')
 
 @app.route('/0-2-2-consulta_habitaciones_disponibles', methods=['GET'])
 def consulta_habitacion_disponibles():
