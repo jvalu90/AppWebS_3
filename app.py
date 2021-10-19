@@ -1,15 +1,45 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, g
 from flask.templating import render_template
 from wtforms.validators import Length
 from forms import formcancelarreserva, formlogin, FormCalificarHabitacion, formmodificarreserva, formreservanueva, formreservas, formcancelarreserva, formreservasadmin, formreservanuevaadmin
 from forms import formreservassuperadmin, formreservanuevasuperadmin, formmodificarreservasuperadmin, formcancelarreservasuperadmin
 from forms import formmodificarreservaadmin, formcancelarreservaadmin,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD,FormModificarUsuarioRegistrado,FormCrearUsuarioRegistrado
 import os
+import functools
+from werkzeug.utils import redirect
 from models import reservas,usuario_final,usuario_administrador,login
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.urandom(32)
+
+#Decorador para verificar que el usuario es autenticado
+#Tan pronto esté listo debemos insertar en todas las vistas el decorador
+#@login_required
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect( url_for('usuario_registrado') )
+
+        return view(**kwargs)
+
+    return wrapped_view
+
+@app.before_request
+def cargar_usuario_autenticado():
+    nombre_usuario = session.get('nombre_usuario')
+    if nombre_usuario is None:
+        g.user = None
+    else:
+        g.user = login.cargar(nombre_usuario)
+
+#Falta implementar el botón cerrar sesión en todas las vistas
+@app.route("/logout/")
+@login_required
+def logout():
+    session.clear()
+    return redirect( url_for('usuario_registrado') )
 
 # La metodología propuesta es la siguiente: 
 # funciones para conectar base de datos (bd.py)
@@ -52,46 +82,72 @@ def usuario_registrado():
         return render_template('0-1-login.html', form=formulario)
     else:
         formulario = formlogin(request.form)
-        if formulario.validate_on_submit() and formulario.tipoUsuario.data == "UF":        
-            objeto_login =login.cargar(formulario.user.data,formulario.password.data,'UF')
-            if objeto_login:
-                session['id_usuario_logueado'] = objeto_login.id_usuario
-                session['usuario_logueado'] = objeto_login.usuario
-                return redirect(url_for('registrado_UF'))
-                #return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
-            else: 
-                formulario =formlogin()
-                formulario.user.data = None
-                formulario.password.data = None
-                return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario final no son válidos.", form=formulario)
 
-        elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "SA":          
-            objeto_login =login.cargar(formulario.user.data,formulario.password.data,'SA')
-            if objeto_login:
-                session['id_usuario_logueado'] = objeto_login.id_usuario
-                session['usuario_logueado'] = objeto_login.usuario
-                return redirect(url_for('registrado_SA'))
-                #return render_template('0-1-1-opciones_super_administrador.html', form=formulario)
-            else: 
-                formulario =formlogin()
-                formulario.user.data = None
-                formulario.password.data = None
-                return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario SuperAdministrador no son válidos.", form=formulario)
+        usr = formulario.user.data.replace("'","")
+        pwd = formulario.password.data.replace("'","")
 
-        elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "A":
-            objeto_login =login.cargar(formulario.user.data,formulario.password.data,'A')
-            if objeto_login:
-                session['id_usuario_logueado'] = objeto_login.id_usuario
-                session['usuario_logueado'] = objeto_login.usuario
-                return redirect(url_for('registrado_A'))
-                #return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
-            else: 
-                formulario =formlogin()
-                formulario.user.data = None
-                formulario.password.data = None
-                return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario Administrador no son válidos.", form=formulario)
+        obj_login = login(usr,pwd,"","","")
 
-        return render_template('0-1-login.html', mensaje="Todos los campos son obligatorios.", form=formulario)
+        if obj_login.autenticar() and formulario.tipoUsuario.data == "UF": 
+            session.clear()
+            session["nombre_usuario"] = usr
+            return redirect( url_for('registrado_UF'))
+
+        if obj_login.autenticar() and formulario.tipoUsuario.data == "SA": 
+            session.clear()
+            session["nombre_usuario"] = usr
+            return redirect( url_for('registrado_SA'))
+
+        if obj_login.autenticar() and formulario.tipoUsuario.data == "A": 
+            session.clear()
+            session["nombre_usuario"] = usr
+            return redirect( url_for('registrado_A'))
+
+        return render_template('0-1-login.html', mensaje="Nombre de usuario o contraseña incorrecta.", 
+        form=formulario)
+
+        # Código obsoleto con la implementación del Hash
+        #if formulario.validate_on_submit() and formulario.tipoUsuario.data == "UF":        
+        #    objeto_login =login.cargar(formulario.user.data,formulario.password.data,'UF')
+        #    if objeto_login:
+        #        session['id_usuario_logueado'] = objeto_login.id_usuario
+        #        session['usuario_logueado'] = objeto_login.usuario
+        #        return redirect(url_for('registrado_UF'))
+        #        #return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
+        #    else: 
+        #        formulario =formlogin()
+        #        formulario.user.data = None
+        #        formulario.password.data = None
+        #        return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario final no son válidos.", form=formulario)
+
+        #elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "SA":          
+        #    objeto_login =login.cargar(formulario.user.data,formulario.password.data,'SA')
+        #    if objeto_login:
+        #        session['id_usuario_logueado'] = objeto_login.id_usuario
+        #        session['usuario_logueado'] = objeto_login.usuario
+        #        return redirect(url_for('registrado_SA'))
+        #        #return render_template('0-1-1-opciones_super_administrador.html', form=formulario)
+        #    else: 
+        #        formulario =formlogin()
+        #        formulario.user.data = None
+        #        formulario.password.data = None
+        #        return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario SuperAdministrador no son válidos.", form=formulario)
+
+        #elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "A":
+        #    objeto_login =login.cargar(formulario.user.data,formulario.password.data,'A')
+        #    if objeto_login:
+        #        session['id_usuario_logueado'] = objeto_login.id_usuario
+        #        session['usuario_logueado'] = objeto_login.usuario
+        #        return redirect(url_for('registrado_A'))
+        #        #return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
+        #    else: 
+        #        formulario =formlogin()
+        #        formulario.user.data = None
+        #        formulario.password.data = None
+        #        return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario Administrador no son válidos.", form=formulario)
+
+        #return render_template('0-1-login.html', mensaje="Todos los campos son obligatorios.", form=formulario)
+
 
 @app.route('/0-1-3-opciones_usuario_final_registrado/', methods=['GET', 'POST'])
 def registrado_UF():

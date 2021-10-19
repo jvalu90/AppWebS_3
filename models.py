@@ -1,5 +1,7 @@
 import db
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
 # Aquí se desarrollan todas las funciones que tienen que ver con la conexión de la base de datos
 # Es necesario sectorizar por tipo CRUD
 
@@ -115,15 +117,32 @@ class login():
        self.contrasena=pcontrasena
        self.tipo_usuario=ptipo_usuario
        self.activo=pactivo
-       self.id_usuario=pid_usuario     
+       self.id_usuario=pid_usuario
+
+    def autenticar(self):
+        #Este query es inseguro porque puede permitir una inyección SQL
+        #sql = "SELECT * FROM usuarios WHERE usuario = '" + self.usuario + "' AND contrasena = '"  + self.contrasena + "';"    
+        #Para mitigar usamos comandos SQL parametrizados
+        sql = "SELECT * FROM tbl_usuarios WHERE usuario = ?;"
+        obj = db.ejecutar_select(sql, [ self.usuario ])
+        if obj:
+            if len(obj) >0:
+                #Agregamos la invocación al metodo check_password_hash
+                #para verificar el password digitado contra el hash seguro almacenado en bd.
+                if check_password_hash(obj[0]["contrasena"], self.contrasena):
+                    return True
+        
+        return False        
 
     @classmethod
-    def cargar(cls, pusuario,pcontrasena,ptipo_usuario):
-        sql = "SELECT * FROM tbl_usuarios WHERE usuario = ? AND contrasena = ? AND tipo_usuario=? AND activo='SI';"
-        resultado = db.ejecutar_select(sql, [pusuario,pcontrasena,ptipo_usuario])
+    def cargar(cls, pusuario):
+        sql = "SELECT * FROM tbl_usuarios WHERE usuario = ? ;"
+        #sql = "SELECT * FROM tbl_usuarios WHERE usuario = ? AND contrasena = ? AND tipo_usuario=? AND activo='SI';"
+        resultado = db.ejecutar_select(sql, [pusuario])
         if resultado:
             if len(resultado)>0:
-                return cls(pusuario, pcontrasena, ptipo_usuario,'SI', resultado[0]["id_usuario"])
+                return cls(resultado[0]["usuario"], '********', resultado[0]["tipo_usuario"],'SI', resultado[0]["id_usuario"])
+                #return cls(pusuario, pcontrasena, ptipo_usuario,'SI', resultado[0]["id_usuario"])
         return None
 
     @staticmethod
@@ -160,13 +179,20 @@ class usuario_final():
         if resultado:
             if len(resultado)>0:
                 return cls(pid_usuario, resultado[0]["documento"], 
-                resultado[0]["nombres"], resultado[0]["contrasena"],
+                resultado[0]["nombres"], '********',
                 resultado[0]["tipo_usuario"], resultado[0]["activo"], resultado[0]["usuario"])
+                #Se cambia el campo contraseña para que no la muestre en las consultas
+                #En la tabla usuarios se actualiza la logintud máxima permitida a 500
+                #return cls(pid_usuario, resultado[0]["documento"], 
+                #resultado[0]["nombres"], resultado[0]["contrasena"],
+                #resultado[0]["tipo_usuario"], resultado[0]["activo"], resultado[0]["usuario"])
         return None
 
     def insertar(self):
         sql = "INSERT INTO tbl_usuarios (documento,nombres,contrasena,tipo_usuario,activo,usuario) VALUES (?,?,?,?,?,?);"
-        afectadas = db.ejecutar_insert(sql, [self.documento, self.nombres,self.contrasena, self.tipo_usuario, self.activo, self.usuario])
+        hashed_pwd = generate_password_hash(self.contrasena, method='pbkdf2:sha256', salt_length=32)
+        #Se ingresa la sentencia generate_password_hash para cifrar la contraseña que se envía a la base de datos
+        afectadas = db.ejecutar_insert(sql, [self.documento, self.nombres, hashed_pwd, self.tipo_usuario, self.activo, self.usuario])
         return ( afectadas > 0 )
 
     def eliminar(self):
@@ -175,7 +201,7 @@ class usuario_final():
         afectadas = db.ejecutar_insert(sql, [ self.id_usuario ])
         return ( afectadas > 0 )
 
-    def modificar(self):
+    def modificar(self): # Aquí falta hacer un cambio para cifrar la consulta y el ingreso de la contraseña
         sql = "UPDATE tbl_usuarios SET documento = ?, nombres = ?, contrasena = ?, tipo_usuario = ?, activo = ?, usuario = ? WHERE id_usuario = ?;"
         afectadas = db.ejecutar_insert(sql, [ self.documento, self.nombres, self.contrasena, self.tipo_usuario, self.activo, self.usuario , self.id_usuario])
         return ( afectadas > 0 )
@@ -211,21 +237,28 @@ class usuario_administrador():
         if resultado:
             if len(resultado)>0:
                 return cls(pid_usuario, resultado[0]["documento"], 
-                resultado[0]["nombres"], resultado[0]["contrasena"],
+                resultado[0]["nombres"], '********',
                 resultado[0]["tipo_usuario"], resultado[0]["activo"], resultado[0]["usuario"])
+                #Se cambia el campo contraseña para que no la muestre en las consultas
+                #En la tabla usuarios se actualiza la logintud máxima permitida a 500
+                #return cls(pid_usuario, resultado[0]["documento"], 
+                #resultado[0]["nombres"], resultado[0]["contrasena"],
+                #resultado[0]["tipo_usuario"], resultado[0]["activo"], resultado[0]["usuario"])
         return None
 
     def insertar(self):
         sql = "INSERT INTO tbl_usuarios (documento,nombres,contrasena,tipo_usuario,activo,usuario) VALUES (?,?,?,?,?,?);"
-        afectadas = db.ejecutar_insert(sql, [self.documento, self.nombres,self.contrasena, self.tipo_usuario, self.activo, self.usuario])
+        hashed_pwd = generate_password_hash(self.contrasena, method='pbkdf2:sha256', salt_length=32)
+        #Se ingresa la sentencia generate_password_hash para cifrar la contraseña que se envía a la base de datos
+        afectadas = db.ejecutar_insert(sql, [self.documento, self.nombres, hashed_pwd, self.tipo_usuario, self.activo, self.usuario])
         return ( afectadas > 0 )
 
-    def eliminar(self):
+    def eliminar(self): 
         sql = "DELETE FROM tbl_usuarios WHERE id_usuario = ?;"
         afectadas = db.ejecutar_insert(sql, [ self.id_usuario ])
         return ( afectadas > 0 )
 
-    def modificar(self):
+    def modificar(self):# Aquí falta hacer un cambio para cifrar la consulta y el ingreso de la contraseña
         sql = "UPDATE tbl_usuarios SET documento = ?, nombres = ?, contrasena = ?, tipo_usuario = ?, activo = ?, usuario = ? WHERE id_usuario = ?;"
         afectadas = db.ejecutar_insert(sql, [ self.documento, self.nombres, self.contrasena, self.tipo_usuario, self.activo, self.usuario , self.id_usuario])
         return ( afectadas > 0 )
