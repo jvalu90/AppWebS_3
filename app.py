@@ -13,33 +13,6 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.urandom(32)
 
-#Decorador para verificar que el usuario es autenticado
-#Tan pronto esté listo debemos insertar en todas las vistas el decorador
-#@login_required
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect( url_for('usuario_registrado') )
-
-        return view(**kwargs)
-
-    return wrapped_view
-
-@app.before_request
-def cargar_usuario_autenticado():
-    nombre_usuario = session.get('nombre_usuario')
-    if nombre_usuario is None:
-        g.user = None
-    else:
-        g.user = login.cargar(nombre_usuario)
-
-#Falta implementar el botón cerrar sesión en todas las vistas
-@app.route("/logout/")
-@login_required
-def logout():
-    session.clear()
-    return redirect( url_for('usuario_registrado') )
 
 # La metodología propuesta es la siguiente: 
 # funciones para conectar base de datos (bd.py)
