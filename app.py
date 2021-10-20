@@ -572,8 +572,10 @@ def calificar_habitaciones(codigo_habitacion,codigo_reserva):
     else:
         formulario = FormCalificarHabitacion(request.form)
         valor_calificacion=str(formulario.data['calificacion'])
-        return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html',sentencia='UPDATE tbl_calificaciones SET calificacion='+valor_calificacion+' WHERE codigo_habitacion='+ str(codigo_habitacion) +' AND codigo_reserva='+str(codigo_reserva))
-
+        actualizar_calificacion = reservas( str(codigo_reserva), str(codigo_habitacion), "","",valor_calificacion,"","", "", "")
+        actualizar_calificacion.calificar_reserva()
+        
+        return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html',sentencia='UPDATE tbl_reservas SET calificacion='+valor_calificacion+' WHERE codigo_habitacion='+ str(codigo_habitacion) +' AND codigo_reserva='+str(codigo_reserva))
 # Templates con ruteos actualizados al Git
 # 0-1-3-opciones_usuario_final_registrado (ok)
 #  0-1-3-1-consulta_datos_usuario (ok)

@@ -66,6 +66,12 @@ class reservas():
     def listado(self, pid_habitacion, pfecha_inicial, pfecha_final):
         sql = "SELECT * FROM tbl_reservas WHERE id_habitacion =? AND fecha_inicial >=? AND fecha_final <=?;"
         return db.ejecutar_select(sql, [pid_habitacion, pfecha_inicial, pfecha_final ])
+    # Se utiliza en la vista  0-1-3-3-2-calificar_habitaciones.html
+    def calificar_reserva(self):
+        sql =  "UPDATE tbl_reservas SET calificacion=? WHERE id_reserva=?"
+        print(self.calificacion)
+        print(self.id_reserva)
+        return db.ejecutar_insert(sql, [self.calificacion ,self.id_reserva])
 
     # Se utiliza en la vista 0-1-3-4, 0-1-3-4-2/ app.py modulo_reservas, modificar reservas
     @staticmethod
@@ -210,6 +216,7 @@ class usuario_final():
     def listado():
         sql = "SELECT * FROM tbl_usuarios WHERE tipo_usuario='UF' ORDER BY id_usuario;"
         return db.ejecutar_select(sql, None)
+
 # Fin Clase Usuario Final  *************************************************************************************************************************************
 # Inicio Clase Usuario Administrador  **************************************************************************************************************************
 class usuario_administrador():

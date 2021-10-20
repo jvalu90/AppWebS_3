@@ -50,14 +50,14 @@
   
       <div class="row">
         <div class="col">
-          <p class="text-left">Calificación</p>
+          <p class="text-left">Calificación: <span id="valor_calificacion"></span></p>
         </div>
       </div>
   
       <div class="row">
         <div class="col">
           <!--<input type="range" class="form-range" min="0" max="10" id="calificacion">-->
-          {{ form.calificacion(class="form-range") }}
+          {{ form.calificacion(class="form-range",min=0, max=10) }}
         </div>
       </div>
 
@@ -79,5 +79,21 @@
         </div> 
       </div>
     </form>
-    </div>      
+    </div>   
+    <script>
+      var slider = document.getElementById("calificacion");
+      var output = document.getElementById("valor_calificacion");
+      output.innerHTML = slider.value;
+    
+      slider.oninput = function() {
+        output.innerHTML = redondear(this.value,2)
+      }
+       
+      function redondear(numero, digitos){
+          let base = Math.pow(10, digitos);
+          let entero = Math.round(numero * base);
+          return entero / base;
+      }
+       
+      </script>   
 </body>
