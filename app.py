@@ -1,15 +1,22 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, g
 from flask.templating import render_template
 from wtforms.validators import Length
 from forms import FormAgregarhabitaciones, formcancelarreserva, formlogin, FormCalificarHabitacion, formmodificarreserva, formreservanueva, formreservas, formcancelarreserva, formreservasadmin, formreservanuevaadmin
 from forms import formreservassuperadmin, formreservanuevasuperadmin, formmodificarreservasuperadmin, formcancelarreservasuperadmin
 from forms import formmodificarreservaadmin, formcancelarreservaadmin,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD,FormModificarUsuarioRegistrado,FormCrearUsuarioRegistrado
 import os
+<<<<<<< HEAD
 from models import habitaciones, reservas,usuario_final,usuario_administrador,login
+=======
+import functools
+from werkzeug.utils import redirect
+from models import reservas,usuario_final,usuario_administrador,login
+>>>>>>> 69d91df7d5cb50446d5efb21acf184a06749c662
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.urandom(32)
+
 
 # La metodología propuesta es la siguiente: 
 # funciones para conectar base de datos (bd.py)
@@ -52,46 +59,72 @@ def usuario_registrado():
         return render_template('0-1-login.html', form=formulario)
     else:
         formulario = formlogin(request.form)
-        if formulario.validate_on_submit() and formulario.tipoUsuario.data == "UF":        
-            objeto_login =login.cargar(formulario.user.data,formulario.password.data,'UF')
-            if objeto_login:
-                session['id_usuario_logueado'] = objeto_login.id_usuario
-                session['usuario_logueado'] = objeto_login.usuario
-                return redirect(url_for('registrado_UF'))
-                #return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
-            else: 
-                formulario =formlogin()
-                formulario.user.data = None
-                formulario.password.data = None
-                return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario final no son válidos.", form=formulario)
 
-        elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "SA":          
-            objeto_login =login.cargar(formulario.user.data,formulario.password.data,'SA')
-            if objeto_login:
-                session['id_usuario_logueado'] = objeto_login.id_usuario
-                session['usuario_logueado'] = objeto_login.usuario
-                return redirect(url_for('registrado_SA'))
-                #return render_template('0-1-1-opciones_super_administrador.html', form=formulario)
-            else: 
-                formulario =formlogin()
-                formulario.user.data = None
-                formulario.password.data = None
-                return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario SuperAdministrador no son válidos.", form=formulario)
+        usr = formulario.user.data.replace("'","")
+        pwd = formulario.password.data.replace("'","")
 
-        elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "A":
-            objeto_login =login.cargar(formulario.user.data,formulario.password.data,'A')
-            if objeto_login:
-                session['id_usuario_logueado'] = objeto_login.id_usuario
-                session['usuario_logueado'] = objeto_login.usuario
-                return redirect(url_for('registrado_A'))
-                #return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
-            else: 
-                formulario =formlogin()
-                formulario.user.data = None
-                formulario.password.data = None
-                return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario Administrador no son válidos.", form=formulario)
+        obj_login = login(usr,pwd,"","","")
 
-        return render_template('0-1-login.html', mensaje="Todos los campos son obligatorios.", form=formulario)
+        if obj_login.autenticar() and formulario.tipoUsuario.data == "UF": 
+            session.clear()
+            session["nombre_usuario"] = usr
+            return redirect( url_for('registrado_UF'))
+
+        if obj_login.autenticar() and formulario.tipoUsuario.data == "SA": 
+            session.clear()
+            session["nombre_usuario"] = usr
+            return redirect( url_for('registrado_SA'))
+
+        if obj_login.autenticar() and formulario.tipoUsuario.data == "A": 
+            session.clear()
+            session["nombre_usuario"] = usr
+            return redirect( url_for('registrado_A'))
+
+        return render_template('0-1-login.html', mensaje="Nombre de usuario o contraseña incorrecta.", 
+        form=formulario)
+
+        # Código obsoleto con la implementación del Hash
+        #if formulario.validate_on_submit() and formulario.tipoUsuario.data == "UF":        
+        #    objeto_login =login.cargar(formulario.user.data,formulario.password.data,'UF')
+        #    if objeto_login:
+        #        session['id_usuario_logueado'] = objeto_login.id_usuario
+        #        session['usuario_logueado'] = objeto_login.usuario
+        #        return redirect(url_for('registrado_UF'))
+        #        #return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
+        #    else: 
+        #        formulario =formlogin()
+        #        formulario.user.data = None
+        #        formulario.password.data = None
+        #        return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario final no son válidos.", form=formulario)
+
+        #elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "SA":          
+        #    objeto_login =login.cargar(formulario.user.data,formulario.password.data,'SA')
+        #    if objeto_login:
+        #        session['id_usuario_logueado'] = objeto_login.id_usuario
+        #        session['usuario_logueado'] = objeto_login.usuario
+        #        return redirect(url_for('registrado_SA'))
+        #        #return render_template('0-1-1-opciones_super_administrador.html', form=formulario)
+        #    else: 
+        #        formulario =formlogin()
+        #        formulario.user.data = None
+        #        formulario.password.data = None
+        #        return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario SuperAdministrador no son válidos.", form=formulario)
+
+        #elif formulario.validate_on_submit() and formulario.tipoUsuario.data == "A":
+        #    objeto_login =login.cargar(formulario.user.data,formulario.password.data,'A')
+        #    if objeto_login:
+        #        session['id_usuario_logueado'] = objeto_login.id_usuario
+        #        session['usuario_logueado'] = objeto_login.usuario
+        #        return redirect(url_for('registrado_A'))
+        #        #return render_template('0-1-3-opciones_usuario_final_registrado.html', form=formulario)
+        #    else: 
+        #        formulario =formlogin()
+        #        formulario.user.data = None
+        #        formulario.password.data = None
+        #        return render_template('0-1-login.html', mensaje="Usuario o contraseña de usuario Administrador no son válidos.", form=formulario)
+
+        #return render_template('0-1-login.html', mensaje="Todos los campos son obligatorios.", form=formulario)
+
 
 @app.route('/0-1-3-opciones_usuario_final_registrado/', methods=['GET', 'POST'])
 def registrado_UF():
@@ -559,8 +592,10 @@ def calificar_habitaciones(codigo_habitacion,codigo_reserva):
     else:
         formulario = FormCalificarHabitacion(request.form)
         valor_calificacion=str(formulario.data['calificacion'])
-        return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html',sentencia='UPDATE tbl_calificaciones SET calificacion='+valor_calificacion+' WHERE codigo_habitacion='+ str(codigo_habitacion) +' AND codigo_reserva='+str(codigo_reserva))
-
+        actualizar_calificacion = reservas( str(codigo_reserva), str(codigo_habitacion), "","",valor_calificacion,"","", "", "")
+        actualizar_calificacion.calificar_reserva()
+        
+        return render_template('0-1-3-3-gestion_habitaciones_reservadas_usuario_final.html',sentencia='UPDATE tbl_reservas SET calificacion='+valor_calificacion+' WHERE codigo_habitacion='+ str(codigo_habitacion) +' AND codigo_reserva='+str(codigo_reserva))
 # Templates con ruteos actualizados al Git
 # 0-1-3-opciones_usuario_final_registrado (ok)
 #  0-1-3-1-consulta_datos_usuario (ok)

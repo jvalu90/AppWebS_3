@@ -15,3 +15,9 @@ Un superadministrador ejerce el control total de la plataforma (usuarios y habit
 Los datos suministrados por los usuarios deben cumplir la política de privacidad de datos vigente.
 
 La plataforma debe ser desarrollada con el framework Flask.
+
+
+## instalacion
+
+1.  instalar dependencias
+    `python -m pip install -r requirements.txt`
