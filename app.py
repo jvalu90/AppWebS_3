@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask.templating import render_template
 from wtforms.validators import Length
-from forms import formcancelarreserva, formlogin, FormCalificarHabitacion, formmodificarreserva, formreservanueva, formreservas, formcancelarreserva, formreservasadmin, formreservanuevaadmin
+from forms import FormAgregarhabitaciones, formcancelarreserva, formlogin, FormCalificarHabitacion, formmodificarreserva, formreservanueva, formreservas, formcancelarreserva, formreservasadmin, formreservanuevaadmin
 from forms import formreservassuperadmin, formreservanuevasuperadmin, formmodificarreservasuperadmin, formcancelarreservasuperadmin
 from forms import formmodificarreservaadmin, formcancelarreservaadmin,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD,FormModificarUsuarioRegistrado,FormCrearUsuarioRegistrado
 import os
-from models import reservas,usuario_final,usuario_administrador,login
+from models import habitaciones, reservas,usuario_final,usuario_administrador,login
 
 app = Flask(__name__)
 
@@ -242,9 +242,25 @@ def modificar_usuario_final_crud():
 def gestion_habitaciones():
     return render_template('0-1-1-4-gestion_habitaciones.html')
 
-@app.route('/0-1-1-4-1-nueva_habitacion')
+@app.route('/0-1-1-4-1-nueva_habitacion',methods=['GET', 'POST'])
 def nueva_habitacion():
-    return render_template('0-1-1-4-1-nueva_habitacion.html')
+    if request.method =="GET":
+        formulario=FormAgregarhabitaciones()
+        return render_template('0-1-1-4-1-nueva_habitacion.html',form=formulario)
+
+    else:
+        formulario = FormAgregarhabitaciones(request.form)
+        objeto_habitacion = habitaciones(0,formulario.id_habitacion.data,formulario.codigo_habitacion.data,) 
+                               
+    
+        if objeto_habitacion.insertar():
+            return render_template('0-1-1-4-gestion_habitaciones.html', lista=habitaciones.listado())
+        else:
+            return render_template('0-1-1-4-gestion_habitaciones.html', lista=habitaciones.listado())     
+
+
+
+
 
 @app.route('/0-1-1-4-2-modificar_habitacion')
 def modificar_habitacion():
