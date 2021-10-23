@@ -1,17 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session, g
 from flask.templating import render_template
 from wtforms.validators import Length
-from forms import FormAgregarhabitaciones, formcancelarreserva, formlogin, FormCalificarHabitacion, formmodificarreserva, formreservanueva, formreservas, formcancelarreserva, formreservasadmin, formreservanuevaadmin
+from forms import FormAgregarhabitaciones, FormModificarhabitaciones, formcancelarreserva, formlogin, FormCalificarHabitacion, formmodificarreserva, formreservanueva, formreservas, formcancelarreserva, formreservasadmin, formreservanuevaadmin
 from forms import formreservassuperadmin, formreservanuevasuperadmin, formmodificarreservasuperadmin, formcancelarreservasuperadmin
 from forms import formmodificarreservaadmin, formcancelarreservaadmin,FormAgregarUsuarioFinalCRUD,FormModificarUsuarioFinalCRUD,FormAgregarUsuarioAdmonCRUD,FormModificarUsuarioAdmonCRUD,FormModificarUsuarioRegistrado,FormCrearUsuarioRegistrado
 import os
-<<<<<<< HEAD
 from models import habitaciones, reservas,usuario_final,usuario_administrador,login
-=======
-import functools
-from werkzeug.utils import redirect
-from models import reservas,usuario_final,usuario_administrador,login
->>>>>>> 69d91df7d5cb50446d5efb21acf184a06749c662
 
 app = Flask(__name__)
 
@@ -283,7 +277,7 @@ def nueva_habitacion():
 
     else:
         formulario = FormAgregarhabitaciones(request.form)
-        objeto_habitacion = habitaciones(0,formulario.id_habitacion.data,formulario.codigo_habitacion.data,) 
+        objeto_habitacion = habitaciones(0,formulario.codigo_habitacion.data,'SI') 
                                
     
         if objeto_habitacion.insertar():
@@ -292,12 +286,12 @@ def nueva_habitacion():
             return render_template('0-1-1-4-gestion_habitaciones.html', lista=habitaciones.listado())     
 
 
-
-
-
 @app.route('/0-1-1-4-2-modificar_habitacion')
 def modificar_habitacion():
-    return render_template('0-1-1-4-2-modificar_habitacion.html')
+    formulario =FormModificarhabitaciones(request.form)
+    objeto_habitacion = habitaciones(0,formulario.id_habitacion.data,formulario.disponible.data)
+    objeto_habitacion.modificar()
+    return render_template('0-1-1-4-2-modificar_habitacion.html', form=formulario)
 
 @app.route('/0-1-1-4-3-consulta_comentarios_habitacion_usuario')
 def consulta_comentarios_habitacion_usuario_SA():

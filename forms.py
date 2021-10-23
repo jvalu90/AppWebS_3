@@ -309,7 +309,7 @@ class formcancelarreservasuperadmin(FlaskForm):
 
 # 0-1-1-4-1-nueva_habitacion
 class FormAgregarhabitaciones(FlaskForm): 
-    id_habitacion = StringField('Habitación')
+    codigo_habitacion = StringField('Habitación')
     create = SubmitField('Crear')
 
 # 0-1-1-4-2-modificar_habitacion

@@ -109,9 +109,9 @@ class habitaciones():
         self.disponible= pdisponible
 
     @classmethod
-    def cargar(cls, pid_habitacion):
-        sql = "SELECT * FROM tbl_habitaciones WHERE id_habitacion = ?;"
-        resultado = db.ejecutar_select(sql, [ pid_habitacion ])
+    def cargar(cls, pcodigo_habitacion):
+        sql = "SELECT * FROM tbl_habitaciones WHERE codigo_habitacion = ?;"
+        resultado = db.ejecutar_select(sql, [ pcodigo_habitacion ])
         if resultado:
             if len(resultado)>0:
                 return cls(0,resultado[0]["codigo_habitacion"], resultado[0]["disponible"])
@@ -122,14 +122,18 @@ class habitaciones():
     # Se utiliza 0-1-1-4-1-nueva_habitacion
 
     def insertar(self):
-        sql = "INSERT INTO  tbl_habitaciones (id_habitacion) VALUES(?);"
-        afectadas = db.ejecutar_insert(sql, [ self.id_habitacion])
+        sql = "INSERT INTO  tbl_habitaciones (codigo_habitacion) VALUES(?);"
+        afectadas = db.ejecutar_insert(sql, [ self.codigo_habitacion])
         return (afectadas >0)
     
     def modificar(self):
         sql = "UPDATE tbl_habitaciones SET codigo_habitacion = ?, disponible = ? WHERE id_habitacion = ?;"
         afectadas = db.ejecutar_insert(sql, [ self.codigo_habitacion, self.disponible,self.id_habitacion])
         return ( afectadas > 0 )
+
+    def listado(self, pcodigo_habitacion, pdisponible):
+        sql = "SELECT * FROM tbl_habitaciones WHERE codigo_habitacion =? AND disponible =?;"
+        return db.ejecutar_select(sql, [pcodigo_habitacion, pdisponible])    
 
 
 # FIN CLASES Y FUNCIONES RELACIONADAS CON EL CRUD HABITACIONES #################################

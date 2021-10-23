@@ -12,6 +12,7 @@
 </head>
 <body>
     <div class="container">
+      <form method="POST" action="{{ url_for('nueva_habitacion')}}" novalidate></form>
       <div class="row">
         <br>
       </div>
@@ -27,7 +28,8 @@
             <p class="text-center">Habitación</p>
           </div>
           <div class="col">
-            <input type="text" class="form-control" name="habitacion" id="habitacion">
+           <!-- <input type="text" class="form-control" name="habitacion" id="habitacion">-->
+            {{ form.codigo_habitacion(class="form-control") }}
           </div>
         </div>
         
